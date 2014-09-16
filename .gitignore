@@ -1,5 +1,6 @@
+# Swift.gitignore @ https://github.com/github/gitignore
+
 # Xcode
-#
 build/
 *.pbxuser
 !default.pbxuser
@@ -17,10 +18,26 @@ DerivedData
 *.ipa
 *.xcuserstate
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
-#
-# Pods/
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.zip
+*.vi
+*~
+
+# OS or Editor folders
+.DS_Store
+._*
+Thumbs.db
+.cache
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+/bin
