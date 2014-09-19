@@ -1,12 +1,15 @@
 import Foundation
 
+setlocale(LC_ALL, "")
 
 // ncurses settings
-initscr()               // Init window
-noecho()                // Don't echo user input
-nonl()                  // Disable newline mode
-keypad(stdscr, true)    // Enable function and arrow keys
-curs_set(0)             // Set cursor to invisible
+initscr()                // Init window. Must be first
+cbreak()
+noecho()                 // Don't echo user input
+nonl()                   // Disable newline mode
+intrflush(stdscr, false) // Prevent flush
+keypad(stdscr, true)     // Enable function and arrow keys
+curs_set(0)              // Set cursor to invisible
 
 
 if (!has_colors()) {
@@ -26,4 +29,4 @@ wrefresh(win)
 getchar()
 
 
-endwin()    // Close window
+endwin()    // Close window. Must call before exit
