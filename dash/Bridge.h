@@ -28,5 +28,12 @@
 #import <curses.h>
 #import <ncurses.h>
 
+#import <stdio.h>
+#import <stdlib.h>
+#import <term.h>
+#import <termios.h>
+#import <termcap.h>
+#import <wchar.h>
+
 
 #endif
