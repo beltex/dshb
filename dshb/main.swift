@@ -30,64 +30,76 @@ refresh()
 //----------------------
 
 // Sample box
-var win = newwin(1, 30, 10, 10)
-var win2 = newwin(1, 30, 11, 10)
+//var win = newwin(1, 30, 10, 10)
+//var win2 = newwin(1, 30, 11, 10)
+//
 
+var cpu_bar = BarGraph(name: "CPU_0_DIODE", length: 30, width: 1, x: 10, y: 10, max: 105, unit: BarGraph.Unit.Celsius)
+var cpu_bar2 = BarGraph(name: "CPU_0_HEATSINK", length: 30, width: 1, x: 10, y: 11, max: 105, unit: BarGraph.Unit.Celsius)
+var cpu_bar3 = BarGraph(name: "CPU_0_PROXIMITY", length: 30, width: 1, x: 10, y: 12, max: 105, unit: BarGraph.Unit.Celsius)
 
-func updateVal(win_v : COpaquePointer, val : Int, name : String) {
-    var spaceLen = 30 - (countElements(name) + countElements(String(val)) + 2)
-    var range = 105
-    var perct : Double = Double(val) / Double(range)
-    var valRange = Int(floor(30 * perct))
-    var len = countElements(name)
-    var space = String()
-    
-    for var x = 0; x < spaceLen; ++x {
-        space.append(UnicodeScalar(" "))
-    }
-    
-    var char_array = Array(name + space + String(val) + "°C")
-    var color_array = [Int](count: 30, repeatedValue: 4)
-    
-    
-    // Setup
-    wattroff(win_v, COLOR_PAIR(Int32(1)))
-    wattroff(win_v, COLOR_PAIR(Int32(2)))
-    wattroff(win_v, COLOR_PAIR(Int32(3)))
-    wclear(win_v)
-    
-    var count = 0
-    for char in char_array {
-        if (count < valRange) {
-                    if (count < 14) {
-                        // Green
-                        wattrset(win_v, COLOR_PAIR(Int32(1)))
-                        waddstr(win_v, String(char))
-                    }
-                    else if (count >= 14 && count < 23) {
-                        // Yellow
-                        wattrset(win_v, COLOR_PAIR(Int32(2)))
-                        waddstr(win_v, String(char))
-                        //mvwaddch(win_v, 0, Int32(i), CWideChar("|").value)
-                    }
-                    else {
-                        // Red
-                        // > 23
-                        wattrset(win_v, COLOR_PAIR(Int32(3)))
-                        waddstr(win_v, String(char))
-                        //mvwaddch(win_v, 0, Int32(i), CWideChar("|").value)
-                    }
-        }
-        else {
-            wattrset(win_v, COLOR_PAIR(Int32(4)))
-            waddstr(win_v, String(char))
-        }
-        
-        ++count
-    }
-    
-    wrefresh(win_v)
+for var i = 0; i < 10; ++i {
+    cpu_bar.updateVal(Int(arc4random_uniform(105)))
+    cpu_bar2.updateVal(Int(arc4random_uniform(105)))
+    cpu_bar3.updateVal(Int(arc4random_uniform(105)))
+    sleep(5)
 }
+
+//
+//func updateVal(win_v : COpaquePointer, val : Int, name : String) {
+//    var spaceLen = 30 - (countElements(name) + countElements(String(val)) + 2)
+//    var range = 105
+//    var perct : Double = Double(val) / Double(range)
+//    var valRange = Int(floor(30 * perct))
+//    var len = countElements(name)
+//    var space = String()
+//    
+//    for var x = 0; x < spaceLen; ++x {
+//        space.append(UnicodeScalar(" "))
+//    }
+//    
+//    var char_array = Array(name + space + String(val) + "°C")
+//    var color_array = [Int](count: 30, repeatedValue: 4)
+//    
+//    
+//    // Setup
+//    wattroff(win_v, COLOR_PAIR(Int32(1)))
+//    wattroff(win_v, COLOR_PAIR(Int32(2)))
+//    wattroff(win_v, COLOR_PAIR(Int32(3)))
+//    wclear(win_v)
+//    
+//    var count = 0
+//    for char in char_array {
+//        if (count < valRange) {
+//                    if (count < 14) {
+//                        // Green
+//                        wattrset(win_v, COLOR_PAIR(Int32(1)))
+//                        waddstr(win_v, String(char))
+//                    }
+//                    else if (count >= 14 && count < 23) {
+//                        // Yellow
+//                        wattrset(win_v, COLOR_PAIR(Int32(2)))
+//                        waddstr(win_v, String(char))
+//                        //mvwaddch(win_v, 0, Int32(i), CWideChar("|").value)
+//                    }
+//                    else {
+//                        // Red
+//                        // > 23
+//                        wattrset(win_v, COLOR_PAIR(Int32(3)))
+//                        waddstr(win_v, String(char))
+//                        //mvwaddch(win_v, 0, Int32(i), CWideChar("|").value)
+//                    }
+//        }
+//        else {
+//            wattrset(win_v, COLOR_PAIR(Int32(4)))
+//            waddstr(win_v, String(char))
+//        }
+//        
+//        ++count
+//    }
+//    
+//    wrefresh(win_v)
+//}
 
 //    var a = Array(name)
 ////    var i = 0
@@ -234,30 +246,30 @@ func updateVal(win_v : COpaquePointer, val : Int, name : String) {
 //    sleep(1)
 //}
 
-updateVal(win , 55, "CPU_0_DIODE")
-updateVal(win2 , 60, "CPU_0_PROX")
-sleep(1)
-updateVal(win , 59, "CPU_0_DIODE")
-sleep(1)
-updateVal(win , 52, "CPU_0_DIODE")
-sleep(1)
-updateVal(win , 54, "CPU_0_DIODE")
-updateVal(win2 , 70, "CPU_0_PROX")
-sleep(1)
-updateVal(win , 58, "CPU_0_DIODE")
-sleep(1)
-
-updateVal(win , 70, "CPU_0_DIODE")
-sleep(1)
-
-updateVal(win , 80, "CPU_0_DIODE")
-sleep(1)
-
-updateVal(win , 30, "CPU_0_DIODE")
-sleep(1)
-updateVal(win , 90, "CPU_0_DIODE")
-sleep(1)
-updateVal(win , 105, "CPU_0_DIODE")
+//updateVal(win , 55, "CPU_0_DIODE")
+//updateVal(win2 , 60, "CPU_0_PROX")
+//sleep(1)
+//updateVal(win , 59, "CPU_0_DIODE")
+//sleep(1)
+//updateVal(win , 52, "CPU_0_DIODE")
+//sleep(1)
+//updateVal(win , 54, "CPU_0_DIODE")
+//updateVal(win2 , 70, "CPU_0_PROX")
+//sleep(1)
+//updateVal(win , 58, "CPU_0_DIODE")
+//sleep(1)
+//
+//updateVal(win , 70, "CPU_0_DIODE")
+//sleep(1)
+//
+//updateVal(win , 80, "CPU_0_DIODE")
+//sleep(1)
+//
+//updateVal(win , 30, "CPU_0_DIODE")
+//sleep(1)
+//updateVal(win , 90, "CPU_0_DIODE")
+//sleep(1)
+//updateVal(win , 105, "CPU_0_DIODE")
 
 
 //attron(1 << 19)
