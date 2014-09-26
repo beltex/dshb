@@ -2,7 +2,7 @@
  * Bridging header for accessing ncurses C API.
  *
  * Bridge.h
- * dash
+ * dshb
  *
  * Copyright (C) 2014  beltex <https://github.com/beltex>
  *
@@ -21,8 +21,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef dash_Bridge_h
-#define dash_Bridge_h
+#ifndef dshb_Bridge_h
+#define dshb_Bridge_h
 
 #import <panel.h>
 #import <curses.h>

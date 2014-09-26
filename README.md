@@ -1,4 +1,4 @@
-dash
+dshb
 ====
 
 Inspired by [htop](https://github.com/hishamhm/htop).
@@ -9,7 +9,7 @@ Inspired by [htop](https://github.com/hishamhm/htop).
 Via [Homebrew](http://brew.sh)
 
 ```bash
-$ brew install dash
+$ brew install dshb
 ```
 
 
@@ -18,7 +18,7 @@ $ brew install dash
 - OS X 10.9+
 
 
-### Tech Stack
+### Stack
 
 - [Xcode 6.1 Beta 2](https://developer.apple.com/xcode/downloads/)
 - [ncurses](https://www.gnu.org/software/ncurses/ncurses.html)
