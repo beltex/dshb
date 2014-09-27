@@ -1,7 +1,8 @@
 dshb
 ====
 
-Inspired by [htop](https://github.com/hishamhm/htop).
+Inspired by [iStat Pro](https://www.apple.com/downloads/dashboard/status/istatpro.html)
+& [htop](https://github.com/hishamhm/htop).
 
 
 ### Install
@@ -28,6 +29,7 @@ $ brew install dshb
 ### References
 
 - [NCURSES Programming HOWTO](http://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html)
+- [Programmer's Guide to ncurses](http://www.c-for-dummies.com/ncurses/)
 - [Writing Programs with NCURSES](http://invisible-island.net/ncurses/ncurses-intro.html)
 
 
