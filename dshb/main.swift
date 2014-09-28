@@ -39,15 +39,21 @@ refresh()
 //
 // newwin(0,0,0,0) - for config menu
 // newwin null check
+var gap : Int32 = 5
+var bar_size = Int32(ceil(Double((COLS - gap)) / 2.0))
+addstr("bar size: " + String(bar_size))
+refresh()
+var bar_size2 = bar_size + gap
 
-var win  = newwin(1, 38, 9, 0)
+
+var win  = newwin(1, bar_size, 9, 0)
 wattrset(win, COLOR_PAIR(5))
 //wbkgd(win, CWideChar(" ").value)
 waddstr(win, "TMPs                                   ")
 wrefresh(win)
 
 
-var win2  = newwin(1, 38, 9, 42)
+var win2  = newwin(1, bar_size, 9, bar_size2)
 wattrset(win2, COLOR_PAIR(5))
 //wbkgd(win, CWideChar(" ").value)
 waddstr(win2, "FANs                                   ")
@@ -55,10 +61,10 @@ wrefresh(win2)
 
 
 // delwin
-var cpu_bar = BarGraph(name: "CPU_0_DIODE", length: 38, width: 1, x: 0, y: 10, max: 105, unit: BarGraph.Unit.Celsius)
-var cpu_bar2 = BarGraph(name: "CPU_0_HEATSINK", length: 38, width: 1, x: 0, y: 11, max: 105, unit: BarGraph.Unit.Celsius)
-var cpu_bar3 = BarGraph(name: "CPU_0_PROXIMITY", length: 38, width: 1, x: 0, y: 12, max: 105, unit: BarGraph.Unit.Celsius)
-var cpu_bar4 = BarGraph(name: "CPU_0_PROXIMITY", length: 38, width: 1, x: 42, y: 10, max: 105, unit: BarGraph.Unit.Celsius)
+var cpu_bar = BarGraph(name: "CPU_0_DIODE", length: bar_size, width: 1, x: 0, y: 10, max: 105, unit: BarGraph.Unit.Celsius)
+var cpu_bar2 = BarGraph(name: "CPU_0_HEATSINK", length: bar_size, width: 1, x: 0, y: 11, max: 105, unit: BarGraph.Unit.Celsius)
+var cpu_bar3 = BarGraph(name: "CPU_0_PROXIMITY", length: bar_size, width: 1, x: 0, y: 12, max: 105, unit: BarGraph.Unit.Celsius)
+var cpu_bar4 = BarGraph(name: "CPU_0_PROXIMITY", length: bar_size, width: 1, x: bar_size2, y: 10, max: 105, unit: BarGraph.Unit.Celsius)
 
 for var i = 0; i < 10; ++i {
     cpu_bar.update(Int(arc4random_uniform(105)))
