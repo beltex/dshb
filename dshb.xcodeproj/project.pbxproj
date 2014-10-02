@@ -12,6 +12,8 @@
 		4C633B1319CCF62000716312 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C633B1219CCF62000716312 /* View.swift */; };
 		4C7F147F19C7E88800F9DCE4 /* libpanel.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F147E19C7E88800F9DCE4 /* libpanel.dylib */; };
 		4C87280119C7B41C002D093F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C87280019C7B41C002D093F /* main.swift */; };
+		4C9A7D1D19D8C475004ABADA /* TMPTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1C19D8C475004ABADA /* TMPTab.swift */; };
+		4C9A7D2019D98D74004ABADA /* TabTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1F19D98D74004ABADA /* TabTitle.swift */; };
 		4CCB22A219D4F07B0058E62D /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* BarGraph.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +37,8 @@
 		4C7F147E19C7E88800F9DCE4 /* libpanel.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpanel.dylib; path = usr/lib/libpanel.dylib; sourceTree = SDKROOT; };
 		4C8727FD19C7B41C002D093F /* dshb */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dshb; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C87280019C7B41C002D093F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		4C9A7D1C19D8C475004ABADA /* TMPTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMPTab.swift; sourceTree = "<group>"; };
+		4C9A7D1F19D98D74004ABADA /* TabTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabTitle.swift; sourceTree = "<group>"; };
 		4CCB22A119D4F07B0058E62D /* BarGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +82,8 @@
 				4C7F147D19C7B49700F9DCE4 /* Bridge.h */,
 				4C633B1219CCF62000716312 /* View.swift */,
 				4CCB22A119D4F07B0058E62D /* BarGraph.swift */,
+				4C9A7D1C19D8C475004ABADA /* TMPTab.swift */,
+				4C9A7D1F19D98D74004ABADA /* TabTitle.swift */,
 			);
 			path = dshb;
 			sourceTree = "<group>";
@@ -138,9 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C9A7D2019D98D74004ABADA /* TabTitle.swift in Sources */,
 				4CCB22A219D4F07B0058E62D /* BarGraph.swift in Sources */,
 				4C633B1319CCF62000716312 /* View.swift in Sources */,
 				4C87280119C7B41C002D093F /* main.swift in Sources */,
+				4C9A7D1D19D8C475004ABADA /* TMPTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

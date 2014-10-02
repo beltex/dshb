@@ -21,7 +21,7 @@ $ brew install dshb
 
 ### Stack
 
-- [Xcode 6.1 Beta 2](https://developer.apple.com/xcode/downloads/)
+- [Xcode 6.1 Beta 3](https://developer.apple.com/xcode/downloads/)
 - [ncurses](https://www.gnu.org/software/ncurses/ncurses.html)
 - [swift-smc](https://github.com/beltex/swift-smc)
 

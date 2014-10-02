@@ -1,3 +1,34 @@
+// if (signal(SIGINT, catch_function) == SIG_ERR) {
+//    fputs("An error occurred while setting a signal handler.\n", stderr);
+//    return EXIT_FAILURE;
+// }
+
+import Darwin
+
+
+// -v command line arg
+let VERSION = "0.0.1"
+
+public struct WinCoords {
+    var size  : (length : Int32, width : Int32)
+    var pos   : (x : Int32, y : Int32)
+}
+
+
+func sig_resize() {
+    clear()
+    addstr("RESIZE")
+    refresh()
+}
+var ptr : CFunctionPointer<((Int32) -> Void)>
+
+//ptr =
+
+//signal(SIGWINCH, CFunctionPointer<((Int32) -> Void)>(sig_resize()))
+signal(SIGWINCH, nil)
+
+
+
 setlocale(LC_ALL, "")
 
 // ncurses settings
@@ -30,7 +61,7 @@ refresh()
 
 
 
-
+KEY_RESIZE
 //----------------------
 
 // Sample box
@@ -46,18 +77,19 @@ refresh()
 var bar_size2 = bar_size + gap
 
 
-var win  = newwin(1, bar_size, 9, 0)
-wattrset(win, COLOR_PAIR(5))
-//wbkgd(win, CWideChar(" ").value)
-waddstr(win, "TMPs                                   ")
-wrefresh(win)
+var tmpTitleCoords = WinCoords(size: (length: bar_size, width: 1), pos: (x:0, y:9))
+var tmpTitle = TabTitle(title: "TMPs", winCoords: tmpTitleCoords, colour: COLOR_PAIR(5))
+
+var fanTitleCoords = WinCoords(size: (length: bar_size, width: 1), pos: (x:bar_size2, y:9))
+var fanTitle = TabTitle(title: "FANS", winCoords: fanTitleCoords, colour: COLOR_PAIR(5))
 
 
-var win2  = newwin(1, bar_size, 9, bar_size2)
-wattrset(win2, COLOR_PAIR(5))
-//wbkgd(win, CWideChar(" ").value)
-waddstr(win2, "FANs                                   ")
-wrefresh(win2)
+
+//var win2  = newwin(1, bar_size, 9, bar_size2)
+//wattrset(win2, COLOR_PAIR(5))
+////wbkgd(win, CWideChar(" ").value)
+//waddstr(win2, "FANs                                   ")
+//wrefresh(win2)
 
 
 // delwin
@@ -74,10 +106,21 @@ for var i = 0; i < 10; ++i {
     sleep(1)
 }
 
-delwin(win)
+//delwin(win)
 
-
-getchar()
+addstr("DONE")
+refresh()
+//sleep(10)
+//
+//
+var ch = getchar()
+//
+////if (ch == KEY_RESIZE) {
+//    addstr("-- RESIZE" + String(ch))
+//    refresh()
+//    
+//    sleep(10)
+////}
 
 
 endwin()    // Close window. Must call before exit

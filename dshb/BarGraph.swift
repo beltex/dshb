@@ -43,6 +43,7 @@ public class BarGraph {
     // MARK: PUBLIC PROPERTIES
     //--------------------------------------------------------------------------
     
+    
     let name : String
     let unit : Unit
     
@@ -50,8 +51,6 @@ public class BarGraph {
     var size  : (length : Int32, width : Int32)
     var pos   : (x : Int32, y : Int32)
     let max   : Int
-    
-    
     
     
     //--------------------------------------------------------------------------
