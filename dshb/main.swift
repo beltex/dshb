@@ -4,6 +4,7 @@
 // }
 
 import Darwin
+import IOKit
 
 
 // -v command line arg
@@ -91,20 +92,45 @@ var fanTitle = TabTitle(title: "FANS", winCoords: fanTitleCoords, colour: COLOR_
 //waddstr(win2, "FANs                                   ")
 //wrefresh(win2)
 
+let  smc = SMC()
+assert(smc.open() == kIOReturnSuccess, "ERROR: Connection to SMC failed")
 
-// delwin
-var cpu_bar = BarGraph(name: "CPU_0_DIODE", length: bar_size, width: 1, x: 0, y: 10, max: 105, unit: BarGraph.Unit.Celsius)
-var cpu_bar2 = BarGraph(name: "CPU_0_HEATSINK", length: bar_size, width: 1, x: 0, y: 11, max: 105, unit: BarGraph.Unit.Celsius)
-var cpu_bar3 = BarGraph(name: "CPU_0_PROXIMITY", length: bar_size, width: 1, x: 0, y: 12, max: 105, unit: BarGraph.Unit.Celsius)
-var cpu_bar4 = BarGraph(name: "CPU_0_PROXIMITY", length: bar_size, width: 1, x: bar_size2, y: 10, max: 105, unit: BarGraph.Unit.Celsius)
+var tmpKeys = smc.getAllValidTMPKeys()
+var bars = [BarGraph]()
+
+var temp :Int32 = 10
+for (name, SMCKey) in tmpKeys {
+    addstr(name + "//")
+    refresh()
+    bars.append(BarGraph(name: SMCKey, length: bar_size, width: 1, x: 0, y: temp, max: 105, unit: BarGraph.Unit.Celsius))
+    ++temp
+}
+
+
+var numFans = smc.getNumFans().numFans
+var fans = [BarGraph]()
+
+var temp2 : Int32 = 10
+for var x : UInt = 0; x < numFans; ++x {
+    fans.append(BarGraph(name: smc.getFanName(x).name, length: bar_size, width: 1, x: bar_size2, y: temp2, max: Int(smc.getFanMaxRPM(x).rpm), unit: BarGraph.Unit.RPM))
+    ++temp2
+}
+
+
 
 for var i = 0; i < 10; ++i {
-    cpu_bar.update(Int(arc4random_uniform(105)))
-    cpu_bar2.update(Int(arc4random_uniform(105)))
-    cpu_bar3.update(Int(arc4random_uniform(105)))
-    cpu_bar4.update(Int(arc4random_uniform(105)))
+    
+    for b in bars {
+        b.update(Int(smc.getTMP(SMC.TMP.allValues[b.name]!).tmp))
+    }
+    
+    for var x = 0; x < fans.count; ++x {
+        fans[x].update(Int(smc.getFanRPM(UInt(x)).rpm))
+    }
     sleep(1)
 }
+
+smc.close()
 
 //delwin(win)
 
