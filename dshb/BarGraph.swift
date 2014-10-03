@@ -117,8 +117,8 @@ public class BarGraph {
     */
     func update(val : Int) {
         var spaceLen = size.length - (countElements(name) + countElements(String(val)) + countElements(unit.rawValue))
-        var range = 105
-        var perct : Double = Double(val) / Double(range)
+        //var range = 105
+        var perct : Double = Double(val) / Double(max)
         var valRange = Int(floor(Double(size.length) * perct))
         var space = String()
         

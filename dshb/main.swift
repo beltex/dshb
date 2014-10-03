@@ -85,6 +85,10 @@ var fanTitleCoords = WinCoords(size: (length: bar_size, width: 1), pos: (x:bar_s
 var fanTitle = TabTitle(title: "FANS", winCoords: fanTitleCoords, colour: COLOR_PAIR(5))
 
 
+func compare(s1 : String, s2 : String) -> Bool {
+    return s1 < s2
+}
+
 
 //var win2  = newwin(1, bar_size, 9, bar_size2)
 //wattrset(win2, COLOR_PAIR(5))
@@ -96,13 +100,18 @@ let  smc = SMC()
 assert(smc.open() == kIOReturnSuccess, "ERROR: Connection to SMC failed")
 
 var tmpKeys = smc.getAllValidTMPKeys()
+
+var sort = sorted(tmpKeys.values.array, compare)
+
 var bars = [BarGraph]()
 
 var temp :Int32 = 10
-for (name, SMCKey) in tmpKeys {
+//for (name, SMCKey) in tmpKeys {
+for name in sort {
     addstr(name + "//")
     refresh()
-    bars.append(BarGraph(name: SMCKey, length: bar_size, width: 1, x: 0, y: temp, max: 105, unit: BarGraph.Unit.Celsius))
+    //bars.append(BarGraph(name: SMCKey, length: bar_size, width: 1, x: 0, y: temp, max: 105, unit: BarGraph.Unit.Celsius))
+    bars.append(BarGraph(name: name, length: bar_size, width: 1, x: 0, y: temp, max: 105, unit: BarGraph.Unit.Celsius))
     ++temp
 }
 
@@ -118,7 +127,7 @@ for var x : UInt = 0; x < numFans; ++x {
 
 
 
-for var i = 0; i < 10; ++i {
+for var i = 0; i < 20; ++i {
     
     for b in bars {
         b.update(Int(smc.getTMP(SMC.TMP.allValues[b.name]!).tmp))
