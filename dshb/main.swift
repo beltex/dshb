@@ -5,7 +5,17 @@
 
 import Darwin
 import IOKit
+import Dispatch
 
+
+var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_SIGNAL, UInt(SIGWINCH), 0, dispatch_get_global_queue(0, 0))
+
+
+dispatch_source_set_event_handler(source, {
+    addstr("HELLO - YEAH GCD")
+    refresh()
+})
+dispatch_resume(source)
 
 // -v command line arg
 let VERSION = "0.0.1"
