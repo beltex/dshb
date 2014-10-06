@@ -1,42 +1,36 @@
-// if (signal(SIGINT, catch_function) == SIG_ERR) {
-//    fputs("An error occurred while setting a signal handler.\n", stderr);
-//    return EXIT_FAILURE;
-// }
-
-import Darwin
 import IOKit
+import Darwin
 import Dispatch
 
 
-var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_SIGNAL, UInt(SIGWINCH), 0, dispatch_get_global_queue(0, 0))
+/**
+App version.
 
+TODO: -v command line arg
+*/
+let VERSION = "0.0.1"
+
+
+// Setup Signal handler for window resize
+var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_SIGNAL,
+                                    UInt(SIGWINCH), 0,
+                                    dispatch_get_global_queue(0, 0))
 
 dispatch_source_set_event_handler(source, {
     addstr("HELLO - YEAH GCD")
     refresh()
 })
+
+// We have to resume the the dispatch source as it is paused by default
 dispatch_resume(source)
 
-// -v command line arg
-let VERSION = "0.0.1"
+
 
 public struct WinCoords {
     var size  : (length : Int32, width : Int32)
     var pos   : (x : Int32, y : Int32)
 }
 
-
-func sig_resize() {
-    clear()
-    addstr("RESIZE")
-    refresh()
-}
-var ptr : CFunctionPointer<((Int32) -> Void)>
-
-//ptr =
-
-//signal(SIGWINCH, CFunctionPointer<((Int32) -> Void)>(sig_resize()))
-signal(SIGWINCH, nil)
 
 
 
@@ -71,15 +65,6 @@ refresh()
 
 
 
-
-KEY_RESIZE
-//----------------------
-
-// Sample box
-//var win = newwin(1, 30, 10, 10)
-//var win2 = newwin(1, 30, 11, 10)
-//
-// newwin(0,0,0,0) - for config menu
 // newwin null check
 var gap : Int32 = 5
 var bar_size = Int32(ceil(Double((COLS - gap)) / 2.0))
@@ -99,13 +84,6 @@ func compare(s1 : String, s2 : String) -> Bool {
     return s1 < s2
 }
 
-
-//var win2  = newwin(1, bar_size, 9, bar_size2)
-//wattrset(win2, COLOR_PAIR(5))
-////wbkgd(win, CWideChar(" ").value)
-//waddstr(win2, "FANs                                   ")
-//wrefresh(win2)
-
 let  smc = SMC()
 assert(smc.open() == kIOReturnSuccess, "ERROR: Connection to SMC failed")
 
@@ -116,7 +94,6 @@ var sort = sorted(tmpKeys.values.array, compare)
 var bars = [BarGraph]()
 
 var temp :Int32 = 10
-//for (name, SMCKey) in tmpKeys {
 for name in sort {
     addstr(name + "//")
     refresh()
@@ -151,21 +128,10 @@ for var i = 0; i < 20; ++i {
 
 smc.close()
 
-//delwin(win)
 
 addstr("DONE")
 refresh()
-//sleep(10)
-//
-//
-var ch = getchar()
-//
-////if (ch == KEY_RESIZE) {
-//    addstr("-- RESIZE" + String(ch))
-//    refresh()
-//    
-//    sleep(10)
-////}
 
+var ch = getchar()
 
 endwin()    // Close window. Must call before exit

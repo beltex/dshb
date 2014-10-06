@@ -61,7 +61,7 @@ public class BarGraph {
     /**
     The ncurses window.
     */
-    private var win : COpaquePointer
+    //private var win : COpaquePointer
     
     private var space = String()
     
@@ -92,8 +92,7 @@ public class BarGraph {
         nameLen = countElements(name)
         unitLen = countElements(unit.rawValue)
                                                         
-                                                        
-        win = newwin(size.width, size.length, pos.y, pos.x)
+        //win = newwin(size.width, size.length, pos.y, pos.x)
     }
     
     
@@ -101,11 +100,11 @@ public class BarGraph {
     // MARK: PUBLIC METHODS
     //--------------------------------------------------------------------------
     
-    
+   /* 
     func move(x : Int, y : Int) {
         
     }
-    
+    */
     
     func resize(length : Int, width : Int) {
         
@@ -116,6 +115,7 @@ public class BarGraph {
     Update the value of the meter.
     */
     func update(val : Int) {
+        move(pos.y, pos.x)                                                  
         var spaceLen = size.length - (countElements(name) + countElements(String(val)) + countElements(unit.rawValue))
         //var range = 105
         var perct : Double = Double(val) / Double(max)
@@ -131,10 +131,12 @@ public class BarGraph {
         
         
         // Setup
-        wattroff(win, COLOR_PAIR(Int32(1)))
-        wattroff(win, COLOR_PAIR(Int32(2)))
-        wattroff(win, COLOR_PAIR(Int32(3)))
-        wclear(win)
+        attroff(COLOR_PAIR(Int32(1)))
+        attroff(COLOR_PAIR(Int32(2)))
+        attroff(COLOR_PAIR(Int32(3)))
+        attroff(COLOR_PAIR(Int32(4)))
+        attroff(COLOR_PAIR(Int32(5)))
+        //clear(win)
         
         var low = Int(ceil(Double(size.length) * 0.45))
         var mid = Int(floor(Double(size.length) * 0.30)) + low
@@ -145,29 +147,30 @@ public class BarGraph {
             if (count < valRange) {
                 if (count < low) {
                     // Green
-                    wattrset(win, COLOR_PAIR(Int32(1)))
-                    waddstr(win, String(char))
+                    attrset(COLOR_PAIR(Int32(1)))
+                    addstr(String(char))
                 }
                 else if (count >= low && count < mid) {
                     // Yellow
-                    wattrset(win, COLOR_PAIR(Int32(2)))
-                    waddstr(win, String(char))
+                    attrset(COLOR_PAIR(Int32(2)))
+                    addstr(String(char))
                 }
                 else {
                     // Red
                     // > 23
-                    wattrset(win, COLOR_PAIR(Int32(3)))
-                    waddstr(win, String(char))
+                    attrset(COLOR_PAIR(Int32(3)))
+                    addstr(String(char))
                 }
             }
             else {
-                wattrset(win, COLOR_PAIR(Int32(4)))
-                waddstr(win, String(char))
+                attrset(COLOR_PAIR(Int32(4)))
+                addstr(String(char))
             }
             
             ++count
         }
         
-        wrefresh(win)
+        move(0,0)
+        refresh()
     }
 }

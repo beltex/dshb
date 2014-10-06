@@ -2,7 +2,7 @@
 
 public struct TabTitle {
 
-    private var win   : COpaquePointer
+    //private var win   : COpaquePointer
     private var space = String()
     
     public var colour : Int32
@@ -11,12 +11,8 @@ public struct TabTitle {
     init(title : String, winCoords : WinCoords, colour : Int32) {
         self.title  = title
         self.colour = colour
-        
-        win = newwin(winCoords.size.width, winCoords.size.length,
-                                           winCoords.pos.y,
-                                           winCoords.pos.x)
-        
-        wattrset(win, colour)
+        move(winCoords.pos.y, winCoords.pos.x) 
+        attrset(colour)
         
         var spaceLen = winCoords.size.length - countElements(title)
         
@@ -24,7 +20,8 @@ public struct TabTitle {
             space.append(UnicodeScalar(" "))
         }
         
-        waddstr(win, title + space)
-        wrefresh(win)
+        addstr(title + space)
+        move(0,0) 
+        refresh()
     }
 }
