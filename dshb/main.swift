@@ -26,7 +26,7 @@ dispatch_resume(source)
 
 
 
-public struct WinCoords {
+public struct Window {
     var size  : (length : Int32, width : Int32)
     var pos   : (x : Int32, y : Int32)
 }
@@ -58,28 +58,17 @@ init_pair(2, Int16(COLOR_BLACK), Int16(COLOR_YELLOW))
 init_pair(3, Int16(COLOR_BLACK), Int16(COLOR_RED))
 init_pair(4, Int16(COLOR_WHITE), Int16(use_default_colors()))
 init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
-var y2 = "Lines: " + String(LINES) + " COLS: " + String(COLS)
-addstr("-- Hello")
-addstr(y2)
-refresh()
 
 
 
 // newwin null check
 var gap : Int32 = 5
-var bar_size = Int32(ceil(Double((COLS - gap)) / 2.0))
-addstr("bar size: " + String(bar_size))
-refresh()
-var bar_size2 = bar_size + gap
+var widgetLength = Int32(ceil(Double((COLS - gap)) / 2.0))
 
 
-var tmpTitleCoords = WinCoords(size: (length: bar_size, width: 1), pos: (x:0, y:9))
-var tmpTitle = TabTitle(title: "TMPs", winCoords: tmpTitleCoords, colour: COLOR_PAIR(5))
-
-var fanTitleCoords = WinCoords(size: (length: bar_size, width: 1), pos: (x:bar_size2, y:9))
-var fanTitle = TabTitle(title: "FANS", winCoords: fanTitleCoords, colour: COLOR_PAIR(5))
-
-
+//addstr("bar size: " + String(bar_size))
+//refresh()
+//var bar_size2 = bar_size + gap
 func compare(s1 : String, s2 : String) -> Bool {
     return s1 < s2
 }
@@ -87,50 +76,46 @@ func compare(s1 : String, s2 : String) -> Bool {
 let  smc = SMC()
 assert(smc.open() == kIOReturnSuccess, "ERROR: Connection to SMC failed")
 
-var tmpKeys = smc.getAllValidTMPKeys()
+let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
 
-var sort = sorted(tmpKeys.values.array, compare)
-
-var bars = [BarGraph]()
-
-var temp :Int32 = 10
-for name in sort {
-    addstr(name + "//")
-    refresh()
-    //bars.append(BarGraph(name: SMCKey, length: bar_size, width: 1, x: 0, y: temp, max: 105, unit: BarGraph.Unit.Celsius))
-    bars.append(BarGraph(name: name, length: bar_size, width: 1, x: 0, y: temp, max: 105, unit: BarGraph.Unit.Celsius))
-    ++temp
-}
-
-
-var numFans = smc.getNumFans().numFans
-var fans = [BarGraph]()
-
-var temp2 : Int32 = 10
-for var x : UInt = 0; x < numFans; ++x {
-    fans.append(BarGraph(name: smc.getFanName(x).name, length: bar_size, width: 1, x: bar_size2, y: temp2, max: Int(smc.getFanMaxRPM(x).rpm), unit: BarGraph.Unit.RPM))
-    ++temp2
-}
+//var fanTitleCoords = Window(size: (length: bar_size, width: 1), pos: (x:bar_size2, y:9))
+//var fanTitle = WidgetTitle(title: "FANS", winCoords: fanTitleCoords, colour: COLOR_PAIR(5))
+//
+//
 
 
 
+
+
+
+//
+//var numFans = smc.getNumFans().numFans
+//var fans = [Meter]()
+//
+//var temp2 : Int32 = 10
+//for var x : UInt = 0; x < numFans; ++x {
+//    fans.append(Meter(name: smc.getFanName(x).name, length: bar_size, width: 1, x: bar_size2, y: temp2, max: Int(smc.getFanMaxRPM(x).rpm), unit: Meter.Unit.RPM))
+//    ++temp2
+//}
+//
+//
+//
 for var i = 0; i < 20; ++i {
     
-    for b in bars {
-        b.update(Int(smc.getTMP(SMC.TMP.allValues[b.name]!).tmp))
-    }
+    tmpWidget.updateWidget()
+
     
-    for var x = 0; x < fans.count; ++x {
-        fans[x].update(Int(smc.getFanRPM(UInt(x)).rpm))
-    }
+//    for var x = 0; x < fans.count; ++x {
+//        fans[x].update(Int(smc.getFanRPM(UInt(x)).rpm))
+//    }
     sleep(1)
 }
-
+//
 smc.close()
-
-
-addstr("DONE")
-refresh()
+//
+//
+//addstr("DONE")
+//refresh()
 
 var ch = getchar()
 

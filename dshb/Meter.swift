@@ -24,7 +24,7 @@ import Foundation
 /**
 Bar graph (meter) used to display a metric.
 */
-public class BarGraph {
+public class Meter {
     
     
     public enum Unit : String {

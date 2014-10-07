@@ -1,14 +1,12 @@
 
 
-public struct TabTitle {
+public struct WidgetTitle {
 
-    //private var win   : COpaquePointer
     private var space = String()
-    
     public var colour : Int32
-    public let title  : String
+    public var title  : String
     
-    init(title : String, winCoords : WinCoords, colour : Int32) {
+    init(title : String, winCoords : Window, colour : Int32) {
         self.title  = title
         self.colour = colour
         move(winCoords.pos.y, winCoords.pos.x) 
@@ -23,5 +21,20 @@ public struct TabTitle {
         addstr(title + space)
         move(0,0) 
         refresh()
+    }
+    
+    
+    func update() {
+        
+    }
+    
+    
+    func resize() {
+        
+    }
+    
+    
+    func moveTitle() {
+        
     }
 }

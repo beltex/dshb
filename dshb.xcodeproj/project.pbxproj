@@ -7,16 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C013CBA19C9C6A500CA11DA /* libncurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C013CB919C9C6A500CA11DA /* libncurses.dylib */; };
-		4C013CBC19C9C6CF00CA11DA /* libcurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C013CBB19C9C6CF00CA11DA /* libcurses.dylib */; };
-		4C633B1319CCF62000716312 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C633B1219CCF62000716312 /* View.swift */; };
-		4C75275119DDD98900868679 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75275019DDD98900868679 /* Widget.swift */; };
 		4C75F02919DDEE3100C3B287 /* SMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75F02819DDEE3100C3B287 /* SMC.swift */; };
-		4C7F147F19C7E88800F9DCE4 /* libpanel.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F147E19C7E88800F9DCE4 /* libpanel.dylib */; };
 		4C87280119C7B41C002D093F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C87280019C7B41C002D093F /* main.swift */; };
-		4C9A7D1D19D8C475004ABADA /* TMPTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1C19D8C475004ABADA /* TMPTab.swift */; };
-		4C9A7D2019D98D74004ABADA /* TabTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1F19D98D74004ABADA /* TabTitle.swift */; };
-		4CCB22A219D4F07B0058E62D /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* BarGraph.swift */; };
+		4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */; };
+		4C9C0E5119E32921009EF6A9 /* TMPWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */; };
+		4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* Meter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,16 +29,14 @@
 /* Begin PBXFileReference section */
 		4C013CB919C9C6A500CA11DA /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = usr/lib/libncurses.dylib; sourceTree = SDKROOT; };
 		4C013CBB19C9C6CF00CA11DA /* libcurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurses.dylib; path = usr/lib/libcurses.dylib; sourceTree = SDKROOT; };
-		4C633B1219CCF62000716312 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		4C75275019DDD98900868679 /* Widget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		4C75F02819DDEE3100C3B287 /* SMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMC.swift; sourceTree = "<group>"; };
 		4C7F147D19C7B49700F9DCE4 /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		4C7F147E19C7E88800F9DCE4 /* libpanel.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpanel.dylib; path = usr/lib/libpanel.dylib; sourceTree = SDKROOT; };
 		4C8727FD19C7B41C002D093F /* dshb */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dshb; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C87280019C7B41C002D093F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		4C9A7D1C19D8C475004ABADA /* TMPTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMPTab.swift; sourceTree = "<group>"; };
-		4C9A7D1F19D98D74004ABADA /* TabTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabTitle.swift; sourceTree = "<group>"; };
-		4CCB22A119D4F07B0058E62D /* BarGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
+		4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTitle.swift; sourceTree = "<group>"; };
+		4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMPWidget.swift; sourceTree = "<group>"; };
+		4CCB22A119D4F07B0058E62D /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,9 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C013CBC19C9C6CF00CA11DA /* libcurses.dylib in Frameworks */,
-				4C013CBA19C9C6A500CA11DA /* libncurses.dylib in Frameworks */,
-				4C7F147F19C7E88800F9DCE4 /* libpanel.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,11 +75,9 @@
 				4C87280019C7B41C002D093F /* main.swift */,
 				4C75F02819DDEE3100C3B287 /* SMC.swift */,
 				4C7F147D19C7B49700F9DCE4 /* Bridge.h */,
-				4C633B1219CCF62000716312 /* View.swift */,
-				4CCB22A119D4F07B0058E62D /* BarGraph.swift */,
-				4C9A7D1C19D8C475004ABADA /* TMPTab.swift */,
-				4C9A7D1F19D98D74004ABADA /* TabTitle.swift */,
-				4C75275019DDD98900868679 /* Widget.swift */,
+				4CCB22A119D4F07B0058E62D /* Meter.swift */,
+				4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */,
+				4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */,
 			);
 			path = dshb;
 			sourceTree = "<group>";
@@ -151,12 +139,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C75F02919DDEE3100C3B287 /* SMC.swift in Sources */,
-				4C9A7D2019D98D74004ABADA /* TabTitle.swift in Sources */,
-				4CCB22A219D4F07B0058E62D /* BarGraph.swift in Sources */,
-				4C633B1319CCF62000716312 /* View.swift in Sources */,
+				4C9C0E5119E32921009EF6A9 /* TMPWidget.swift in Sources */,
+				4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */,
+				4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */,
 				4C87280119C7B41C002D093F /* main.swift in Sources */,
-				4C9A7D1D19D8C475004ABADA /* TMPTab.swift in Sources */,
-				4C75275119DDD98900868679 /* Widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
