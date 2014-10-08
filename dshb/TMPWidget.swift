@@ -17,7 +17,7 @@ public class TMPWidget {
         self.win = win
         
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
-        title = WidgetTitle(title: "TMPS", winCoords: titleCoords, colour: COLOR_PAIR(5))
+        title = WidgetTitle(title: "TMPs", winCoords: titleCoords, colour: COLOR_PAIR(5))
 
         let tmpSensors = sorted(smc.getAllValidTMPKeys().values.array, compare)
 

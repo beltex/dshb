@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C75F02919DDEE3100C3B287 /* SMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75F02819DDEE3100C3B287 /* SMC.swift */; };
 		4C87280119C7B41C002D093F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C87280019C7B41C002D093F /* main.swift */; };
+		4C97A53219E4B2F10018EFB6 /* FanWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97A53119E4B2F10018EFB6 /* FanWidget.swift */; };
 		4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */; };
 		4C9C0E5119E32921009EF6A9 /* TMPWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */; };
 		4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* Meter.swift */; };
@@ -34,6 +35,7 @@
 		4C7F147E19C7E88800F9DCE4 /* libpanel.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpanel.dylib; path = usr/lib/libpanel.dylib; sourceTree = SDKROOT; };
 		4C8727FD19C7B41C002D093F /* dshb */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dshb; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C87280019C7B41C002D093F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		4C97A53119E4B2F10018EFB6 /* FanWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanWidget.swift; sourceTree = "<group>"; };
 		4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTitle.swift; sourceTree = "<group>"; };
 		4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMPWidget.swift; sourceTree = "<group>"; };
 		4CCB22A119D4F07B0058E62D /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meter.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				4CCB22A119D4F07B0058E62D /* Meter.swift */,
 				4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */,
 				4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */,
+				4C97A53119E4B2F10018EFB6 /* FanWidget.swift */,
 			);
 			path = dshb;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				4C75F02919DDEE3100C3B287 /* SMC.swift in Sources */,
 				4C9C0E5119E32921009EF6A9 /* TMPWidget.swift in Sources */,
 				4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */,
+				4C97A53219E4B2F10018EFB6 /* FanWidget.swift in Sources */,
 				4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */,
 				4C87280119C7B41C002D093F /* main.swift in Sources */,
 			);

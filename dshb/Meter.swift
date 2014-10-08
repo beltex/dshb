@@ -35,7 +35,7 @@ public class Meter {
         case Percentage = "%"
         case Megabyte   = "MB"
         case None       = ""
-        case RPM        = "RPM"
+        case RPM        = " RPM"
     }
     
     
