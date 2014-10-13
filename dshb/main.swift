@@ -1,6 +1,8 @@
+
 import IOKit
 import Darwin
 import Dispatch
+import Foundation
 
 
 /**
@@ -11,18 +13,26 @@ TODO: -v command line arg
 let VERSION = "0.0.1"
 
 
-// Setup Signal handler for window resize
-var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_SIGNAL,
-                                    UInt(SIGWINCH), 0,
-                                    dispatch_get_global_queue(0, 0))
-
-dispatch_source_set_event_handler(source, {
-    addstr("HELLO - YEAH GCD")
-    refresh()
-})
-
-// We have to resume the the dispatch source as it is paused by default
-dispatch_resume(source)
+//// Setup Signal handler for window resize
+//var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_SIGNAL,
+//                                    UInt(SIGWINCH), 0,
+//                                    dispatch_get_main_queue())
+//                                    //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
+//
+//dispatch_source_set_event_handler(source, {
+//    // getyx is complex macro
+//    var x = getcurx(stdscr)
+//    var y = getcury(stdscr)
+//    
+//    //getyx(stdscr,row,col)
+//    move(20, 20)
+//    addstr("HELLO - YEAH GCD")
+//    move(y, x)
+//    refresh()
+//})
+//
+//// We have to resume the the dispatch source as it is paused by default
+//dispatch_resume(source)
 
 
 
@@ -39,9 +49,12 @@ setlocale(LC_ALL, "")
 // ncurses settings
 initscr()                // Init window. Must be first
 cbreak()
+
+nodelay(stdscr, true)
+
 noecho()                 // Don't echo user input
 nonl()                   // Disable newline mode
-intrflush(stdscr, false) // Prevent flush
+intrflush(stdscr, true) // Prevent flush
 keypad(stdscr, true)     // Enable function and arrow keys
 curs_set(0)              // Set cursor to invisible
 
@@ -65,10 +78,6 @@ init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 var gap : Int32 = 5
 var widgetLength = Int32(ceil(Double((COLS - gap)) / 2.0))
 
-
-//addstr("bar size: " + String(bar_size))
-//refresh()
-//var bar_size2 = bar_size + gap
 func compare(s1 : String, s2 : String) -> Bool {
     return s1 < s2
 }
@@ -77,22 +86,43 @@ let  smc = SMC()
 assert(smc.open() == kIOReturnSuccess, "ERROR: Connection to SMC failed")
 
 let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
-let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
+//let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
 
 
-for var i = 0; i < 20; ++i {
+//for var i = 0; i < 20; ++i {
+//    
+//    tmpWidget.updateWidget()
+//    //fanWidget.updateWidget()
+//    sleep(1)
+//}
+
+var key : Int32 = 0
+while (key != 27) {
+    key = getch()
     
-    tmpWidget.updateWidget()
-    fanWidget.updateWidget()
+    if (key == KEY_RESIZE) {
+        clear()
+        tmpWidget.resizeWidget()
+        //fanWidget.resizeWidget()
+    }
+    else if (key == 27) {
+//        move(20,20)
+//        addstr("EXIT")
+//        refresh()
+//        sleep(1)
+        break
+    }
+    else {
+        tmpWidget.updateWidget()
+        //fanWidget.updateWidget()
+    }
+    refresh()
     sleep(1)
 }
-//
-smc.close()
-//
-//
-//addstr("DONE")
-//refresh()
 
-var ch = getchar()
+
+smc.close()
+
+//var ch = getchar()
 
 endwin()    // Close window. Must call before exit

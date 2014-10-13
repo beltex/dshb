@@ -107,6 +107,9 @@ public class Meter {
     */
     
     func resize(length : Int, width : Int) {
+        size.length = Int32(length)
+        size.width  = Int32(width)
+        
         
     }
     
@@ -171,6 +174,6 @@ public class Meter {
         }
         
         move(0,0)
-        refresh()
+        //refresh()
     }
 }

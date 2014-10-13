@@ -45,6 +45,14 @@ public class TMPWidget {
     
     
     func resizeWidget() {
+        win.size.length = Int32(ceil(Double((COLS - gap)) / 2.0))
         
+        title.resize(Int(win.size.length), width: 1)
+        
+        for meter in meters {
+            meter.resize(Int(win.size.length), width: 10)
+        }
+        
+        updateWidget()
     }
 }
