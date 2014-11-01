@@ -1,8 +1,8 @@
 dshb
 ====
 
-Inspired by [iStat Pro](https://www.apple.com/downloads/dashboard/status/istatpro.html)
-& [htop](https://github.com/hishamhm/htop).
+Inspired by [iStat Pro](https://www.apple.com/downloads/dashboard/status/istatpro.html),
+[htop](https://github.com/hishamhm/htop) & [top](http://opensource.apple.com/source/top/).
 
 
 ### Install
@@ -21,9 +21,10 @@ $ brew install dshb
 
 ### Stack
 
-- [Xcode 6.1 Beta 3](https://developer.apple.com/xcode/downloads/)
+- [Xcode 6.1](https://developer.apple.com/xcode/downloads/)
 - [ncurses](https://www.gnu.org/software/ncurses/ncurses.html)
-- [swift-smc](https://github.com/beltex/swift-smc)
+- [SystemKit](https://github.com/beltex/SystemKit)
+- [SMCKit](https://github.com/beltex/SMCKit)
 
 
 ### References

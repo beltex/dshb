@@ -50,7 +50,7 @@ setlocale(LC_ALL, "")
 initscr()                // Init window. Must be first
 cbreak()
 
-nodelay(stdscr, true)
+nodelay(stdscr, true)    // Make input reads non-blocking
 
 noecho()                 // Don't echo user input
 nonl()                   // Disable newline mode
@@ -83,7 +83,7 @@ func compare(s1 : String, s2 : String) -> Bool {
 }
 
 let  smc = SMC()
-assert(smc.open() == kIOReturnSuccess, "ERROR: Connection to SMC failed")
+smc.open()
 
 let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
 //let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
@@ -97,9 +97,11 @@ let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), po
 //}
 
 var key : Int32 = 0
-while (key != 27) {
+var quit = false
+while (!quit) {
     key = getch()
     
+    // has_key check for KEY_RESIZE?
     if (key == KEY_RESIZE) {
         clear()
         tmpWidget.resizeWidget()
@@ -110,6 +112,7 @@ while (key != 27) {
 //        addstr("EXIT")
 //        refresh()
 //        sleep(1)
+        quit = true
         break
     }
     else {
