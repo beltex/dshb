@@ -1,0 +1,6 @@
+[submodule "libs/SMCKit"]
+	path = libs/SMCKit
+	url = git@github.com:beltex/SMCKit.git
+[submodule "libs/SystemKit"]
+	path = libs/SystemKit
+	url = git@github.com:beltex/SystemKit.git
