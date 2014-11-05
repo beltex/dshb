@@ -11,6 +11,7 @@ App version.
 TODO: -v command line arg
 */
 let VERSION = "0.0.1"
+let MAX_WIDTH = 20.0
 
 
 //// Setup Signal handler for window resize
@@ -85,6 +86,10 @@ func compare(s1 : String, s2 : String) -> Bool {
 let  smc = SMC()
 smc.open()
 
+// TODO check if laptop
+let battery = Battery()
+battery.open()
+
 let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
 //let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
 
@@ -102,29 +107,44 @@ while (!quit) {
     key = getch()
     
     // has_key check for KEY_RESIZE?
-    if (key == KEY_RESIZE) {
-        clear()
-        tmpWidget.resizeWidget()
-        //fanWidget.resizeWidget()
-    }
-    else if (key == 27) {
-//        move(20,20)
-//        addstr("EXIT")
-//        refresh()
-//        sleep(1)
-        quit = true
-        break
-    }
-    else {
-        tmpWidget.updateWidget()
-        //fanWidget.updateWidget()
+    
+    switch key {
+        case KEY_RESIZE:
+            clear()
+            tmpWidget.resizeWidget()
+        case 27:
+            //        move(20,20)
+            //        addstr("EXIT")
+            //        refresh()
+            //        sleep(1)
+            quit = true
+            break
+        case KEY_DOWN:
+            var x = getcurx(stdscr)
+            var y = getcury(stdscr)
+            move(y + 1, x)
+            refresh()
+        default:
+            tmpWidget.updateWidget()
     }
     refresh()
     sleep(1)
+
+    
+//    else if (key == 27) {
+//
+//    }
+//    else if (key == KEY_DOWN) {
+//
+//    }
+    //else {
+        //fanWidget.updateWidget()
+    //}
 }
 
 
 smc.close()
+battery.close()
 
 //var ch = getchar()
 

@@ -118,8 +118,32 @@ public class Meter {
     Update the value of the meter.
     */
     func update(val : Int) {
+        var x = getcurx(stdscr)
+        var y = getcury(stdscr)
+        
         move(pos.y, pos.x)                                                  
-        var spaceLen = size.length - (countElements(name) + countElements(String(val)) + countElements(unit.rawValue))
+        
+        
+        
+        // Max length of name
+        var nameChars = size.length - (2 + countElements(String(val)) + countElements(unit.rawValue))
+        
+        var nameEdit = name
+        if (countElements(name) > Int(nameChars)) {
+            nameEdit = (name as NSString).substringToIndex(Int(nameChars - 1))
+            nameEdit = nameEdit + "…"
+        }
+        
+        //var nameEdit = (name as NSString).substringToIndex(Int(nameChars))
+        
+
+        
+        
+        
+        var spaceLen = size.length - (countElements(nameEdit) + countElements(String(val)) + countElements(unit.rawValue))
+
+        
+        
         //var range = 105
         var perct : Double = Double(val) / Double(max)
         var valRange = Int(floor(Double(size.length) * perct))
@@ -129,7 +153,7 @@ public class Meter {
             space.append(UnicodeScalar(" "))
         }
         
-        var char_array = Array(name + space + String(val) + unit.rawValue)
+        var char_array = Array(nameEdit + space + String(val) + unit.rawValue)
         var color_array = [Int](count: Int(size.length), repeatedValue: 4)
         
         
@@ -173,7 +197,7 @@ public class Meter {
             ++count
         }
         
-        move(0,0)
+        move(y,x)
         //refresh()
     }
 }

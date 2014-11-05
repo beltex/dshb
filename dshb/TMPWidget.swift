@@ -19,7 +19,9 @@ public class TMPWidget {
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "TMPs", winCoords: titleCoords, colour: COLOR_PAIR(5))
 
-        let tmpSensors = sorted(smc.getAllValidTMPKeys().values.array, compare)
+        var array = smc.getAllValidTMPKeys().values.array
+        array.append("BATTERY")
+        let tmpSensors = sorted(array, compare)
 
 
         var y_pos = win.pos.y + 1 // Becuase of title
@@ -34,7 +36,12 @@ public class TMPWidget {
     
     func updateWidget() {
         for meter in meters {
-            meter.update(Int(smc.getTMP(SMC.TMP.allValues[meter.name]!).tmp))
+            if meter.name == "BATTERY" {
+                meter.update(Int(battery.tmp()))
+            }
+            else {
+                meter.update(Int(smc.getTMP(SMC.TMP.allValues[meter.name]!).tmp))
+            }
         }
     }
     
