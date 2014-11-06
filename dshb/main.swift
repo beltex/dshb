@@ -14,11 +14,13 @@ let VERSION = "0.0.1"
 let MAX_WIDTH = 20.0
 
 
-//// Setup Signal handler for window resize
-//var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_SIGNAL,
-//                                    UInt(SIGWINCH), 0,
-//                                    dispatch_get_main_queue())
-//                                    //dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
+
+var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
+                                    0, 0,
+                                    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
+
+dispatch_source_set_timer(source, dispatch_walltime(nil, 0), 1000000000, 1000000000)
+
 //
 //dispatch_source_set_event_handler(source, {
 //    // getyx is complex macro
@@ -51,13 +53,13 @@ setlocale(LC_ALL, "")
 initscr()                // Init window. Must be first
 cbreak()
 
-nodelay(stdscr, true)    // Make input reads non-blocking
+//nodelay(stdscr, true)    // Make input reads non-blocking
 
 noecho()                 // Don't echo user input
 nonl()                   // Disable newline mode
 intrflush(stdscr, true) // Prevent flush
 keypad(stdscr, true)     // Enable function and arrow keys
-curs_set(0)              // Set cursor to invisible
+//curs_set(0)              // Set cursor to invisible
 
 
 if (!has_colors()) {
@@ -91,9 +93,16 @@ let battery = Battery()
 battery.open()
 
 let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
+tmpWidget.updateWidget()
+
 //let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
 
+dispatch_source_set_event_handler(source, {
+            tmpWidget.updateWidget()
+            refresh()
+})
 
+dispatch_resume(source)
 //for var i = 0; i < 20; ++i {
 //    
 //    tmpWidget.updateWidget()
@@ -110,13 +119,17 @@ while (!quit) {
     
     switch key {
         case KEY_RESIZE:
+            dispatch_suspend(source)
             clear()
             tmpWidget.resizeWidget()
+                refresh()
+            dispatch_resume(source)
         case 27:
             //        move(20,20)
             //        addstr("EXIT")
             //        refresh()
             //        sleep(1)
+            dispatch_suspend(source)
             quit = true
             break
         case KEY_DOWN:
@@ -125,10 +138,10 @@ while (!quit) {
             move(y + 1, x)
             refresh()
         default:
-            tmpWidget.updateWidget()
+            true
+            //tmpWidget.updateWidget()
     }
-    refresh()
-    sleep(1)
+    //sleep(1)
 
     
 //    else if (key == 27) {
@@ -142,10 +155,11 @@ while (!quit) {
     //}
 }
 
+endwin()    // Close window. Must call before exit
 
 smc.close()
 battery.close()
 
 //var ch = getchar()
 
-endwin()    // Close window. Must call before exit
+
