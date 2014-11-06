@@ -19,7 +19,8 @@ var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
                                     0, 0,
                                     dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
 
-dispatch_source_set_timer(source, dispatch_walltime(nil, 0), 1000000000, 1000000000)
+//dispatch_walltime(nil, 0)
+dispatch_source_set_timer(source, dispatch_time(DISPATCH_TIME_NOW, 0), 1 * NSEC_PER_SEC, 0)
 
 //
 //dispatch_source_set_event_handler(source, {
@@ -59,6 +60,7 @@ noecho()                 // Don't echo user input
 nonl()                   // Disable newline mode
 intrflush(stdscr, true) // Prevent flush
 keypad(stdscr, true)     // Enable function and arrow keys
+//timeout(0)
 //curs_set(0)              // Set cursor to invisible
 
 
@@ -113,6 +115,8 @@ dispatch_resume(source)
 var key : Int32 = 0
 var quit = false
 while (!quit) {
+    // Why does esc (27) cause such a slow response, as oppossed to something
+    // like 'q'?
     key = getch()
     
     // has_key check for KEY_RESIZE?
@@ -124,12 +128,13 @@ while (!quit) {
             tmpWidget.resizeWidget()
                 refresh()
             dispatch_resume(source)
-        case 27:
+        case 113:
             //        move(20,20)
             //        addstr("EXIT")
             //        refresh()
             //        sleep(1)
-            dispatch_suspend(source)
+            dispatch_source_cancel(source)
+            endwin()    // Close window. Must call before exit
             quit = true
             break
         case KEY_DOWN:
@@ -141,21 +146,9 @@ while (!quit) {
             true
             //tmpWidget.updateWidget()
     }
-    //sleep(1)
-
-    
-//    else if (key == 27) {
-//
-//    }
-//    else if (key == KEY_DOWN) {
-//
-//    }
-    //else {
-        //fanWidget.updateWidget()
-    //}
 }
 
-endwin()    // Close window. Must call before exit
+
 
 smc.close()
 battery.close()
