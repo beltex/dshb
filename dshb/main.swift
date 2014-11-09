@@ -101,8 +101,8 @@ let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), po
 let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
 
 dispatch_source_set_event_handler(source, {
-            tmpWidget.updateWidget()
-            fanWidget.updateWidget()
+            tmpWidget.draw()
+            fanWidget.draw()
             refresh()
 })
 
@@ -124,10 +124,10 @@ while (!quit) {
             // This could be done through GCD signal handler as well
             dispatch_suspend(source)
             clear()
-            tmpWidget.resizeWidget()
-            fanWidget.resizeWidget()
-             // move(0,0)
-                refresh()
+            widgetLength = Int32(floor(Double((COLS - gap)) / 2.0))
+            tmpWidget.resize()
+            fanWidget.resize()
+            refresh()
             dispatch_resume(source)
         case 113:
             dispatch_source_cancel(source)
