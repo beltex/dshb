@@ -19,7 +19,6 @@ var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
                                     0, 0,
                                     dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
 
-//dispatch_walltime(nil, 0)
 dispatch_source_set_timer(source, dispatch_time(DISPATCH_TIME_NOW, 0), 1 * NSEC_PER_SEC, 0)
 
 //
@@ -61,7 +60,9 @@ nonl()                   // Disable newline mode
 intrflush(stdscr, true) // Prevent flush
 keypad(stdscr, true)     // Enable function and arrow keys
 //timeout(0)
-//curs_set(0)              // Set cursor to invisible
+curs_set(0)              // Set cursor to invisible
+//idlok(stdscr, true)
+//scrollok(stdscr, true)
 
 
 if (!has_colors()) {
@@ -80,8 +81,8 @@ init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 
 
 // newwin null check
-var gap : Int32 = 5
-var widgetLength = Int32(ceil(Double((COLS - gap)) / 2.0))
+var gap : Int32 = 1
+var widgetLength = Int32(floor(Double((COLS - gap)) / 2.0))
 
 func compare(s1 : String, s2 : String) -> Bool {
     return s1 < s2
@@ -97,23 +98,20 @@ battery.open()
 let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
 tmpWidget.updateWidget()
 
-//let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
+let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
 
 dispatch_source_set_event_handler(source, {
             tmpWidget.updateWidget()
+            fanWidget.updateWidget()
             refresh()
 })
 
 dispatch_resume(source)
-//for var i = 0; i < 20; ++i {
-//    
-//    tmpWidget.updateWidget()
-//    //fanWidget.updateWidget()
-//    sleep(1)
-//}
+
 
 var key : Int32 = 0
 var quit = false
+
 while (!quit) {
     // Why does esc (27) cause such a slow response, as oppossed to something
     // like 'q'?
@@ -123,16 +121,15 @@ while (!quit) {
     
     switch key {
         case KEY_RESIZE:
+            // This could be done through GCD signal handler as well
             dispatch_suspend(source)
             clear()
             tmpWidget.resizeWidget()
+            fanWidget.resizeWidget()
+             // move(0,0)
                 refresh()
             dispatch_resume(source)
         case 113:
-            //        move(20,20)
-            //        addstr("EXIT")
-            //        refresh()
-            //        sleep(1)
             dispatch_source_cancel(source)
             endwin()    // Close window. Must call before exit
             quit = true
@@ -144,15 +141,8 @@ while (!quit) {
             refresh()
         default:
             true
-            //tmpWidget.updateWidget()
     }
 }
 
-
-
 smc.close()
 battery.close()
-
-//var ch = getchar()
-
-

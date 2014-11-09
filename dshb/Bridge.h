@@ -24,6 +24,9 @@
 #ifndef dshb_Bridge_h
 #define dshb_Bridge_h
 
+// TODO: Get rid of extra imports. ncurses.h should include everything we need
+//       but for some reason it doesn't import everything over to Swift
+
 #import <panel.h>
 #import <curses.h>
 #import <ncurses.h>

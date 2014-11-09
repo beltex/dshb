@@ -9,6 +9,9 @@ public struct WidgetTitle {
     
     
     init(title : String, winCoords : Window, colour : Int32) {
+        var x = getcurx(stdscr)
+        var y = getcury(stdscr)
+        
         self.title  = title
         self.colour = colour
         
@@ -24,8 +27,7 @@ public struct WidgetTitle {
         }
         
         addstr(title + space)
-        move(0,0) 
-        //refresh()
+        move(y,x)
     }
     
     
@@ -34,10 +36,12 @@ public struct WidgetTitle {
     }
     
     
-    func resize(length : Int, width : Int) {
-        move(winCoords.pos.y, winCoords.pos.x)
+    func resize(winCoords2 : Window) {        
+        var x = getcurx(stdscr)
+        var y = getcury(stdscr)
+        move(winCoords2.pos.y, winCoords2.pos.x)
         attrset(colour)
-        var spaceLen = length - countElements(title)
+        var spaceLen = winCoords2.size.length - countElements(title)
         var space_t = String()
         
         for var x = 0; x < Int(spaceLen); ++x {
@@ -45,8 +49,7 @@ public struct WidgetTitle {
         }
         
         addstr(title + space_t)
-        move(0,0)
-        //refresh()
+        move(y,x)
     }
     
     

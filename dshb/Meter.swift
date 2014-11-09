@@ -106,11 +106,12 @@ public class Meter {
     }
     */
     
-    func resize(length : Int, width : Int) {
-        size.length = Int32(length)
-        size.width  = Int32(width)
+    func resize(winCoords2: Window) {
+        size.length = winCoords2.size.length
+        size.width  = winCoords2.size.width
         
-        
+        pos.x = winCoords2.pos.x
+        pos.y = winCoords2.pos.y
     }
     
     

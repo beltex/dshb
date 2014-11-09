@@ -52,12 +52,17 @@ public class TMPWidget {
     
     
     func resizeWidget() {
-        win.size.length = Int32(ceil(Double((COLS - gap)) / 2.0))
+        widgetLength = Int32(floor(Double((COLS - gap)) / 2.0))
         
-        title.resize(Int(win.size.length), width: 1)
+        //title.resize(Int(win.size.length), width: 1)
+        title.resize(Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
+        
+        var y_pos = win.pos.y + 1 // Becuase of title
         
         for meter in meters {
-            meter.resize(Int(win.size.length), width: 10)
+            //meter.resize(Int(win.size.length), width: 10)
+            meter.resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
+            y_pos++
         }
         
         updateWidget()
