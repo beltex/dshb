@@ -27,6 +27,11 @@ Bar graph (meter) used to display a metric.
 public class Meter {
     
     
+    //--------------------------------------------------------------------------
+    // MARK: PUBLIC ENUMS
+    //--------------------------------------------------------------------------
+    
+    
     public enum Unit : String {
         case Celsius    = "°C"
         case Fahrenheit = "°F"
@@ -48,27 +53,23 @@ public class Meter {
     let unit : Unit
     
     var value : Double = 0
-    var size  : (length : Int32, width : Int32)
-    var pos   : (x : Int32, y : Int32)
+    var winCoords : Window
     let max   : Int
     
     
     //--------------------------------------------------------------------------
     // MARK: PRIVATE PROPERTIES
     //--------------------------------------------------------------------------
+
     
+    private let nameLength : Int
+    private let unitLength : Int
+    private var spaceLen   : Int = 0
+    private var lastValue  : Int = 0
     
-    /**
-    The ncurses window.
-    */
-    //private var win : COpaquePointer
-    
-    private var space = String()
-    
-    private let nameLen  : Int
-    private let unitLen  : Int
-    private var spaceLen : Int = 0
-    //private var zones : (low : Int, mid : Int, high : Int)
+    var low  : Int
+    var mid  : Int
+    var high : Int
     
     
     //--------------------------------------------------------------------------
@@ -76,23 +77,18 @@ public class Meter {
     //--------------------------------------------------------------------------
 
     
-    init(name : String, length : Int32, width : Int32, x    : Int32,
-                                                       y    : Int32,
-                                                       max  : Int,
-                                                       unit : Unit) {
-        self.name = name
-        self.unit = unit
-        self.max = max
-        size.length = length
-        size.width  = width
-        pos.x = x
-        pos.y = y
+    init(name : String, winCoords : Window, max  : Int, unit : Unit) {
+        self.name      = name
+        self.winCoords = winCoords
+        self.unit      = unit
+        self.max       = max
         
+        nameLength     = countElements(name)
+        unitLength     = countElements(unit.rawValue)
         
-        nameLen = countElements(name)
-        unitLen = countElements(unit.rawValue)
-                                                        
-        //win = newwin(size.width, size.length, pos.y, pos.x)
+        low  = Int(ceil(Double(winCoords.size.length) * 0.45))
+        mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
+        high = Int(floor(Double(winCoords.size.length) * 0.25))
     }
     
     
@@ -100,62 +96,34 @@ public class Meter {
     // MARK: PUBLIC METHODS
     //--------------------------------------------------------------------------
     
-   /* 
-    func move(x : Int, y : Int) {
-        
-    }
-    */
-    
-    func resize(winCoords2: Window) {
-        size.length = winCoords2.size.length
-        size.width  = winCoords2.size.width
-        
-        pos.x = winCoords2.pos.x
-        pos.y = winCoords2.pos.y
-    }
-    
-    
-    /**
-    Update the value of the meter.
-    */
-    func update(val : Int) {
-        var x = getcurx(stdscr)
-        var y = getcury(stdscr)
-        
-        move(pos.y, pos.x)                                                  
+
+    func draw(value : Int) {
+        lastValue = value
+        let valueLength = countElements(String(value))
         
         
-        
-        // Max length of name
-        var nameChars = size.length - (2 + countElements(String(val)) + countElements(unit.rawValue))
+        // Name setup
+        let numberChars = winCoords.size.length - (2 + valueLength + unitLength)
         
         var nameEdit = name
-        if (countElements(name) > Int(nameChars)) {
-            nameEdit = (name as NSString).substringToIndex(Int(nameChars - 1))
-            nameEdit = nameEdit + "…"
+        if (nameLength > Int(numberChars)) {
+            nameEdit = (name as NSString).substringToIndex(Int(numberChars - 1))
+            nameEdit.append(UnicodeScalar("…"))
         }
         
-        //var nameEdit = (name as NSString).substringToIndex(Int(nameChars))
-        
+        let spaceLen = winCoords.size.length - (countElements(nameEdit) + valueLength + unitLength)
 
         
+        // Range setup
+        let percentage = Double(value) / Double(max)
+        var valueRange = Int(floor(Double(winCoords.size.length) * percentage))
         
-        
-        var spaceLen = size.length - (countElements(nameEdit) + countElements(String(val)) + countElements(unit.rawValue))
-
-        
-        
-        //var range = 105
-        var perct : Double = Double(val) / Double(max)
-        var valRange = Int(floor(Double(size.length) * perct))
         var space = String()
-        
         for var x = 0; x < Int(spaceLen); ++x {
             space.append(UnicodeScalar(" "))
         }
-        
-        var char_array = Array(nameEdit + space + String(val) + unit.rawValue)
-        var color_array = [Int](count: Int(size.length), repeatedValue: 4)
+    
+        var char_array = Array(nameEdit + space + String(value) + unit.rawValue)
         
         
         // Setup
@@ -164,15 +132,11 @@ public class Meter {
         attroff(COLOR_PAIR(Int32(3)))
         attroff(COLOR_PAIR(Int32(4)))
         attroff(COLOR_PAIR(Int32(5)))
-        //clear(win)
-        
-        var low = Int(ceil(Double(size.length) * 0.45))
-        var mid = Int(floor(Double(size.length) * 0.30)) + low
-        var high = Int(floor(Double(size.length) * 0.25))
         
         var count = 0
+        move(winCoords.pos.y, winCoords.pos.x)
         for char in char_array {
-            if (count < valRange) {
+            if (count < valueRange) {
                 if (count < low) {
                     // Green
                     attrset(COLOR_PAIR(Int32(1)))
@@ -197,8 +161,15 @@ public class Meter {
             
             ++count
         }
+    }
+    
+    
+    func resize(winCoords: Window) {
+        self.winCoords = winCoords
+        low  = Int(ceil(Double(winCoords.size.length) * 0.45))
+        mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
+        high = Int(floor(Double(winCoords.size.length) * 0.25))
         
-        move(y,x)
-        //refresh()
+        draw(lastValue)
     }
 }

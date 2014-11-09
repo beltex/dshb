@@ -2,7 +2,7 @@
 
 public class WidgetTitle {
 
-    var title     : String
+    let title     : String
     var colour    : Int32
     var winCoords : Window
     
@@ -15,9 +15,6 @@ public class WidgetTitle {
     
     
     func draw() {
-        let x = getcurx(stdscr)
-        let y = getcury(stdscr)
-
         move(winCoords.pos.y, winCoords.pos.x)
         attrset(colour)
         
@@ -29,7 +26,6 @@ public class WidgetTitle {
         }
         
         addstr(title + space)
-        move(y,x)
     }
     
     

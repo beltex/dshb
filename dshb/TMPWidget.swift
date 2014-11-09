@@ -27,7 +27,8 @@ public class TMPWidget {
 
         var y_pos = win.pos.y + 1 // Becuase of title
         for sensor in tmpSensors {
-            meters.append(Meter(name: sensor, length: win.size.length, width: 1, x: win.pos.x, y: y_pos, max: maxValue, unit: Meter.Unit.Celsius))
+            let winCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:y_pos))
+            meters.append(Meter(name: sensor, winCoords: winCoords, max: maxValue, unit: Meter.Unit.Celsius))
             ++y_pos
         }
 
@@ -35,20 +36,16 @@ public class TMPWidget {
         
     }
     
+    
     func updateWidget() {
         for meter in meters {
             if meter.name == "BATTERY" {
-                meter.update(Int(battery.tmp()))
+                meter.draw(Int(battery.tmp()))
             }
             else {
-                meter.update(Int(smc.getTMP(SMC.TMP.allValues[meter.name]!).tmp))
+                meter.draw(Int(smc.getTMP(SMC.TMP.allValues[meter.name]!).tmp))
             }
         }
-    }
-    
-    
-    func moveWidget() {
-    
     }
     
     
