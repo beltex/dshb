@@ -17,7 +17,7 @@ public class FanWidget {
         
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "Fans", winCoords: titleCoords, colour: COLOR_PAIR(5))
-        
+        title.draw()
         
         let numFans = smc.getNumFans().numFans
         var y_pos = win.pos.y + 1 // Becuase of title

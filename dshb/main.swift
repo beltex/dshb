@@ -93,11 +93,11 @@ smc.open()
 
 // TODO check if laptop
 let battery = Battery()
+let isLaptop = battery.isLaptop()
 battery.open()
 
-let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
-tmpWidget.updateWidget()
 
+let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
 let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
 
 dispatch_source_set_event_handler(source, {

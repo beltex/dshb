@@ -1,28 +1,30 @@
 
 
-public struct WidgetTitle {
+public class WidgetTitle {
 
-    private var space = String()
-    public var colour : Int32
-    public var title  : String
-    public var winCoords : Window
+    var title     : String
+    var colour    : Int32
+    var winCoords : Window
     
     
     init(title : String, winCoords : Window, colour : Int32) {
-        var x = getcurx(stdscr)
-        var y = getcury(stdscr)
-        
-        self.title  = title
-        self.colour = colour
-        
+        self.title     = title
+        self.colour    = colour
         self.winCoords = winCoords
-        
-        move(winCoords.pos.y, winCoords.pos.x) 
+    }
+    
+    
+    func draw() {
+        let x = getcurx(stdscr)
+        let y = getcury(stdscr)
+
+        move(winCoords.pos.y, winCoords.pos.x)
         attrset(colour)
         
-        var spaceLen = winCoords.size.length - countElements(title)
-        
-        for var x = 0; x < Int(spaceLen); ++x {
+        var space    = String()
+        let spaceLen = winCoords.size.length - countElements(title)
+
+        for var i = 0; i < Int(spaceLen); ++i {
             space.append(UnicodeScalar(" "))
         }
         
@@ -31,29 +33,8 @@ public struct WidgetTitle {
     }
     
     
-    func update() {
-        
-    }
-    
-    
-    func resize(winCoords2 : Window) {        
-        var x = getcurx(stdscr)
-        var y = getcury(stdscr)
-        move(winCoords2.pos.y, winCoords2.pos.x)
-        attrset(colour)
-        var spaceLen = winCoords2.size.length - countElements(title)
-        var space_t = String()
-        
-        for var x = 0; x < Int(spaceLen); ++x {
-            space_t.append(UnicodeScalar(" "))
-        }
-        
-        addstr(title + space_t)
-        move(y,x)
-    }
-    
-    
-    func moveTitle() {
-        
+    func resize(winCoords : Window) {
+        self.winCoords = winCoords
+        draw()
     }
 }

@@ -18,6 +18,7 @@ public class TMPWidget {
         
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "TMPs", winCoords: titleCoords, colour: COLOR_PAIR(5))
+        title.draw()
 
         var array = smc.getAllValidTMPKeys().values.array
         array.append("BATTERY")
