@@ -22,6 +22,8 @@ public class FanWidget {
         let numFans = smc.getNumFans().numFans
         var y_pos = win.pos.y + 1 // Becuase of title
         
+        // TODO: Sort fan names
+        
         for var x : UInt = 0; x < numFans; ++x {
             let winCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:y_pos))
             meters.append(Meter(name: smc.getFanName(x).name, winCoords : winCoords, max: Int(smc.getFanMaxRPM(x).rpm), unit: Meter.Unit.RPM))

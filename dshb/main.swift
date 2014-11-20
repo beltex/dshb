@@ -14,7 +14,8 @@ let VERSION = "0.0.1"
 let MAX_WIDTH = 20.0
 
 
-
+// TODO: This should probably be a serial queue
+// TODO: Custom serial attr prop creation causes runtime crash - Swift bug?
 var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
                                     0, 0,
                                     dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
@@ -84,9 +85,7 @@ init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 var gap : Int32 = 1
 var widgetLength = Int32(floor(Double((COLS - gap)) / 2.0))
 
-func compare(s1 : String, s2 : String) -> Bool {
-    return s1 < s2
-}
+
 
 let  smc = SMC()
 smc.open()

@@ -9,6 +9,7 @@ public class TMPWidget {
     let maxValue = 95
     let title : WidgetTitle
     var win   : Window
+    var map : [String : SMC.Temperature] = [ : ]
     
     init(win : Window) {
         // win.size.width not currently used
@@ -21,16 +22,24 @@ public class TMPWidget {
         // TODO: move this out of init
         title.draw()
         
-        // Sensors list
-        // TODO: Way too confusing, fix getAllValidTMPKeys()
-        var array = smc.getAllValidTMPKeys().values.array
-        array.append("BATTERY")
-        let tmpSensors = sorted(array, compare)
-
         
-        // Meters init
+        // Sensors list
+        let temperatureSensors = smc.getAllValidTemperatureKeys()
+        var temperatureSensorNames = temperatureSensors.map({
+                                               SMC.Temperature.allValues[$0]! })
+        // This comes from SystemKit, have to manually added
+        temperatureSensorNames.append("BATTERY")
+        temperatureSensorNames = sorted(temperatureSensorNames, { $0 < $1 })
+        
+        
+        for key in temperatureSensors {
+            map.updateValue(key, forKey: SMC.Temperature.allValues[key]!)
+        }
+        
+        
+        // Meters init - should be sorted here
         var y_pos = win.pos.y + 1 // Becuase of title
-        for sensor in tmpSensors {
+        for sensor in temperatureSensorNames {
             let winCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:y_pos))
             meters.append(Meter(name: sensor, winCoords: winCoords, max: maxValue, unit: Meter.Unit.Celsius))
             ++y_pos
@@ -44,8 +53,7 @@ public class TMPWidget {
                 case "BATTERY":
                     meter.draw(Int(battery.tmp()))
                 default:
-                    meter.draw(Int(smc.getTMP(SMC.TMP.allValues[meter.name]!).tmp))
-
+                    meter.draw(Int(smc.getTemperature(map[meter.name]!).tmp))
             }
         }
     }
