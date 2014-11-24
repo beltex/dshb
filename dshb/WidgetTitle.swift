@@ -3,34 +3,41 @@
 public class WidgetTitle {
 
     let title     : String
-    var colour    : Int32
+    let colour    : Int32
     var winCoords : Window
+    
+    private var titlePadding = String()
     
     
     init(title : String, winCoords : Window, colour : Int32) {
         self.title     = title
         self.colour    = colour
         self.winCoords = winCoords
+        
+        computeTitlePadding()
     }
     
     
     func draw() {
         move(winCoords.pos.y, winCoords.pos.x)
         attrset(colour)
-        
-        var space    = String()
-        let spaceLen = winCoords.size.length - countElements(title)
-
-        for var i = 0; i < Int(spaceLen); ++i {
-            space.append(UnicodeScalar(" "))
-        }
-        
-        addstr(title + space)
+        addstr(title + titlePadding)
     }
     
     
     func resize(winCoords : Window) {
         self.winCoords = winCoords
+        computeTitlePadding()
         draw()
+    }
+    
+    
+    private func computeTitlePadding() {
+        titlePadding = String()
+        let spaceLength = Int(winCoords.size.length - countElements(title))
+        
+        for var i = 0; i < spaceLength; ++i {
+            titlePadding.append(UnicodeScalar(" "))
+        }
     }
 }
