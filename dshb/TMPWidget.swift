@@ -60,7 +60,6 @@ public class TMPWidget {
     
     
     func resize() {
-        
         title.resize(Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
         
         var y_pos = win.pos.y + 1 // Becuase of title
