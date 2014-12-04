@@ -3,7 +3,7 @@
 import Foundation
 
 
-public class FanWidget {
+public class FanWidget: Widget {
     
     private var meters = [Meter]()
     //let maxValue : Int

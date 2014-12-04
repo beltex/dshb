@@ -46,6 +46,11 @@ public struct Window {
 }
 
 
+protocol Widget {
+    func draw()
+    func resize()
+}
+
 
 
 setlocale(LC_ALL, "")
@@ -96,15 +101,21 @@ let isLaptop = battery.isLaptop()
 battery.open()
 
 
-let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
-let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
-let batteryWidget = BatteryWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * 2, y: 0)))
+var widgets = [Widget]()
+
+
+widgets.append(TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0))))
+widgets.append(FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0))))
+widgets.append(BatteryWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * 2, y: 0))))
+
+
+
 
 dispatch_source_set_event_handler(source, {
-            tmpWidget.draw()
-            fanWidget.draw()
-            batteryWidget.draw()
-            refresh()
+    for widget in widgets {
+        widget.draw()
+    }
+    refresh()
 })
 
 dispatch_resume(source)
@@ -126,9 +137,9 @@ while (!quit) {
             dispatch_suspend(source)
             clear()
             widgetLength = Int32(floor(Double((COLS - (gap * 2))) / 3.0))
-            tmpWidget.resize()
-            fanWidget.resize()
-            batteryWidget.resize()
+            for widget in widgets {
+                widget.resize()
+            }
             refresh()
             dispatch_resume(source)
         case 113:

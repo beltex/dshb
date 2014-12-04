@@ -3,7 +3,7 @@
 import Foundation
 
 
-public class TMPWidget {
+public class TMPWidget: Widget {
     
     private var meters = [Meter]()
     let maxValue = 95

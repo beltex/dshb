@@ -3,7 +3,7 @@
 import Foundation
 
 
-public class BatteryWidget {
+public class BatteryWidget: Widget {
     
     private var meters = [Meter]()
     let title : WidgetTitle
