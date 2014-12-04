@@ -83,7 +83,7 @@ init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 
 // newwin null check
 var gap : Int32 = 1
-var widgetLength = Int32(floor(Double((COLS - gap)) / 2.0))
+var widgetLength = Int32(floor(Double((COLS - (gap * 2))) / 3.0))
 
 
 
@@ -98,10 +98,12 @@ battery.open()
 
 let tmpWidget = TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
 let fanWidget = FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
+let batteryWidget = BatteryWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * 2, y: 0)))
 
 dispatch_source_set_event_handler(source, {
             tmpWidget.draw()
             fanWidget.draw()
+            batteryWidget.draw()
             refresh()
 })
 
@@ -123,9 +125,10 @@ while (!quit) {
             // This could be done through GCD signal handler as well
             dispatch_suspend(source)
             clear()
-            widgetLength = Int32(floor(Double((COLS - gap)) / 2.0))
+            widgetLength = Int32(floor(Double((COLS - (gap * 2))) / 3.0))
             tmpWidget.resize()
             fanWidget.resize()
+            batteryWidget.resize()
             refresh()
             dispatch_resume(source)
         case 113:

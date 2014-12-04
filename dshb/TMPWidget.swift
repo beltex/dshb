@@ -28,8 +28,11 @@ public class TMPWidget {
         var temperatureSensorNames = temperatureSensors.map({
                                                SMC.Temperature.allValues[$0]! })
         // This comes from SystemKit, have to manually added
+        // TODO: Check if laptop
         temperatureSensorNames.append("BATTERY")
-        temperatureSensorNames = sorted(temperatureSensorNames, { $0 < $1 })
+        if (temperatureSensors.count > 1) {
+            temperatureSensorNames = sorted(temperatureSensorNames, { $0 < $1 })
+        }
         
         
         for key in temperatureSensors {
