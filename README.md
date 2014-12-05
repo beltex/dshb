@@ -27,6 +27,11 @@ $ brew install dshb
 - [SMCKit](https://github.com/beltex/SMCKit)
 
 
+### Manual page
+
+- Via [ronn](https://github.com/rtomayko/ronn)
+
+
 ### References
 
 - [NCURSES Programming HOWTO](http://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html)

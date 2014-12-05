@@ -88,7 +88,10 @@ init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 
 // newwin null check
 var gap : Int32 = 1
-var widgetLength = Int32(floor(Double((COLS - (gap * 2))) / 3.0))
+func computeWidgetLength() -> Int32 {
+    return Int32(floor(Double((COLS - (gap * 2))) / 3.0))
+}
+var widgetLength = computeWidgetLength()
 
 
 
@@ -136,7 +139,7 @@ while (!quit) {
             // This could be done through GCD signal handler as well
             dispatch_suspend(source)
             clear()
-            widgetLength = Int32(floor(Double((COLS - (gap * 2))) / 3.0))
+            widgetLength = computeWidgetLength()
             for widget in widgets {
                 widget.resize()
             }

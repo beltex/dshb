@@ -1,0 +1,20 @@
+dshb(1) -- OS X system monitor
+==============================
+
+## SYNOPSIS
+
+## DESCRIPTION
+
+## OPTIONS
+
+## EXAMPLES
+
+## ENVIRONMENT
+
+## BUGS
+
+Copyright (C) 2014  beltex <https://github.com/beltex>
+
+## SEE ALSO
+
+top(1), htop(1)
