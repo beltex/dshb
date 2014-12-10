@@ -23,6 +23,8 @@ import Foundation
 
 /**
 Bar graph (meter) used to display a metric.
+
+TODO: Op direction of meter. Battery health, battery life.
 */
 public class Meter {
     

@@ -4,6 +4,22 @@ dshb
 Inspired by [iStat Pro](https://www.apple.com/downloads/dashboard/status/istatpro.html),
 [htop](https://github.com/hishamhm/htop) & [top](http://opensource.apple.com/source/top/).
 
+- Low overhead
+
+
+### Why?
+
+- Exploration of Swift. In particular, systems programming and interfacing with
+  low-level C APIs in Swift
+- Improved top*
+- Improved htop (for OS X)*. htop was originally written for Linux. It was forked
+  at some point and ported over to OS X. However, the port is now using what is
+  a 5 year old fork. Working is being done on this front:
+  https://www.bountysource.com/teams/htop/fundraiser
+- Usage of SMCKit & SystemKit libraries 
+
+* Of course, these are yet to come to fruition, as both have been around for
+  some time and are battle tested.
 
 ### Install
 
