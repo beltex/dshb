@@ -15,9 +15,7 @@ public class BatteryWidget: Widget {
         self.win = win
         
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
-        title = WidgetTitle(title: "Battery", winCoords: titleCoords, colour: COLOR_PAIR(5))
-        title.draw()
-        
+        title = WidgetTitle(title: "Battery", winCoords: titleCoords, colour: COLOR_PAIR(5))        
 
         meters.append(Meter(name: "Capacity", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: battery.designCapacity(), unit: Meter.Unit.None))
         //meters.append(Meter(name: "Charge", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: 100, unit: Meter.Unit.Percentage))
@@ -33,13 +31,15 @@ public class BatteryWidget: Widget {
     }
     
     
-    func resize() {
-        title.resize(Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * 2, y: 0)))
+    func resize(newCoords: Window) {
+        self.win = newCoords
+        
+        title.resize(win)
         
         var y_pos = win.pos.y + 1 // Becuase of title
         
         for meter in meters {
-            meter.resize(Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * 2, y: y_pos)))
+            meter.resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
     }

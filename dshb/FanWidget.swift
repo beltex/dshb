@@ -17,7 +17,6 @@ public class FanWidget: Widget {
         
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "Fans", winCoords: titleCoords, colour: COLOR_PAIR(5))
-        title.draw()
         
         let numFans = smc.getNumFans().numFans
         var y_pos = win.pos.y + 1 // Becuase of title
@@ -39,13 +38,14 @@ public class FanWidget: Widget {
     }
     
     
-    func resize() {        
-        title.resize(Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0)))
+    func resize(newCoords: Window) {
+        self.win = newCoords
+        title.resize(win)
         
         var y_pos = win.pos.y + 1 // Becuase of title
         
         for meter in meters {
-            meter.resize(Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: y_pos)))
+            meter.resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
     }

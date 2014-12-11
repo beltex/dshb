@@ -1,5 +1,5 @@
 /*
- * BarGraph
+ * Meter
  * dshb
  *
  * Copyright (C) 2014  beltex <https://github.com/beltex>

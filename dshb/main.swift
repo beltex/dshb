@@ -48,7 +48,7 @@ public struct Window {
 
 protocol Widget {
     func draw()
-    func resize()
+    func resize(newCoords: Window)
 }
 
 
@@ -85,13 +85,13 @@ init_pair(4, Int16(COLOR_WHITE), Int16(use_default_colors()))
 init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 
 
+var widgets = [Widget]()
 
 // newwin null check
 var gap : Int32 = 1
 func computeWidgetLength() -> Int32 {
-    return Int32(floor(Double((COLS - (gap * 2))) / 3.0))
+    return Int32(floor(Double((COLS - (gap * Int32(widgets.count - 1)))) / Double(widgets.count)))
 }
-var widgetLength = computeWidgetLength()
 
 
 
@@ -104,14 +104,16 @@ let isLaptop = battery.isLaptop()
 battery.open()
 
 
-var widgets = [Widget]()
+widgets.append(TMPWidget(win: Window(size: (length: 0, width: 1), pos: (x: 0, y: 0))))
+widgets.append(FanWidget(win: Window(size: (length: 0, width: 1), pos: (x: 0, y: 0))))
+widgets.append(BatteryWidget(win: Window(size: (length: 0, width: 1), pos: (x: 0, y: 0))))
+
+var widgetLength = computeWidgetLength()
 
 
-widgets.append(TMPWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0))))
-widgets.append(FanWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: widgetLength + gap, y: 0))))
-widgets.append(BatteryWidget(win: Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * 2, y: 0))))
-
-
+for var i = 0; i < widgets.count; ++i {
+    widgets[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * Int32(i), y: 0)))
+}
 
 
 dispatch_source_set_event_handler(source, {
@@ -140,8 +142,8 @@ while (!quit) {
             dispatch_suspend(source)
             clear()
             widgetLength = computeWidgetLength()
-            for widget in widgets {
-                widget.resize()
+            for var i = 0; i < widgets.count; ++i {
+                widgets[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * Int32(i), y: 0)))
             }
             refresh()
             dispatch_resume(source)

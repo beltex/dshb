@@ -19,8 +19,6 @@ public class TMPWidget: Widget {
         // Title init
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "TMPs", winCoords: titleCoords, colour: COLOR_PAIR(5))
-        // TODO: move this out of init
-        title.draw()
         
         
         // Sensors list
@@ -62,11 +60,11 @@ public class TMPWidget: Widget {
     }
     
     
-    func resize() {
-        title.resize(Window(size: (length: widgetLength, width: 1), pos: (x: 0, y: 0)))
+    func resize(newCoords: Window) {
+        win = newCoords
+        title.resize(win)
         
         var y_pos = win.pos.y + 1 // Becuase of title
-        
         for meter in meters {
             meter.resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
             y_pos++

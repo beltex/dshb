@@ -7,6 +7,17 @@ dshb(1) -- OS X system monitor
 
 ## OPTIONS
 
+Placeholder. Define interface.
+
+  * `-f`, `--frequency`:
+    Statistic update frequency.
+
+  * `-u`, `--user`:
+    Show only processes of a given user.
+
+  * `-s`, `--sort`:
+    Sort processes by this statistic.
+
 ## EXAMPLES
 
 ## ENVIRONMENT
