@@ -13,6 +13,9 @@ TODO: -v command line arg
 let VERSION = "0.0.1"
 let MAX_WIDTH = 20.0
 
+var HAS_BATTERY = false
+var HAS_SMC     = false
+
 
 // TODO: This should probably be a serial queue
 // TODO: Custom serial attr prop creation causes runtime crash - Swift bug?
@@ -41,8 +44,8 @@ dispatch_source_set_timer(source, dispatch_time(DISPATCH_TIME_NOW, 0), 1 * NSEC_
 
 
 public struct Window {
-    var size  : (length : Int32, width : Int32)
-    var pos   : (x : Int32, y : Int32)
+    var size  : (length : Int32, width : Int32) = (0, 0)
+    var pos   : (x : Int32, y : Int32) = (0, 0)
 }
 
 
@@ -96,17 +99,24 @@ func computeWidgetLength() -> Int32 {
 
 
 let  smc = SMC()
-smc.open()
+if (smc.open() == kIOReturnSuccess) {
+    HAS_SMC = true
+}
 
 // TODO check if laptop
 let battery = Battery()
-let isLaptop = battery.isLaptop()
+HAS_BATTERY = battery.isLaptop()
 battery.open()
 
 
-widgets.append(TMPWidget(win: Window(size: (length: 0, width: 1), pos: (x: 0, y: 0))))
-widgets.append(FanWidget(win: Window(size: (length: 0, width: 1), pos: (x: 0, y: 0))))
-widgets.append(BatteryWidget(win: Window(size: (length: 0, width: 1), pos: (x: 0, y: 0))))
+if (HAS_SMC) {
+    widgets.append(TMPWidget(win: Window()))
+    widgets.append(FanWidget(win: Window()))
+}
+
+if (HAS_BATTERY) {
+    widgets.append(BatteryWidget(win: Window()))
+}
 
 var widgetLength = computeWidgetLength()
 
