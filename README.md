@@ -1,7 +1,8 @@
 dshb
 ====
 
-Inspired by [iStat Pro](https://www.apple.com/downloads/dashboard/status/istatpro.html),
+An OS X system monitor in Swift, inspired by
+[iStat Pro](https://www.apple.com/downloads/dashboard/status/istatpro.html),
 [htop](https://github.com/hishamhm/htop) & [top](http://opensource.apple.com/source/top/).
 
 - Low overhead
@@ -16,6 +17,7 @@ Inspired by [iStat Pro](https://www.apple.com/downloads/dashboard/status/istatpr
   at some point and ported over to OS X. However, the port is now using what is
   a 5 year old fork. Working is being done on this front:
   https://www.bountysource.com/teams/htop/fundraiser
+  Also, more OS X native stats
 - Usage of SMCKit & SystemKit libraries 
 
 * Of course, these are yet to come to fruition, as both have been around for
@@ -29,11 +31,16 @@ Via [Homebrew](http://brew.sh)
 $ brew install dshb
 ```
 
+This will auto init all submodules as well.
+
+```bash
+git clone --recursive git@github.com:beltex/dshb.git
+```
 
 ### Requirements
 
 - OS X 10.9+
-
+    - This is due to Swift  
 
 ### Stack
 

@@ -1,5 +1,9 @@
 # Swift.gitignore @ https://github.com/github/gitignore
 
+# Temp
+dshb.1
+dshb.1.html
+
 # Xcode
 build/
 *.pbxuser

@@ -10,19 +10,26 @@ dshb(1) -- OS X system monitor
 Placeholder. Define interface.
 
   * `-f`, `--frequency`:
-    Statistic update frequency.
-
-  * `-u`, `--user`:
-    Show only processes of a given user.
+    Statistic update frequency in seconds.
 
   * `-s`, `--sort`:
     Sort processes by this statistic.
+  
+  * `-u`, `--user`:
+    Show only processes of a given user.
+
+  * `-v`, `--version`:
+    Show dshb version and exit.
 
 ## EXAMPLES
 
 ## ENVIRONMENT
 
 ## BUGS
+
+## COPYRIGHT
+
+## AUTHOR
 
 Copyright (C) 2014  beltex <https://github.com/beltex>
 
