@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C4281FB1A3009040000C114 /* BatteryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4281FA1A3009040000C114 /* BatteryWidget.swift */; };
+		4C6D98BF1A3BF7B700BA2B36 /* kinfo_proc-bridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C6D98BB1A3BF7B700BA2B36 /* kinfo_proc-bridge.c */; };
 		4C81CAC71A05FCFA0078EC22 /* SMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CAC51A05FCFA0078EC22 /* SMC.swift */; };
 		4C81CACB1A05FD140078EC22 /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CAC91A05FD140078EC22 /* Battery.swift */; };
 		4C81CACC1A05FD140078EC22 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CACA1A05FD140078EC22 /* System.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		4C4281FA1A3009040000C114 /* BatteryWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryWidget.swift; sourceTree = "<group>"; };
+		4C6D98BB1A3BF7B700BA2B36 /* kinfo_proc-bridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "kinfo_proc-bridge.c"; sourceTree = "<group>"; };
 		4C7F147D19C7B49700F9DCE4 /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		4C81CAC51A05FCFA0078EC22 /* SMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMC.swift; sourceTree = "<group>"; };
 		4C81CAC91A05FD140078EC22 /* Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			children = (
 				4C81CAC91A05FD140078EC22 /* Battery.swift */,
 				4C81CACA1A05FD140078EC22 /* System.swift */,
+				4C6D98BB1A3BF7B700BA2B36 /* kinfo_proc-bridge.c */,
 			);
 			name = SystemKit;
 			path = libs/SystemKit/SystemKit;
@@ -178,6 +181,7 @@
 				4C9C0E5119E32921009EF6A9 /* TMPWidget.swift in Sources */,
 				4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */,
 				4C97A53219E4B2F10018EFB6 /* FanWidget.swift in Sources */,
+				4C6D98BF1A3BF7B700BA2B36 /* kinfo_proc-bridge.c in Sources */,
 				4C81CACC1A05FD140078EC22 /* System.swift in Sources */,
 				4C81CAC71A05FCFA0078EC22 /* SMC.swift in Sources */,
 				4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */,

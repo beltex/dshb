@@ -130,9 +130,9 @@ if (smc.open() == kIOReturnSuccess) {
 }
 
 let battery = Battery()
-if (battery.isLaptop()) {
+if (battery.open() == kIOReturnSuccess) {
+    // TODO: Could this change during use? MacBook with removeable battery?
     HAS_BATTERY = true
-    battery.open()
     widgets.append(BatteryWidget(win: Window()))
 }
 
@@ -205,5 +205,6 @@ while (!quit) {
 }
 
 // Cleanup
-smc.close()
-battery.close()
+
+if (HAS_SMC) { smc.close() }
+if (HAS_BATTERY) { battery.close() }

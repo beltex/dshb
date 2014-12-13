@@ -52,7 +52,7 @@ public class TMPWidget: Widget {
         for meter in meters {
             switch meter.name {
                 case "BATTERY":
-                    meter.draw(Int(battery.tmp()))
+                    meter.draw(Int(battery.temperature()))
                 default:
                     meter.draw(Int(smc.getTemperature(map[meter.name]!).tmp))
             }
