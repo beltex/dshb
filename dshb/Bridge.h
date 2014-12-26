@@ -27,20 +27,20 @@
 // TODO: Get rid of extra imports. ncurses.h should include everything we need
 //       but for some reason it doesn't import everything over to Swift
 
-#import <panel.h>
-#import <curses.h>
+//#import <panel.h>
+//#import <curses.h>
 #import <ncurses.h>
 
-#import <stdio.h>
-#import <stdlib.h>
-#import <term.h>
-#import <termios.h>
-#import <termcap.h>
-#import <wchar.h>
+//#import <stdio.h>
+//#import <stdlib.h>
+//#import <term.h>
+//#import <termios.h>
+//#import <termcap.h>
+//#import <wchar.h>
 
 
 // COPIED FROM SYSTEMKIT
-#include <stdio.h>
+//#include <stdio.h>
 #include <sys/sysctl.h>
 
 // Temp simplified struct with only the things we need for now

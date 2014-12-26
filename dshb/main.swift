@@ -181,6 +181,8 @@ while (!quit) {
         case KEY_RESIZE:
             // This could be done through GCD signal handler as well
             dispatch_suspend(source)
+            // If this takes too long, queue will build up. Also, there is the 
+            // issue of mutiple resize calls.
             clear()
             widgetLength = computeWidgetLength()
             for var i = 0; i < widgets.count; ++i {
