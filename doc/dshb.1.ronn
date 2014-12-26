@@ -12,6 +12,9 @@ Placeholder. Define interface.
   * `-f`, `--frequency`:
     Statistic update frequency in seconds.
 
+  * `-h`, `--help`:
+    Show help message (list of ops).
+  
   * `-s`, `--sort`:
     Sort processes by this statistic.
   

@@ -77,6 +77,35 @@ var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
                                                DISPATCH_QUEUE_PRIORITY_HIGH, 0))
 
 
+//------------------------------------------------------------------------------
+// MARK: CLI
+//------------------------------------------------------------------------------
+
+
+let CLI = CommandLine()
+
+let CLI_VERSION = BoolOption(shortFlag: "v", longFlag: "version",
+                             helpMessage: "Show dshb version and exit.")
+let CLI_USER = StringOption(shortFlag: "u", longFlag: "user", required: false,
+                            helpMessage: "Show only processes of a given user.")
+let CLI_HELP = BoolOption(shortFlag: "h", longFlag: "help",
+                          helpMessage: "Show help message.")
+let CLI_FREQ = IntOption(shortFlag: "f", longFlag: "frequency", required: false,
+                         helpMessage: "Statistic update frequency in seconds.")
+
+CLI.addOptions(CLI_VERSION, CLI_USER, CLI_HELP, CLI_FREQ)
+let (success, error) = CLI.parse()
+if (!success) {
+    println(error!)
+    CLI.printUsage()
+    exit(EX_USAGE)
+}
+
+if (CLI_HELP.value) {
+    CLI.printUsage()
+    exit(EX_USAGE)
+}
+
 
 //------------------------------------------------------------------------------
 // MARK: NCURSES SETTINGS
