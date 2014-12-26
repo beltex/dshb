@@ -64,4 +64,4 @@ git clone --recursive git@github.com:beltex/dshb.git
 
 ### License
 
-This project is under the **GNU General Public License v2.0**.
+This project is under the **MIT License**.
