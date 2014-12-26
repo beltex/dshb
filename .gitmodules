@@ -4,3 +4,6 @@
 [submodule "libs/SystemKit"]
 	path = libs/SystemKit
 	url = git@github.com:beltex/SystemKit.git
+[submodule "libs/CommandLine"]
+	path = libs/CommandLine
+	url = git@github.com:jatoben/CommandLine.git
