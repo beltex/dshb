@@ -105,6 +105,14 @@ if (CLI_HELP.value) {
     CLI.printUsage()
     exit(EX_USAGE)
 }
+else if (CLI_VERSION.value) {
+    println(DSHB_VERSION)
+    exit(EX_USAGE)
+}
+
+if let user_freq = CLI_FREQ.value {
+    FREQ = UInt64(user_freq)
+}
 
 
 //------------------------------------------------------------------------------
