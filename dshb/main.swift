@@ -159,14 +159,14 @@ func computeWidgetLength() -> Int32 {
 }
 
 
-let smc = SMC()
+var smc = SMC()
 if (smc.open() == kIOReturnSuccess) {
     HAS_SMC = true
     widgets.append(TMPWidget(win: Window()))
     widgets.append(FanWidget(win: Window()))
 }
 
-let battery = Battery()
+var battery = Battery()
 if (battery.open() == kIOReturnSuccess) {
     // TODO: Could this change during use? MacBook with removeable battery?
     HAS_BATTERY = true
