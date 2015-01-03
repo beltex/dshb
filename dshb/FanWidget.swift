@@ -7,7 +7,7 @@ public class FanWidget: Widget {
     
     private var meters = [Meter]()
     //let maxValue : Int
-    let title : WidgetTitle
+    var title : WidgetTitle
     var win   : Window
     
     init(win : Window) {

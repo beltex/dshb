@@ -1,6 +1,6 @@
 
 
-public class WidgetTitle {
+public struct WidgetTitle {
 
     let title     : String
     let colour    : Int32
@@ -25,14 +25,14 @@ public class WidgetTitle {
     }
     
     
-    func resize(winCoords : Window) {
+    mutating func resize(winCoords : Window) {
         self.winCoords = winCoords
         computeTitlePadding()
         draw()
     }
     
     
-    private func computeTitlePadding() {
+    private mutating func computeTitlePadding() {
         titlePadding = String()
         let spaceLength = Int(winCoords.size.length - countElements(title))
         

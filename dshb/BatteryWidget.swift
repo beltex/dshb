@@ -6,7 +6,7 @@ import Foundation
 public class BatteryWidget: Widget {
     
     private var meters = [Meter]()
-    let title : WidgetTitle
+    var title : WidgetTitle
     var win   : Window
     
     init(win : Window) {

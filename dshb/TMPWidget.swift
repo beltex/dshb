@@ -7,7 +7,7 @@ public class TMPWidget: Widget {
     
     private var meters = [Meter]()
     let maxValue = 95
-    let title : WidgetTitle
+    var title : WidgetTitle
     var win   : Window
     var map : [String : SMC.Temperature] = [ : ]
     
