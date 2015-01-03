@@ -3,7 +3,7 @@
 import Foundation
 
 
-public class FanWidget: Widget {
+public struct FanWidget: Widget {
     
     private var meters = [Meter]()
     //let maxValue : Int
@@ -31,14 +31,14 @@ public class FanWidget: Widget {
     }
     
     
-    func draw() {
+    mutating func draw() {
         for var x = 0; x < meters.count; ++x {
             meters[x].draw(Int(smc.getFanRPM(UInt(x)).rpm))
         }
     }
     
     
-    func resize(newCoords: Window) {
+    mutating func resize(newCoords: Window) {
         self.win = newCoords
         title.resize(win)
         

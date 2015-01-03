@@ -24,8 +24,8 @@ struct Window {
 
 
 protocol Widget {
-    func draw()
-    func resize(newCoords: Window)
+    mutating func draw()
+    mutating func resize(newCoords: Window)
 }
 
 
@@ -190,8 +190,8 @@ dispatch_source_set_timer(source,
                           FREQ * NSEC_PER_SEC, 0)
 
 dispatch_source_set_event_handler(source, {
-    for widget in widgets {
-        widget.draw()
+    for var i = 0; i < widgets.count; ++i {
+        widgets[i].draw()
     }
     refresh()
 })

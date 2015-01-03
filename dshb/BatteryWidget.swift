@@ -3,7 +3,7 @@
 import Foundation
 
 
-public class BatteryWidget: Widget {
+public struct BatteryWidget: Widget {
     
     private var meters = [Meter]()
     var title : WidgetTitle
@@ -24,14 +24,14 @@ public class BatteryWidget: Widget {
     }
     
     
-    func draw() {
+    mutating func draw() {
         meters[0].draw(battery.currentCapacity())
         meters[1].draw(battery.cycleCount())
         meters[2].draw(Int(battery.health()))
     }
     
     
-    func resize(newCoords: Window) {
+    mutating func resize(newCoords: Window) {
         self.win = newCoords
         
         title.resize(win)

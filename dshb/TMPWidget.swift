@@ -3,7 +3,7 @@
 import Foundation
 
 
-public class TMPWidget: Widget {
+public struct TMPWidget: Widget {
     
     private var meters = [Meter]()
     let maxValue = 95
@@ -48,7 +48,7 @@ public class TMPWidget: Widget {
     }
     
     
-    func draw() {
+    mutating func draw() {
         for var i = 0; i < meters.count; ++i {
             switch meters[i].name {
                 case "BATTERY":
@@ -60,7 +60,7 @@ public class TMPWidget: Widget {
     }
     
     
-    func resize(newCoords: Window) {
+    mutating func resize(newCoords: Window) {
         win = newCoords
         title.resize(win)
         
