@@ -49,12 +49,12 @@ public class TMPWidget: Widget {
     
     
     func draw() {
-        for meter in meters {
-            switch meter.name {
+        for var i = 0; i < meters.count; ++i {
+            switch meters[i].name {
                 case "BATTERY":
-                    meter.draw(Int(battery.temperature()))
+                    meters[i].draw(Int(battery.temperature()))
                 default:
-                    meter.draw(Int(smc.getTemperature(map[meter.name]!).tmp))
+                    meters[i].draw(Int(smc.getTemperature(map[meters[i].name]!).tmp))
             }
         }
     }
@@ -65,8 +65,8 @@ public class TMPWidget: Widget {
         title.resize(win)
         
         var y_pos = win.pos.y + 1 // Becuase of title
-        for meter in meters {
-            meter.resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
+        for var i = 0; i < meters.count; ++i {
+            meters[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }        
     }

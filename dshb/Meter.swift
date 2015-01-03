@@ -7,7 +7,7 @@ Bar graph (meter) used to display a metric.
 
 TODO: Op direction of meter. Battery health, battery life.
 */
-public class Meter {
+public struct Meter {
     
     
     //--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ public class Meter {
     //--------------------------------------------------------------------------
     
 
-    func draw(value : Int) {
+    mutating func draw(value : Int) {
         lastValue = value
         let valueLength = countElements(String(value))
         
@@ -147,7 +147,7 @@ public class Meter {
     }
     
     
-    func resize(winCoords: Window) {
+    mutating func resize(winCoords: Window) {
         self.winCoords = winCoords
         low  = Int(ceil(Double(winCoords.size.length) * 0.45))
         mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low

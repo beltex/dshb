@@ -44,8 +44,8 @@ public class FanWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         
-        for meter in meters {
-            meter.resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
+        for var i = 0; i < meters.count; ++i {
+            meters[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
     }
