@@ -29,11 +29,19 @@ public struct MemoryWidget: Widget {
     
     mutating func draw() {
         let values = System.memoryUsage()
-        meters[0].draw(Int(values.free))
-        meters[1].draw(Int(values.wired))
-        meters[2].draw(Int(values.active))
-        meters[3].draw(Int(values.inactive))
-        meters[4].draw(Int(values.compressed))
+        unitCheck(values.free, index: 0)
+        unitCheck(values.wired, index: 1)
+        unitCheck(values.active, index: 2)
+        unitCheck(values.inactive, index: 3)
+        unitCheck(values.compressed, index: 4)
+
+
+        
+        //meters[0].draw(Int(values.free))
+//        meters[1].draw(Int(values.wired))
+//        meters[2].draw(Int(values.active))
+//        meters[3].draw(Int(values.inactive))
+//        meters[4].draw(Int(values.compressed))
     }
     
     
@@ -48,5 +56,19 @@ public struct MemoryWidget: Widget {
         }
         
         return y_pos
+    }
+    
+    
+    private mutating func unitCheck(val: Double, index: Int) {
+        if (val < 1.0) {
+            meters[index].unit = Meter.Unit.Megabyte
+            meters[index].max = Int(System.physicalMemory(unit: System.Unit.Megabyte))
+            meters[index].draw(Int(val * 1000.0))
+        }
+        else {
+            meters[index].unit = Meter.Unit.Gigabyte
+            meters[index].max = Int(System.physicalMemory(unit: System.Unit.Gigabyte))
+            meters[index].draw(Int(val))
+        }
     }
 }

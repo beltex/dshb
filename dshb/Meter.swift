@@ -33,11 +33,11 @@ public struct Meter {
     
     
     let name : String
-    let unit : Unit
+    var unit : Unit
     
     var value : Double = 0
     var winCoords : Window
-    let max   : Int
+    var max   : Int
     
     
     //--------------------------------------------------------------------------
