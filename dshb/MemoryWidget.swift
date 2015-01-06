@@ -9,7 +9,7 @@ public struct MemoryWidget: Widget {
     var title : WidgetTitle
     var win   : Window
     
-    init(win : Window) {
+    init(win: Window) {
         // win.size.width not currently used
         self.win = win
         
@@ -37,7 +37,7 @@ public struct MemoryWidget: Widget {
     }
     
     
-    mutating func resize(newCoords: Window) {
+    mutating func resize(newCoords: Window) -> Int32 {
         win = newCoords
         title.resize(win)
         
@@ -46,5 +46,7 @@ public struct MemoryWidget: Widget {
             meters[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
+        
+        return y_pos
     }
 }

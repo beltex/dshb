@@ -25,7 +25,7 @@ struct Window {
 
 protocol Widget {
     mutating func draw()
-    mutating func resize(newCoords: Window)
+    mutating func resize(newCoords: Window) -> Int32
 }
 
 
@@ -155,8 +155,13 @@ init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 
 
 func computeWidgetLength() -> Int32 {
-    return Int32(floor(Double((COLS - (gap * Int32(widgets.count - 1)))) / Double(widgets.count)))
+    //return Int32(floor(Double((COLS - (gap * Int32(widgets.count - 1)))) / Double(widgets.count)))
+    return Int32(floor(Double((COLS - (gap * Int32(3 - 1)))) / Double(3)))
 }
+
+widgets.append(CPUWidget(win: Window()))
+widgets.append(MemoryWidget(win: Window()))
+widgets.append(SystemWidget(win: Window()))
 
 
 var smc = SMC()
@@ -173,14 +178,31 @@ if (battery.open() == kIOReturnSuccess) {
     widgets.append(BatteryWidget(win: Window()))
 }
 
-widgets.append(SystemWidget(win: Window()))
-widgets.append(CPUWidget(win: Window()))
-widgets.append(MemoryWidget(win: Window()))
+var widgetLength: Int32 = 0
 
-var widgetLength = computeWidgetLength()
-for var i = 0; i < widgets.count; ++i {
-    widgets[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * Int32(i), y: 0)))
+func draw_all() {
+    widgetLength = computeWidgetLength()
+    
+    var result_pos: Int32 = 0
+    var result_max: Int32 = 0
+    var y_pos_new: Int32 = 0
+    var x_multi: Int32 = 0
+    for var i = 0; i < widgets.count; ++i {
+        if (i % 3 == 0) {
+            y_pos_new += result_max
+            x_multi = 0
+        }
+        
+        result_pos = widgets[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * x_multi, y: y_pos_new)))
+        
+        if (result_pos > result_max) {
+            result_max = result_pos
+        }
+        ++x_multi
+    }
 }
+
+draw_all()
 
 
 //------------------------------------------------------------------------------
@@ -224,10 +246,7 @@ while (!quit) {
             // If this takes too long, queue will build up. Also, there is the 
             // issue of mutiple resize calls.
             clear()
-            widgetLength = computeWidgetLength()
-            for var i = 0; i < widgets.count; ++i {
-                widgets[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * Int32(i), y: 0)))
-            }
+            draw_all()
             refresh()
             dispatch_resume(source)
         case 113:

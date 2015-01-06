@@ -47,7 +47,6 @@ public struct Meter {
     
     private let nameLength : Int
     private let unitLength : Int
-    private var spaceLen   : Int = 0
     private var lastValue  : Int = 0
     
     var low  : Int
