@@ -60,7 +60,7 @@ public struct Meter {
     //--------------------------------------------------------------------------
 
     
-    init(name : String, winCoords : Window, max  : Int, unit : Unit) {
+    init(name: String, winCoords: Window, max: Int, unit: Unit) {
         self.name      = name
         self.winCoords = winCoords
         self.unit      = unit
