@@ -5,10 +5,8 @@ import Foundation
 public struct CPUWidget: Widget {
     
     private var meters = [Meter]()
-    let maxValue = 95
     var title : WidgetTitle
     var win   : Window
-    var map : [String : SMC.Temperature] = [ : ]
     
     private var sys = System()
     
