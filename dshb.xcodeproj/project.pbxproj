@@ -18,6 +18,7 @@
 		4C9C0E5119E32921009EF6A9 /* TMPWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */; };
 		4CB246C41A5B916F00CA8AC4 /* SystemWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C31A5B916F00CA8AC4 /* SystemWidget.swift */; };
 		4CB246C61A5B91D800CA8AC4 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C51A5B91D800CA8AC4 /* Stat.swift */; };
+		4CB246C81A5BAADC00CA8AC4 /* CPUWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C71A5BAADC00CA8AC4 /* CPUWidget.swift */; };
 		4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* Meter.swift */; };
 		4CCC4D8E1A0EFBD600C47931 /* libncurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CCC4D8D1A0EFBD600C47931 /* libncurses.dylib */; };
 		4CEBF73A1A4E066F0001B326 /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBF7371A4E066F0001B326 /* CommandLine.swift */; };
@@ -51,6 +52,7 @@
 		4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMPWidget.swift; sourceTree = "<group>"; };
 		4CB246C31A5B916F00CA8AC4 /* SystemWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemWidget.swift; sourceTree = "<group>"; };
 		4CB246C51A5B91D800CA8AC4 /* Stat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
+		4CB246C71A5BAADC00CA8AC4 /* CPUWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUWidget.swift; sourceTree = "<group>"; };
 		4CCB22A119D4F07B0058E62D /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meter.swift; sourceTree = "<group>"; };
 		4CCC4D8D1A0EFBD600C47931 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = usr/lib/libncurses.dylib; sourceTree = SDKROOT; };
 		4CEBF7371A4E066F0001B326 /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandLine.swift; path = libs/CommandLine/CommandLine/CommandLine.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				4C97A53119E4B2F10018EFB6 /* FanWidget.swift */,
 				4C4281FA1A3009040000C114 /* BatteryWidget.swift */,
 				4CB246C31A5B916F00CA8AC4 /* SystemWidget.swift */,
+				4CB246C71A5BAADC00CA8AC4 /* CPUWidget.swift */,
 			);
 			path = dshb;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				4CB246C61A5B91D800CA8AC4 /* Stat.swift in Sources */,
 				4CEBF73A1A4E066F0001B326 /* CommandLine.swift in Sources */,
 				4CEBF73B1A4E066F0001B326 /* Option.swift in Sources */,
+				4CB246C81A5BAADC00CA8AC4 /* CPUWidget.swift in Sources */,
 				4C97A53219E4B2F10018EFB6 /* FanWidget.swift in Sources */,
 				4C6D98BF1A3BF7B700BA2B36 /* kinfo_proc-bridge.c in Sources */,
 				4C81CACC1A05FD140078EC22 /* System.swift in Sources */,

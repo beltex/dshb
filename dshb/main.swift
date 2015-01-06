@@ -174,6 +174,7 @@ if (battery.open() == kIOReturnSuccess) {
 }
 
 widgets.append(SystemWidget(win: Window()))
+widgets.append(CPUWidget(win: Window()))
 
 var widgetLength = computeWidgetLength()
 for var i = 0; i < widgets.count; ++i {
