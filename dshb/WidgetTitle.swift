@@ -9,7 +9,7 @@ public struct WidgetTitle {
     private var titlePadding = String()
     
     
-    init(title : String, winCoords : Window, colour : Int32) {
+    init(title: String, winCoords: Window, colour: Int32) {
         self.title     = title
         self.colour    = colour
         self.winCoords = winCoords

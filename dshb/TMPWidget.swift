@@ -6,7 +6,7 @@ import Foundation
 public struct TMPWidget: Widget {
     
     private var meters = [Meter]()
-    let maxValue = 95
+    let maxValue = 128
     var title : WidgetTitle
     var win   : Window
     var map : [String : SMC.Temperature] = [ : ]

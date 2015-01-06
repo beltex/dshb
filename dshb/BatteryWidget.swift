@@ -6,6 +6,7 @@ import Foundation
 public struct BatteryWidget: Widget {
     
     private var meters = [Meter]()
+    private var meterInverse : MeterInverse
     var title : WidgetTitle
     var win   : Window
     
@@ -18,7 +19,7 @@ public struct BatteryWidget: Widget {
         title = WidgetTitle(title: "Battery", winCoords: titleCoords, colour: COLOR_PAIR(5))        
 
         
-        meters.append(Meter(name: "Charge", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: 100, unit: Meter.Unit.Percentage))
+        meterInverse = MeterInverse(name: "Charge", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: 100, unit: MeterInverse.Unit.Percentage)
         meters.append(Meter(name: "Capacity", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2)), max: battery.designCapacity(), unit: Meter.Unit.None))
         meters.append(Meter(name: "Cycles", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3)), max: battery.designCycleCount(), unit: Meter.Unit.None))
         meters.append(Meter(name: "Health", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 4)), max: 100, unit: Meter.Unit.Percentage))
@@ -26,10 +27,10 @@ public struct BatteryWidget: Widget {
     
     
     mutating func draw() {
-        meters[0].draw(Int(battery.charge()))
-        meters[1].draw(battery.currentCapacity())
-        meters[2].draw(battery.cycleCount())
-        meters[3].draw(Int(battery.health()))
+        meterInverse.draw(Int(battery.charge()))
+        meters[0].draw(battery.currentCapacity())
+        meters[1].draw(battery.cycleCount())
+        meters[2].draw(Int(battery.health()))
     }
     
     
@@ -40,6 +41,8 @@ public struct BatteryWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         
+        meterInverse.resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
+        y_pos++
         for var i = 0; i < meters.count; ++i {
             meters[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
             y_pos++

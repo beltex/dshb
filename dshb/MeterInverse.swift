@@ -2,12 +2,8 @@
 
 import Foundation
 
-/**
-Bar graph (meter) used to display a metric.
 
-TODO: Op direction of meter. Battery health, battery life.
-*/
-public struct Meter {
+public struct MeterInverse {
     
     
     //--------------------------------------------------------------------------
@@ -43,21 +39,21 @@ public struct Meter {
     //--------------------------------------------------------------------------
     // MARK: PRIVATE PROPERTIES
     //--------------------------------------------------------------------------
-
+    
     
     private let nameLength : Int
     private let unitLength : Int
     private var lastValue  : Int = 0
     
     var low  : Int
-    var mid  : Int
+    //var mid  : Int
     var high : Int
     
     
     //--------------------------------------------------------------------------
     // MARK: INITIALIZERS
     //--------------------------------------------------------------------------
-
+    
     
     init(name: String, winCoords: Window, max: Int, unit: Unit) {
         self.name      = name
@@ -68,9 +64,9 @@ public struct Meter {
         nameLength     = countElements(name)
         unitLength     = countElements(unit.rawValue)
         
-        low  = Int(ceil(Double(winCoords.size.length) * 0.45))
-        mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
-        high = Int(floor(Double(winCoords.size.length) * 0.25))
+        low  = Int(ceil(Double(winCoords.size.length) * 0.20))
+        //mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
+        high = Int(floor(Double(winCoords.size.length) * 0.80))
     }
     
     
@@ -78,7 +74,7 @@ public struct Meter {
     // MARK: PUBLIC METHODS
     //--------------------------------------------------------------------------
     
-
+    
     mutating func draw(value : Int) {
         lastValue = value
         let valueLength = countElements(String(value))
@@ -94,7 +90,7 @@ public struct Meter {
         }
         
         let spaceLen = winCoords.size.length - (countElements(nameEdit) + valueLength + unitLength)
-
+        
         
         // Range setup
         let percentage = Double(value) / Double(max)
@@ -104,7 +100,7 @@ public struct Meter {
         for var x = 0; x < Int(spaceLen); ++x {
             space.append(UnicodeScalar(" "))
         }
-    
+        
         var char_array = Array(nameEdit + space + String(value) + unit.rawValue)
         
         
@@ -120,19 +116,14 @@ public struct Meter {
         for char in char_array {
             if (count < valueRange) {
                 if (valueRange < low) {
-                    // Green
-                    attrset(COLOR_PAIR(Int32(1)))
-                    addstr(String(char))
-                }
-                else if (valueRange >= low && valueRange < mid) {
-                    // Yellow
-                    attrset(COLOR_PAIR(Int32(2)))
+                    // Red
+                    attrset(COLOR_PAIR(Int32(3)))
                     addstr(String(char))
                 }
                 else {
-                    // Red
+                    // Green
                     // > 23
-                    attrset(COLOR_PAIR(Int32(3)))
+                    attrset(COLOR_PAIR(Int32(1)))
                     addstr(String(char))
                 }
             }
@@ -148,9 +139,9 @@ public struct Meter {
     
     mutating func resize(winCoords: Window) {
         self.winCoords = winCoords
-        low  = Int(ceil(Double(winCoords.size.length) * 0.45))
-        mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
-        high = Int(floor(Double(winCoords.size.length) * 0.25))
+        low  = Int(ceil(Double(winCoords.size.length) * 0.20))
+        //mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
+        high = Int(floor(Double(winCoords.size.length) * 0.80))
         
         draw(lastValue)
     }
