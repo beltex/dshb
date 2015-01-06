@@ -70,11 +70,11 @@ Statistic widgets that are on (displayed)
 var widgets = [Widget]()
 
 
-// TODO: This should probably be a serial queue
-// TODO: Custom serial attr prop creation causes runtime crash - Swift bug?
+
+// TODO: Custom serial attr prop creation is new to 10.10 
 var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
-                                    dispatch_get_global_queue(
-                                               DISPATCH_QUEUE_PRIORITY_HIGH, 0))
+                                    dispatch_queue_create("com.beltex.dshb",
+                                                         DISPATCH_QUEUE_SERIAL))
 
 
 //------------------------------------------------------------------------------
