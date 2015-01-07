@@ -25,13 +25,15 @@ public struct TMPWidget: Widget {
         let temperatureSensors = smc.getAllValidTemperatureKeys()
         var temperatureSensorNames = temperatureSensors.map({
                                                SMC.Temperature.allValues[$0]! })
-        // This comes from SystemKit, have to manually added
-        // TODO: Check if laptop
-        temperatureSensorNames.append("BATTERY")
-        if (temperatureSensors.count > 1) {
-            temperatureSensorNames = sorted(temperatureSensorNames, { $0 < $1 })
-        }
         
+        // This comes from SystemKit, have to manually added
+        if (hasBattery) {
+            temperatureSensorNames.append("BATTERY")
+            // Only need to sort if have battery, since already sorted from SMCKit
+            if (temperatureSensorNames.count > 1) {
+                temperatureSensorNames = sorted(temperatureSensorNames, { $0 < $1 })
+            }
+        }
         
         for key in temperatureSensors {
             map.updateValue(key, forKey: SMC.Temperature.allValues[key]!)

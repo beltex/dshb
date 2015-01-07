@@ -151,19 +151,19 @@ widgets.append(CPUWidget(win: Window()))
 widgets.append(MemoryWidget(win: Window()))
 widgets.append(SystemWidget(win: Window()))
 
+// Do this before SMC, since temperature widget needs to know about battery
+var battery = Battery()
+if (battery.open() == kIOReturnSuccess) {
+    // TODO: Could this change during use? MacBook with removeable battery?
+    hasBattery = true
+    widgets.append(BatteryWidget(win: Window()))
+}
 
 var smc = SMC()
 if (smc.open() == kIOReturnSuccess) {
     hasSMC = true
     widgets.append(TMPWidget(win: Window()))
     widgets.append(FanWidget(win: Window()))
-}
-
-var battery = Battery()
-if (battery.open() == kIOReturnSuccess) {
-    // TODO: Could this change during use? MacBook with removeable battery?
-    hasBattery = true
-    widgets.append(BatteryWidget(win: Window()))
 }
 
 var widgetLength: Int32 = 0
