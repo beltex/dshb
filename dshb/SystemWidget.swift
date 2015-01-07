@@ -20,7 +20,6 @@ public struct SystemWidget: Widget {
         stats.append(Stat(name: "Threads", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2))))
         stats.append(Stat(name: "Load Avg", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3))))
         stats.append(Stat(name: "Mach factor", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 4))))
-
     }
     
     

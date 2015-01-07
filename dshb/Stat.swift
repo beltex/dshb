@@ -57,9 +57,12 @@ public struct Stat {
         
         // TODO: What if numberChars is less than zero? Crash
         var nameEdit = name
-        if (nameLength > Int(numberChars)) {
+        if (nameLength > Int(numberChars) && Int(numberChars) > 0) {
             nameEdit = (name as NSString).substringToIndex(Int(numberChars - 1))
             nameEdit.append(UnicodeScalar("…"))
+        }
+        else if (Int(numberChars) < 0) {
+            return
         }
         
         let spaceLen = winCoords.size.length - (countElements(nameEdit) + valueLength)

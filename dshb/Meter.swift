@@ -2,11 +2,7 @@
 
 import Foundation
 
-/**
-Bar graph (meter) used to display a metric.
-
-TODO: Op direction of meter. Battery health, battery life.
-*/
+/// Bar graph (meter) used to display a metric
 public struct Meter {
     
     
@@ -79,7 +75,7 @@ public struct Meter {
     //--------------------------------------------------------------------------
     
 
-    mutating func draw(value : Int) {
+    mutating func draw(value: Int) {
         lastValue = value
         let valueLength = countElements(String(value))
         

@@ -1,3 +1,28 @@
+//
+// main.swift
+// dshb
+//
+// The MIT License
+//
+// Copyright (C) 2014  beltex <https://github.com/beltex>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import IOKit
 import Darwin
@@ -5,82 +30,49 @@ import Dispatch
 import Foundation
 
 //------------------------------------------------------------------------------
-// MARK: GLOBAL STRUCTS
+// MARK: GLOBAL PROTOCOLS
 //------------------------------------------------------------------------------
-
-
-/**
-Like an ncurses window
-*/
-struct Window {
-    var size : (length: Int32, width: Int32) = (0, 0)
-    var pos  : (x: Int32, y: Int32) = (0, 0)
-}
-
-
-//------------------------------------------------------------------------------
-// MARK:  GLOBAL PROTOCOLS
-//------------------------------------------------------------------------------
-
 
 protocol Widget {
     mutating func draw()
     mutating func resize(newCoords: Window) -> Int32
 }
 
+//------------------------------------------------------------------------------
+// MARK: GLOBAL STRUCTS
+//------------------------------------------------------------------------------
+
+/// Like an ncurses window
+struct Window {
+    var size : (length: Int32, width: Int32) = (0, 0)
+    var pos  : (x: Int32, y: Int32) = (0, 0)
+}
 
 //------------------------------------------------------------------------------
 // MARK: GLOBAL PROPERTIES
 //------------------------------------------------------------------------------
 
-
-/**
-dshb version
-*/
+/// Application version
 let DSHB_VERSION = "0.0.1"
 
+/// Does this machine have a battery?
+var hasBattery = false
 
-/**
-Does the machine have a battery?
-*/
-var HAS_BATTERY = false
+/// Does this machine have a SMC (System Management Controller)?
+var hasSMC = false
 
-
-/**
-Does the machine have a SMC (System Management Controller)?
-*/
-var HAS_SMC = false
-
-
-/**
-Statistic update frequency in seconds
-*/
+/// Statistic update frequency in seconds
 var FREQ: UInt64 = 1
 
-
-/**
-Gap between widgets
-*/
+/// Gap between widgets
 var gap: Int32 = 1
 
-
-/**
-Statistic widgets that are on (displayed)
-*/
+/// Statistic widgets that are on (displayed)
 var widgets = [Widget]()
-
-
-
-// TODO: Custom serial attr prop creation is new to 10.10 
-var source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
-                                    dispatch_queue_create("com.beltex.dshb",
-                                                         DISPATCH_QUEUE_SERIAL))
-
 
 //------------------------------------------------------------------------------
 // MARK: CLI
 //------------------------------------------------------------------------------
-
 
 let CLI = CommandLine()
 
@@ -114,11 +106,9 @@ if let user_freq = CLI_FREQ.value {
     FREQ = UInt64(user_freq)
 }
 
-
 //------------------------------------------------------------------------------
 // MARK: NCURSES SETTINGS
 //------------------------------------------------------------------------------
-
 
 setlocale(LC_ALL, "")
 initscr()                   // Init window. Must be first
@@ -148,11 +138,9 @@ init_pair(3, Int16(COLOR_BLACK), Int16(COLOR_RED))
 init_pair(4, Int16(COLOR_WHITE), Int16(use_default_colors()))
 init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 
-
 //------------------------------------------------------------------------------
 // MARK: WIDGET SETUP
 //------------------------------------------------------------------------------
-
 
 func computeWidgetLength() -> Int32 {
     //return Int32(floor(Double((COLS - (gap * Int32(widgets.count - 1)))) / Double(widgets.count)))
@@ -166,7 +154,7 @@ widgets.append(SystemWidget(win: Window()))
 
 var smc = SMC()
 if (smc.open() == kIOReturnSuccess) {
-    HAS_SMC = true
+    hasSMC = true
     widgets.append(TMPWidget(win: Window()))
     widgets.append(FanWidget(win: Window()))
 }
@@ -174,7 +162,7 @@ if (smc.open() == kIOReturnSuccess) {
 var battery = Battery()
 if (battery.open() == kIOReturnSuccess) {
     // TODO: Could this change during use? MacBook with removeable battery?
-    HAS_BATTERY = true
+    hasBattery = true
     widgets.append(BatteryWidget(win: Window()))
 }
 
@@ -204,11 +192,14 @@ func draw_all() {
 
 draw_all()
 
-
 //------------------------------------------------------------------------------
 // MARK: GCD TIMER SETUP
 //------------------------------------------------------------------------------
 
+// TODO: Custom serial attr prop creation is new to 10.10
+let source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
+                                    dispatch_queue_create("com.beltex.dshb",
+                                                         DISPATCH_QUEUE_SERIAL))
 
 dispatch_source_set_timer(source,
                           dispatch_time(DISPATCH_TIME_NOW, 0),
@@ -224,16 +215,13 @@ dispatch_source_set_event_handler(source, {
 // We have to resume the the dispatch source as it is paused by default
 dispatch_resume(source)
 
-
 //------------------------------------------------------------------------------
 // MARK: MAIN (EVENT) LOOP - WHERE THE MAGIC HAPPENS :)
 //------------------------------------------------------------------------------
 
+var key: Int32 = 0
 
-var key : Int32 = 0
-var quit = false
-
-while (!quit) {
+while true {
     // TODO: Why does esc (27) cause such a slow response, as oppossed to
     //       something like 'q'?
     key = getch()
@@ -249,23 +237,14 @@ while (!quit) {
             draw_all()
             refresh()
             dispatch_resume(source)
-        case 113:
+        case Int32(UnicodeScalar("q").value):
             dispatch_source_cancel(source)
-            endwin()    // Close window. Must call before exit
-            quit = true
-            break
-        case KEY_DOWN:
-            // FIXME: This is just temp, for testing
-            var x = getcurx(stdscr)
-            var y = getcury(stdscr)
-            move(y + 1, x)
-            refresh()
+            endwin()    // ncurses cleanup
+            if (hasSMC)     { smc.close()     }
+            if (hasBattery) { battery.close() }
+            exit(EX_OK)
         default:
             true
     }
 }
 
-// Cleanup
-
-if (HAS_SMC) { smc.close() }
-if (HAS_BATTERY) { battery.close() }
