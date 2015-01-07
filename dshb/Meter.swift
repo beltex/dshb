@@ -5,11 +5,9 @@ import Foundation
 /// Bar graph (meter) used to display a metric
 public struct Meter {
     
-    
     //--------------------------------------------------------------------------
     // MARK: PUBLIC ENUMS
     //--------------------------------------------------------------------------
-    
     
     public enum Unit : String {
         case Celsius    = "°C"
@@ -22,11 +20,9 @@ public struct Meter {
         case RPM        = " RPM"
     }
     
-    
     //--------------------------------------------------------------------------
     // MARK: PUBLIC PROPERTIES
     //--------------------------------------------------------------------------
-    
     
     let name : String
     var unit : Unit
@@ -35,20 +31,17 @@ public struct Meter {
     var winCoords : Window
     var max   : Int
     
-    
     //--------------------------------------------------------------------------
     // MARK: PRIVATE PROPERTIES
     //--------------------------------------------------------------------------
 
-    
     private let nameLength : Int
     private let unitLength : Int
     private var lastValue  : Int = 0
     
-    var low  : Int
-    var mid  : Int
-    var high : Int
-    
+    private var low  : Int = 0
+    private var mid  : Int = 0
+    private var high : Int = 0
     
     //--------------------------------------------------------------------------
     // MARK: INITIALIZERS
@@ -64,9 +57,7 @@ public struct Meter {
         nameLength     = countElements(name)
         unitLength     = countElements(unit.rawValue)
         
-        low  = Int(ceil(Double(winCoords.size.length) * 0.45))
-        mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
-        high = Int(floor(Double(winCoords.size.length) * 0.25))
+        computeRanges()
     }
     
     
@@ -144,10 +135,14 @@ public struct Meter {
     
     mutating func resize(winCoords: Window) {
         self.winCoords = winCoords
+        computeRanges()
+        draw(lastValue)
+    }
+    
+    
+    private mutating func computeRanges() {
         low  = Int(ceil(Double(winCoords.size.length) * 0.45))
         mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
         high = Int(floor(Double(winCoords.size.length) * 0.25))
-        
-        draw(lastValue)
     }
 }

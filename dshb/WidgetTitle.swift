@@ -25,7 +25,7 @@ public struct WidgetTitle {
     }
     
     
-    mutating func resize(winCoords : Window) {
+    mutating func resize(winCoords: Window) {
         self.winCoords = winCoords
         computeTitlePadding()
         draw()
@@ -34,7 +34,7 @@ public struct WidgetTitle {
     
     private mutating func computeTitlePadding() {
         titlePadding = String()
-        let spaceLength = Int(winCoords.size.length - countElements(title))
+        let spaceLength = Int(winCoords.size.length) - countElements(title)
         
         for var i = 0; i < spaceLength; ++i {
             titlePadding.append(UnicodeScalar(" "))
