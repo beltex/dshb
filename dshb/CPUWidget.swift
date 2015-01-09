@@ -10,24 +10,25 @@ public struct CPUWidget: Widget {
     
     private var sys = System()
     
+    private let stats = ["System", "User", "Idle", "Nice"]
+    
     init(win: Window) {
         // win.size.width not currently used
         self.win = win
-        
         
         // Title init
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "CPU", winCoords: titleCoords, colour: COLOR_PAIR(5))
         
-        
-        meters.append(Meter(name: "System", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: 100, unit: Meter.Unit.Percentage))
-        meters.append(Meter(name: "User", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2)), max: 100, unit: Meter.Unit.Percentage))
-        meters.append(Meter(name: "Idle", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3)), max: 100, unit: Meter.Unit.Percentage))
+        for stat in stats {
+            meters.append(Meter(name: stat,
+                                winCoords: Window(size: (length: win.size.length, width: 1),
+                                                  pos: (x:win.pos.x, y:win.pos.y + 1)),
+                                max: 100.0, unit: Meter.Unit.Percentage))
+        }
+
         meters[2].lowColour = Int32(3)
         meters[2].highColour = Int32(1)
-        
-        meters.append(Meter(name: "Nice", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 4)), max: 100, unit: Meter.Unit.Percentage))
-
     }
     
     
