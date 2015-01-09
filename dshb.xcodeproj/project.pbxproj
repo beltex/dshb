@@ -18,7 +18,6 @@
 		4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */; };
 		4C9C0E5119E32921009EF6A9 /* TMPWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */; };
 		4CB246C41A5B916F00CA8AC4 /* SystemWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C31A5B916F00CA8AC4 /* SystemWidget.swift */; };
-		4CB246C61A5B91D800CA8AC4 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C51A5B91D800CA8AC4 /* Stat.swift */; };
 		4CB246C81A5BAADC00CA8AC4 /* CPUWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C71A5BAADC00CA8AC4 /* CPUWidget.swift */; };
 		4CB246CA1A5BACF200CA8AC4 /* MemoryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C91A5BACF200CA8AC4 /* MemoryWidget.swift */; };
 		4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* Meter.swift */; };
@@ -54,7 +53,6 @@
 		4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTitle.swift; sourceTree = "<group>"; };
 		4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMPWidget.swift; sourceTree = "<group>"; };
 		4CB246C31A5B916F00CA8AC4 /* SystemWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemWidget.swift; sourceTree = "<group>"; };
-		4CB246C51A5B91D800CA8AC4 /* Stat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		4CB246C71A5BAADC00CA8AC4 /* CPUWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUWidget.swift; sourceTree = "<group>"; };
 		4CB246C91A5BACF200CA8AC4 /* MemoryWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryWidget.swift; sourceTree = "<group>"; };
 		4CCB22A119D4F07B0058E62D /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meter.swift; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 				4C7F147D19C7B49700F9DCE4 /* Bridge.h */,
 				4CCB22A119D4F07B0058E62D /* Meter.swift */,
 				4C382EAC1A5C6BAC0080B91F /* MeterInverse.swift */,
-				4CB246C51A5B91D800CA8AC4 /* Stat.swift */,
 				4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */,
 				4C9C0E5019E32921009EF6A9 /* TMPWidget.swift */,
 				4C97A53119E4B2F10018EFB6 /* FanWidget.swift */,
@@ -212,7 +209,6 @@
 				4C81CACB1A05FD140078EC22 /* Battery.swift in Sources */,
 				4C9C0E5119E32921009EF6A9 /* TMPWidget.swift in Sources */,
 				4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */,
-				4CB246C61A5B91D800CA8AC4 /* Stat.swift in Sources */,
 				4CB246CA1A5BACF200CA8AC4 /* MemoryWidget.swift in Sources */,
 				4CEBF73A1A4E066F0001B326 /* CommandLine.swift in Sources */,
 				4C382EAD1A5C6BAC0080B91F /* MeterInverse.swift in Sources */,

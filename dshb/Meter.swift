@@ -35,7 +35,7 @@ public struct Meter {
     //--------------------------------------------------------------------------
 
     private let nameLength : Int
-    private let unitLength : Int
+    private var unitLength : Int
     private var lastValue  = String()
     private var lastPercentage = 0.0
     

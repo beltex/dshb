@@ -16,7 +16,7 @@ public struct TMPWidget: Widget {
         
         // Title init
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
-        title = WidgetTitle(title: "TMPs", winCoords: titleCoords, colour: COLOR_PAIR(5))
+        title = WidgetTitle(title: "Temperature", winCoords: titleCoords, colour: COLOR_PAIR(5))
         
         
         // Sensors list
