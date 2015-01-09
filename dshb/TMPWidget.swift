@@ -6,15 +6,13 @@ import Foundation
 public struct TMPWidget: Widget {
     
     private var meters = [Meter]()
-    let maxValue = 128
+    let maxValue = 128.0
     var title : WidgetTitle
     var win   : Window
     var map : [String : SMC.Temperature] = [ : ]
     
     init(win: Window) {
-        // win.size.width not currently used
         self.win = win
-
         
         // Title init
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
@@ -52,12 +50,14 @@ public struct TMPWidget: Widget {
     
     mutating func draw() {
         for var i = 0; i < meters.count; ++i {
+            var value = 0.0
             switch meters[i].name {
                 case "BATTERY":
-                    meters[i].draw(Int(battery.temperature()))
+                    value = battery.temperature()
                 default:
-                    meters[i].draw(Int(smc.getTemperature(map[meters[i].name]!).tmp))
+                    value = smc.getTemperature(map[meters[i].name]!).tmp
             }
+            meters[i].draw(String(Int(value)), percentage: value / maxValue)
         }
     }
     

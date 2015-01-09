@@ -20,17 +20,22 @@ public struct BatteryWidget: Widget {
 
         
         meterInverse = MeterInverse(name: "Charge", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: 100, unit: MeterInverse.Unit.Percentage)
-        meters.append(Meter(name: "Capacity", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2)), max: battery.designCapacity(), unit: Meter.Unit.None))
-        meters.append(Meter(name: "Cycles", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3)), max: battery.designCycleCount(), unit: Meter.Unit.None))
+        meters.append(Meter(name: "Capacity", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2)), max: Double(battery.designCapacity()), unit: Meter.Unit.None))
+        meters.append(Meter(name: "Cycles", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3)), max: Double(battery.designCycleCount()), unit: Meter.Unit.None))
         meters.append(Meter(name: "Health", winCoords : Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 4)), max: 100, unit: Meter.Unit.Percentage))
     }
     
     
     mutating func draw() {
         meterInverse.draw(Int(battery.charge()))
-        meters[0].draw(battery.currentCapacity())
-        meters[1].draw(battery.cycleCount())
-        meters[2].draw(Int(battery.health()))
+        
+        var v1 = battery.currentCapacity()
+        var v2 = battery.cycleCount()
+        var v3 = battery.health()
+        
+        meters[0].draw(String(v1), percentage:  Double(v1) / Double(battery.designCapacity()))
+        meters[1].draw(String(v2), percentage: Double(v2) / Double(battery.designCycleCount()))
+        meters[2].draw(String(Int(v3)), percentage: v3 / 100.0)
     }
     
     

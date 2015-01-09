@@ -30,10 +30,10 @@ public struct CPUWidget: Widget {
     
     mutating func draw() {
         let values = sys.usageCPU()
-        meters[0].draw(Int(values.system))
-        meters[1].draw(Int(values.user))
-        meters[2].draw(Int(values.idle))
-        meters[3].draw(Int(values.nice))
+        meters[0].draw(String(Int(values.system)), percentage: values.system / 100.0)
+        meters[1].draw(String(Int(values.user)), percentage: values.user / 100.0)
+        meters[2].draw(String(Int(values.idle)), percentage: values.idle / 100.0)
+        meters[3].draw(String(Int(values.nice)), percentage: values.nice / 100.0)
     }
     
     

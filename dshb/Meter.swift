@@ -2,7 +2,6 @@
 
 import Foundation
 
-/// Bar graph (meter) used to display a metric
 public struct Meter {
     
     //--------------------------------------------------------------------------
@@ -29,7 +28,7 @@ public struct Meter {
     
     var value : Double = 0
     var winCoords : Window
-    var max   : Int
+    var max   : Double
     
     //--------------------------------------------------------------------------
     // MARK: PRIVATE PROPERTIES
@@ -37,7 +36,8 @@ public struct Meter {
 
     private let nameLength : Int
     private let unitLength : Int
-    private var lastValue  : Int = 0
+    private var lastValue  = String()
+    private var lastPercentage = 0.0
     
     private var low  : Int = 0
     private var mid  : Int = 0
@@ -46,9 +46,8 @@ public struct Meter {
     //--------------------------------------------------------------------------
     // MARK: INITIALIZERS
     //--------------------------------------------------------------------------
-
     
-    init(name: String, winCoords: Window, max: Int, unit: Unit) {
+    init(name: String, winCoords: Window, max: Double, unit: Unit) {
         self.name      = name
         self.winCoords = winCoords
         self.unit      = unit
@@ -60,16 +59,14 @@ public struct Meter {
         computeRanges()
     }
     
-    
     //--------------------------------------------------------------------------
     // MARK: PUBLIC METHODS
     //--------------------------------------------------------------------------
     
-
-    mutating func draw(value: Int) {
+    mutating func draw(value: String, percentage: Double) {
         lastValue = value
-        let valueLength = countElements(String(value))
-        
+        lastPercentage = percentage
+        let valueLength = countElements(value)
         
         // Name setup
         let numberChars = winCoords.size.length - (2 + valueLength + unitLength)
@@ -84,7 +81,7 @@ public struct Meter {
 
         
         // Range setup
-        let percentage = Double(value) / Double(max)
+        //let percentage = Double(value) / Double(max)
         var valueRange = Int(floor(Double(winCoords.size.length) * percentage))
         
         var space = String()
@@ -92,7 +89,7 @@ public struct Meter {
             space.append(UnicodeScalar(" "))
         }
     
-        var char_array = Array(nameEdit + space + String(value) + unit.rawValue)
+        var char_array = Array(nameEdit + space + value + unit.rawValue)
         
         
         // Setup
@@ -136,7 +133,7 @@ public struct Meter {
     mutating func resize(winCoords: Window) {
         self.winCoords = winCoords
         computeRanges()
-        draw(lastValue)
+        draw(lastValue, percentage: lastPercentage)
     }
     
     

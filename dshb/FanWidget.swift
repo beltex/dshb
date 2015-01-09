@@ -25,7 +25,7 @@ public struct FanWidget: Widget {
         
         for var x : UInt = 0; x < numFans; ++x {
             let winCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:y_pos))
-            meters.append(Meter(name: smc.getFanName(x).name, winCoords : winCoords, max: Int(smc.getFanMaxRPM(x).rpm), unit: Meter.Unit.RPM))
+            meters.append(Meter(name: smc.getFanName(x).name, winCoords : winCoords, max: Double(smc.getFanMaxRPM(x).rpm), unit: Meter.Unit.RPM))
             ++y_pos
         }
     }
@@ -33,7 +33,8 @@ public struct FanWidget: Widget {
     
     mutating func draw() {
         for var x = 0; x < meters.count; ++x {
-            meters[x].draw(Int(smc.getFanRPM(UInt(x)).rpm))
+            let value = smc.getFanRPM(UInt(x)).rpm
+            meters[x].draw(String(value), percentage: Double(value) / meters[x].max)
         }
     }
     
