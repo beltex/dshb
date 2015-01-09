@@ -30,6 +30,16 @@ public struct Meter {
     var winCoords : Window
     var max   : Double
     
+    var lowPercentage  = 0.45
+    var midPercentage  = 0.30
+    var highPercentage = 0.20
+    
+    
+    var lowColour  : Int32 = 1
+    var midColour  : Int32 = 2
+    var highColour : Int32 = 3
+    
+    
     //--------------------------------------------------------------------------
     // MARK: PRIVATE PROPERTIES
     //--------------------------------------------------------------------------
@@ -105,18 +115,18 @@ public struct Meter {
             if (count < valueRange) {
                 if (valueRange < low) {
                     // Green
-                    attrset(COLOR_PAIR(Int32(1)))
+                    attrset(COLOR_PAIR(lowColour))
                     addstr(String(char))
                 }
                 else if (valueRange >= low && valueRange < mid) {
                     // Yellow
-                    attrset(COLOR_PAIR(Int32(2)))
+                    attrset(COLOR_PAIR(midColour))
                     addstr(String(char))
                 }
                 else {
                     // Red
                     // > 23
-                    attrset(COLOR_PAIR(Int32(3)))
+                    attrset(COLOR_PAIR(highColour))
                     addstr(String(char))
                 }
             }
@@ -138,8 +148,8 @@ public struct Meter {
     
     
     private mutating func computeRanges() {
-        low  = Int(ceil(Double(winCoords.size.length) * 0.45))
-        mid  = Int(floor(Double(winCoords.size.length) * 0.30)) + low
-        high = Int(floor(Double(winCoords.size.length) * 0.25))
+        low  = Int(ceil(Double(winCoords.size.length) * lowPercentage))
+        mid  = Int(floor(Double(winCoords.size.length) * midPercentage)) + low
+        high = Int(floor(Double(winCoords.size.length) * highPercentage))
     }
 }
