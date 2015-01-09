@@ -23,6 +23,9 @@ public struct CPUWidget: Widget {
         meters.append(Meter(name: "System", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: 100, unit: Meter.Unit.Percentage))
         meters.append(Meter(name: "User", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2)), max: 100, unit: Meter.Unit.Percentage))
         meters.append(Meter(name: "Idle", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3)), max: 100, unit: Meter.Unit.Percentage))
+        meters[2].lowColour = Int32(3)
+        meters[2].highColour = Int32(1)
+        
         meters.append(Meter(name: "Nice", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 4)), max: 100, unit: Meter.Unit.Percentage))
 
     }

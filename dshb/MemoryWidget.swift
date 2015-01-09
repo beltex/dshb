@@ -22,6 +22,12 @@ public struct MemoryWidget: Widget {
         
         
         meters.append(Meter(name: "Free", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: maxValue, unit: Meter.Unit.Gigabyte))
+        
+        meters[0].lowPercentage = 0.20
+        meters[0].highPercentage = 0.45
+        meters[0].lowColour = Int32(3)
+        meters[0].highColour = Int32(1)
+        
         meters.append(Meter(name: "Wired", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2)), max: maxValue, unit: Meter.Unit.Gigabyte))
         meters.append(Meter(name: "Active", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3)), max: maxValue, unit: Meter.Unit.Gigabyte))
         meters.append(Meter(name: "Inactive", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 4)), max: maxValue, unit: Meter.Unit.Gigabyte))

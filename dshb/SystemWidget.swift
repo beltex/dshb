@@ -16,6 +16,8 @@ public struct SystemWidget: Widget {
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "System", winCoords: titleCoords, colour: COLOR_PAIR(5))
         
+        
+        stats.append(Meter(name: "Uptime", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: 100, unit: Meter.Unit.None))
         stats.append(Meter(name: "Processes", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: 100, unit: Meter.Unit.None))
         stats.append(Meter(name: "Threads", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2)), max: 100, unit: Meter.Unit.None))
         stats.append(Meter(name: "Load Avg", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3)), max: 100, unit: Meter.Unit.None))
@@ -24,17 +26,17 @@ public struct SystemWidget: Widget {
     
     
     mutating func draw() {
-        stats[0].draw(String(System.processCount()), percentage: 0.0)
-        stats[1].draw(String(System.threadCount()), percentage: 0.0)
+        stats[1].draw(String(System.processCount()), percentage: 0.0)
+        stats[2].draw(String(System.threadCount()), percentage: 0.0)
         
         let loadAverage = System.loadAverage()
         let v1 = NSString(format:"%.2f", loadAverage[0])
         let v2 = NSString(format:"%.2f", loadAverage[1])
         let v3 = NSString(format:"%.2f", loadAverage[2])
-        stats[2].draw("\(v1), \(v2), \(v3)", percentage: 0.0)
+        stats[3].draw("\(v1), \(v2), \(v3)", percentage: 0.0)
 
         let machFactor = System.machFactor()
-        stats[3].draw("\(machFactor.0), \(machFactor.1), \(machFactor.2)", percentage: 0.0)
+        stats[4].draw("\(machFactor.0), \(machFactor.1), \(machFactor.2)", percentage: 0.0)
     }
     
     
