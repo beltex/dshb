@@ -5,9 +5,11 @@ import Foundation
 public struct MemoryWidget: Widget {
     
     private var meters = [Meter]()
-    let maxValue = System.physicalMemory()
+    let maxValueGB = System.physicalMemory(unit: System.Unit.Gigabyte)
     let maxValueMB = System.physicalMemory(unit: System.Unit.Megabyte)
 
+    let stats = ["Free", "Wired", "Active", "Inactive", "Compressed"]
+    
     var title : WidgetTitle
     var win   : Window
     
@@ -15,23 +17,24 @@ public struct MemoryWidget: Widget {
         // win.size.width not currently used
         self.win = win
         
-        
         // Title init
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "Memory", winCoords: titleCoords, colour: COLOR_PAIR(5))
         
-        
-        meters.append(Meter(name: "Free", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 1)), max: maxValue, unit: Meter.Unit.Gigabyte))
+        var yShift = 1
+        for stat in stats {
+            meters.append(Meter(name: stat,
+                                winCoords: Window(size: (length: win.size.length, width: 1),
+                                                  pos: (x:win.pos.x, y:win.pos.y + yShift)),
+                                max: maxValueGB,
+                                unit: Meter.Unit.Gigabyte))
+            ++yShift
+        }
         
         meters[0].lowPercentage = 0.20
         meters[0].highPercentage = 0.45
         meters[0].lowColour = Int32(3)
         meters[0].highColour = Int32(1)
-        
-        meters.append(Meter(name: "Wired", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 2)), max: maxValue, unit: Meter.Unit.Gigabyte))
-        meters.append(Meter(name: "Active", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 3)), max: maxValue, unit: Meter.Unit.Gigabyte))
-        meters.append(Meter(name: "Inactive", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 4)), max: maxValue, unit: Meter.Unit.Gigabyte))
-        meters.append(Meter(name: "Compressed", winCoords: Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y + 5)), max: maxValue, unit: Meter.Unit.Gigabyte))
     }
     
     
@@ -68,8 +71,8 @@ public struct MemoryWidget: Widget {
         }
         else {
             meters[index].unit = Meter.Unit.Gigabyte
-            meters[index].max = maxValue
-            meters[index].draw(NSString(format:"%.2f", val), percentage: val / maxValue)
+            meters[index].max = maxValueGB
+            meters[index].draw(NSString(format:"%.2f", val), percentage: val / maxValueGB)
         }
     }
 }

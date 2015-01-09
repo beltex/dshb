@@ -20,11 +20,14 @@ public struct CPUWidget: Widget {
         let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "CPU", winCoords: titleCoords, colour: COLOR_PAIR(5))
         
+        var yShift = 1
         for stat in stats {
             meters.append(Meter(name: stat,
                                 winCoords: Window(size: (length: win.size.length, width: 1),
-                                                  pos: (x:win.pos.x, y:win.pos.y + 1)),
-                                max: 100.0, unit: Meter.Unit.Percentage))
+                                                  pos: (x:win.pos.x, y:win.pos.y + yShift)),
+                                max: 100.0,
+                                unit: Meter.Unit.Percentage))
+            ++yShift
         }
 
         meters[2].lowColour = Int32(3)
