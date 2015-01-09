@@ -68,7 +68,7 @@ public struct TMPWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(length: widgetLength, pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
         

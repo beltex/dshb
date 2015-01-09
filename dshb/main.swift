@@ -44,7 +44,7 @@ protocol Widget {
 
 /// Like an ncurses window
 struct Window {
-    var length : Int32 = 0
+    var length = 0
     var pos    : (x: Int32, y: Int32) = (0, 0)
 }
 
@@ -142,9 +142,9 @@ init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
 // MARK: WIDGET SETUP
 //------------------------------------------------------------------------------
 
-func computeWidgetLength() -> Int32 {
-    //return Int32(floor(Double((COLS - (gap * Int32(widgets.count - 1)))) / Double(widgets.count)))
-    return Int32(floor(Double((COLS - (gap * Int32(3 - 1)))) / Double(3)))
+func computeWidgetLength() -> Int {
+    // 3 = max widgets per row
+    return Int(floor(Double((COLS - (gap * Int32(3 - 1)))) / Double(3)))
 }
 
 widgets.append(CPUWidget(win: Window()))
@@ -166,10 +166,8 @@ if (smc.open() == kIOReturnSuccess) {
     widgets.append(FanWidget(win: Window()))
 }
 
-var widgetLength: Int32 = 0
-
 func draw_all() {
-    widgetLength = computeWidgetLength()
+    var widgetLength = computeWidgetLength()
     
     var result_pos: Int32 = 0
     var result_max: Int32 = 0
