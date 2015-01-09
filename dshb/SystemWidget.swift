@@ -14,13 +14,13 @@ public struct SystemWidget: Widget {
     init(win: Window) {        
         self.win = win
         
-        let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
+        let titleCoords = Window(length: win.length, pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "System", winCoords: titleCoords, colour: COLOR_PAIR(5))
         
         var yShift = 1
         for stat in stats {
             meters.append(Meter(name: stat,
-                                winCoords: Window(size: (length: win.size.length, width: 1),
+                                winCoords: Window(length: win.length,
                                                   pos: (x:win.pos.x, y:win.pos.y + yShift)),
                                 max: 1.0,
                                 unit: Meter.Unit.None))
@@ -52,7 +52,7 @@ public struct SystemWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: widgetLength, pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
 

@@ -15,7 +15,7 @@ public struct FanWidget: Widget {
         
         self.win = win
         
-        let titleCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:win.pos.y))
+        let titleCoords = Window(length: win.length, pos: (x:win.pos.x, y:win.pos.y))
         title = WidgetTitle(title: "Fan", winCoords: titleCoords, colour: COLOR_PAIR(5))
         
         let numFans = smc.getNumFans().numFans
@@ -24,7 +24,7 @@ public struct FanWidget: Widget {
         // TODO: Sort fan names
         
         for var x : UInt = 0; x < numFans; ++x {
-            let winCoords = Window(size: (length: win.size.length, width: 1), pos: (x:win.pos.x, y:y_pos))
+            let winCoords = Window(length: win.length, pos: (x:win.pos.x, y:y_pos))
             meters.append(Meter(name: smc.getFanName(x).name, winCoords : winCoords, max: Double(smc.getFanMaxRPM(x).rpm), unit: Meter.Unit.RPM))
             ++y_pos
         }
@@ -46,7 +46,7 @@ public struct FanWidget: Widget {
         var y_pos = win.pos.y + 1 // Becuase of title
         
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: widgetLength, pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
         

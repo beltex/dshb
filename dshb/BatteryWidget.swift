@@ -17,14 +17,14 @@ public struct BatteryWidget: Widget {
     init(win: Window) {
         self.win = win
         title = WidgetTitle(title: "Battery",
-                            winCoords: Window(size: (length: win.size.length, width: 1),
+                            winCoords: Window(length: win.length,
                             pos: (x:win.pos.x, y:win.pos.y)),
                             colour: COLOR_PAIR(5))
 
         var yShift = 1
         for stat in stats {
             meters.append(Meter(name: stat.name,
-                                winCoords: Window(size: (length: win.size.length, width: 1),
+                                winCoords: Window(length: win.length,
                                                   pos: (x: win.pos.x, y: win.pos.y + yShift)),
                                 max: stat.maxValue,
                                 unit: stat.unit))
@@ -60,7 +60,7 @@ public struct BatteryWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: widgetLength, pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
         

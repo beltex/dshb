@@ -44,8 +44,8 @@ protocol Widget {
 
 /// Like an ncurses window
 struct Window {
-    var size : (length: Int32, width: Int32) = (0, 0)
-    var pos  : (x: Int32, y: Int32) = (0, 0)
+    var length : Int32 = 0
+    var pos    : (x: Int32, y: Int32) = (0, 0)
 }
 
 //------------------------------------------------------------------------------
@@ -181,7 +181,7 @@ func draw_all() {
             x_multi = 0
         }
         
-        result_pos = widgets[i].resize(Window(size: (length: widgetLength, width: 1), pos: (x: (widgetLength + gap) * x_multi, y: y_pos_new)))
+        result_pos = widgets[i].resize(Window(length: widgetLength, pos: (x: (widgetLength + gap) * x_multi, y: y_pos_new)))
         
         if (result_pos > result_max) {
             result_max = result_pos

@@ -80,7 +80,7 @@ public struct Meter {
         let valueLength = countElements(value)
         
         // Name setup
-        let numberChars = winCoords.size.length - (2 + valueLength + unitLength)
+        let numberChars = winCoords.length - (2 + valueLength + unitLength)
         
         var nameEdit = name
         if (nameLength > Int(numberChars) && Int(numberChars) > 0) {
@@ -91,12 +91,12 @@ public struct Meter {
             return
         }
         
-        let spaceLen = winCoords.size.length - (countElements(nameEdit) + valueLength + unitLength)
+        let spaceLen = winCoords.length - (countElements(nameEdit) + valueLength + unitLength)
 
         
         // Range setup
         //let percentage = Double(value) / Double(max)
-        var valueRange = Int(floor(Double(winCoords.size.length) * percentage))
+        var valueRange = Int(floor(Double(winCoords.length) * percentage))
         
         var space = String()
         for var x = 0; x < Int(spaceLen); ++x {
@@ -152,8 +152,8 @@ public struct Meter {
     
     
     private mutating func computeRanges() {
-        low  = Int(ceil(Double(winCoords.size.length) * lowPercentage))
-        mid  = Int(floor(Double(winCoords.size.length) * midPercentage)) + low
-        high = Int(floor(Double(winCoords.size.length) * highPercentage))
+        low  = Int(ceil(Double(winCoords.length) * lowPercentage))
+        mid  = Int(floor(Double(winCoords.length) * midPercentage)) + low
+        high = Int(floor(Double(winCoords.length) * highPercentage))
     }
 }
