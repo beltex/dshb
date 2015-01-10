@@ -14,7 +14,7 @@ public struct BatteryWidget: Widget {
                 ("Capacity", Double(battery.designCapacity()), Meter.Unit.None),
                 ("Cycles", Double(battery.designCycleCount()), Meter.Unit.None)]
     
-    init(win: Window) {
+    init(win: Window = Window()) {
         self.win = win
         title = WidgetTitle(title: "Battery",
                             winCoords: Window(length: win.length,

@@ -12,7 +12,7 @@ public struct CPUWidget: Widget {
     
     private let stats = ["System", "User", "Idle", "Nice"]
     
-    init(win: Window) {
+    init(win: Window = Window()) {
         // win.size.width not currently used
         self.win = win
         

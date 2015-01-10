@@ -10,7 +10,7 @@ public struct FanWidget: Widget {
     var title : WidgetTitle
     var win   : Window
     
-    init(win: Window) {
+    init(win: Window = Window()) {
         // win.width not in use right now
         
         self.win = win

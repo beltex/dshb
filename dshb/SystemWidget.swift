@@ -11,7 +11,7 @@ public struct SystemWidget: Widget {
     let stats = ["Uptime", "Processes", "Threads", "Load Avg", "Mach factor"]
     
     
-    init(win: Window) {        
+    init(win: Window = Window()) {        
         self.win = win
         
         let titleCoords = Window(length: win.length, pos: (x:win.pos.x, y:win.pos.y))

@@ -13,7 +13,7 @@ public struct MemoryWidget: Widget {
     var title : WidgetTitle
     var win   : Window
     
-    init(win: Window) {
+    init(win: Window = Window()) {
         // win.size.width not currently used
         self.win = win
         

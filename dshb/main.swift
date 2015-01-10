@@ -34,6 +34,7 @@ import Foundation
 //------------------------------------------------------------------------------
 
 protocol Widget {
+    init(win: Window)
     mutating func draw()
     mutating func resize(newCoords: Window) -> Int32
 }
@@ -113,15 +114,11 @@ if let user_freq = CLI_FREQ.value {
 setlocale(LC_ALL, "")
 initscr()                   // Init window. Must be first
 cbreak()
-//nodelay(stdscr, true)     // Make input reads non-blocking - WARN - HIGH CPU!!
 noecho()                    // Don't echo user input
 nonl()                      // Disable newline mode
 intrflush(stdscr, true)     // Prevent flush
 keypad(stdscr, true)        // Enable function and arrow keys
-//timeout(0)
 curs_set(0)                 // Set cursor to invisible
-//idlok(stdscr, true)
-//scrollok(stdscr, true)
 
 
 // TODO: If no colour support, is it still safe to make colour related ncurses
@@ -147,27 +144,27 @@ func computeWidgetLength() -> Int {
     return Int(floor(Double((COLS - (gap * Int32(3 - 1)))) / Double(3)))
 }
 
-widgets.append(CPUWidget(win: Window()))
-widgets.append(MemoryWidget(win: Window()))
-widgets.append(SystemWidget(win: Window()))
+widgets.append(CPUWidget())
+widgets.append(MemoryWidget())
+widgets.append(SystemWidget())
 
 // Do this before SMC, since temperature widget needs to know about battery
 var battery = Battery()
 if (battery.open() == kIOReturnSuccess) {
     // TODO: Could this change during use? MacBook with removeable battery?
     hasBattery = true
-    widgets.append(BatteryWidget(win: Window()))
+    widgets.append(BatteryWidget())
 }
 
 var smc = SMC()
 if (smc.open() == kIOReturnSuccess) {
     hasSMC = true
-    widgets.append(TMPWidget(win: Window()))
-    widgets.append(FanWidget(win: Window()))
+    widgets.append(TMPWidget())
+    widgets.append(FanWidget())
 }
 
 func draw_all() {
-    var widgetLength = computeWidgetLength()
+    let widgetLength = computeWidgetLength()
     
     var result_pos: Int32 = 0
     var result_max: Int32 = 0
@@ -179,7 +176,9 @@ func draw_all() {
             x_multi = 0
         }
         
-        result_pos = widgets[i].resize(Window(length: widgetLength, pos: (x: (widgetLength + gap) * x_multi, y: y_pos_new)))
+        result_pos = widgets[i].resize(Window(length: widgetLength,
+                                              pos: (x: (widgetLength + gap) * x_multi,
+                                                    y: y_pos_new)))
         
         if (result_pos > result_max) {
             result_max = result_pos
@@ -214,15 +213,13 @@ dispatch_source_set_event_handler(source, {
 dispatch_resume(source)
 
 //------------------------------------------------------------------------------
-// MARK: MAIN (EVENT) LOOP - WHERE THE MAGIC HAPPENS :)
+// MARK: MAIN (EVENT) LOOP
 //------------------------------------------------------------------------------
-
-var key: Int32 = 0
 
 while true {
     // TODO: Why does esc (27) cause such a slow response, as oppossed to
     //       something like 'q'?
-    key = getch()
+    let key = getch()
     
     switch key {
         // TODO: has_key() check for KEY_RESIZE?
@@ -245,4 +242,3 @@ while true {
             true
     }
 }
-

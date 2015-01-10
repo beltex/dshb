@@ -11,7 +11,7 @@ public struct TMPWidget: Widget {
     var win   : Window
     var map : [String : SMC.Temperature] = [ : ]
     
-    init(win: Window) {
+    init(win: Window = Window()) {
         self.win = win
         
         // Title init
