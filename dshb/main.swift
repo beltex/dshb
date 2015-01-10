@@ -134,6 +134,7 @@ init_pair(2, Int16(COLOR_BLACK), Int16(COLOR_YELLOW))
 init_pair(3, Int16(COLOR_BLACK), Int16(COLOR_RED))
 init_pair(4, Int16(COLOR_WHITE), Int16(use_default_colors()))
 init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
+bkgd(UInt32(COLOR_PAIR(Int32(4))))
 
 //------------------------------------------------------------------------------
 // MARK: WIDGET SETUP

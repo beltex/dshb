@@ -105,14 +105,6 @@ public struct Meter {
     
         var char_array = Array(nameEdit + space + value + unit.rawValue)
         
-        
-        // Setup
-        attroff(COLOR_PAIR(Int32(1)))
-        attroff(COLOR_PAIR(Int32(2)))
-        attroff(COLOR_PAIR(Int32(3)))
-        attroff(COLOR_PAIR(Int32(4)))
-        attroff(COLOR_PAIR(Int32(5)))
-        
         var count = 0
         move(winCoords.pos.y, winCoords.pos.x)
         for char in char_array {
