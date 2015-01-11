@@ -11,8 +11,9 @@ public struct BatteryWidget: Widget {
     
     private let stats: [(name: String, maxValue: Double, unit: Meter.Unit)] =
                [("Charge", 100.0, Meter.Unit.Percentage),
-                ("Capacity", Double(battery.designCapacity()), Meter.Unit.None),
-                ("Cycles", Double(battery.designCycleCount()), Meter.Unit.None)]
+                ("Capacity Degradation", Double(battery.designCapacity()), Meter.Unit.MilliampereHour),
+                ("Cycles", Double(battery.designCycleCount()), Meter.Unit.None),
+                ("Time Remaining", 0.0, Meter.Unit.None)]
     
     init(win: Window = Window()) {
         self.win = win
@@ -38,6 +39,9 @@ public struct BatteryWidget: Widget {
         meters[0].highPercentage = 0.8
         meters[0].lowColour = Int32(3)
         meters[0].highColour = Int32(1)
+        
+        meters[1].lowColour = Int32(3)
+        meters[1].highColour = Int32(1)
     }
     
     
@@ -48,8 +52,9 @@ public struct BatteryWidget: Widget {
         var v1 = battery.currentCapacity()
         var v2 = battery.cycleCount()
         
-        meters[1].draw(String(v1), percentage:  Double(v1) / Double(battery.designCapacity()))
+        meters[1].draw(String(v1 - Int(meters[1].max)), percentage:  Double(v1) / meters[1].max)
         meters[2].draw(String(v2), percentage: Double(v2) / Double(battery.designCycleCount()))
+        meters[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
     }
     
     

@@ -10,14 +10,15 @@ public struct Meter {
     //--------------------------------------------------------------------------
     
     public enum Unit : String {
-        case Celsius    = "°C"
-        case Fahrenheit = "°F"
-        case Gigabyte   = "GB"
-        case Kelvin     = "K"
-        case Percentage = "%"
-        case Megabyte   = "MB"
-        case None       = ""
-        case RPM        = " RPM"
+        case Celsius         = "°C"
+        case Fahrenheit      = "°F"
+        case Gigabyte        = "GB"
+        case Kelvin          = "K"
+        case Percentage      = "%"
+        case Megabyte        = "MB"
+        case MilliampereHour = " mAh"
+        case None            = ""
+        case RPM             = " RPM"
     }
     
     //--------------------------------------------------------------------------
