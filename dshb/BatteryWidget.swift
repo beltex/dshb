@@ -53,7 +53,7 @@ public struct BatteryWidget: Widget {
         var v2 = battery.cycleCount()
         
         meters[1].draw(String(v1 - Int(meters[1].max)), percentage:  Double(v1) / meters[1].max)
-        meters[2].draw(String(v2), percentage: Double(v2) / Double(battery.designCycleCount()))
+        meters[2].draw(String(v2), percentage: Double(v2) / meters[2].max)
         meters[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
     }
     

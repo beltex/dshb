@@ -2,10 +2,8 @@ dshb
 ====
 
 An OS X system monitor in Swift, inspired by
-[iStat Pro](https://www.apple.com/downloads/dashboard/status/istatpro.html),
-[htop](https://github.com/hishamhm/htop) & [top](http://opensource.apple.com/source/top/).
-
-- Low overhead
+[top](https://en.wikipedia.org/wiki/Top_(software) &
+[htop](https://github.com/hishamhm/htop).
 
 
 ### Why?
@@ -23,13 +21,14 @@ An OS X system monitor in Swift, inspired by
 * Of course, these are yet to come to fruition, as both have been around for
   some time and are battle tested.
 
+
+### Requirements
+
+- OS X 10.9+
+    - This is due to Swift  
+
+
 ### Install
-
-Via [Homebrew](http://brew.sh)
-
-```bash
-$ brew install dshb
-```
 
 This will auto init all submodules as well.
 
@@ -37,10 +36,6 @@ This will auto init all submodules as well.
 git clone --recursive git@github.com:beltex/dshb.git
 ```
 
-### Requirements
-
-- OS X 10.9+
-    - This is due to Swift  
 
 ### Stack
 
@@ -48,6 +43,7 @@ git clone --recursive git@github.com:beltex/dshb.git
 - [ncurses](https://www.gnu.org/software/ncurses/ncurses.html)
 - [SystemKit](https://github.com/beltex/SystemKit)
 - [SMCKit](https://github.com/beltex/SMCKit)
+- [CommandLine](https://github.com/jatoben/CommandLine)
 
 
 ### Manual page
@@ -57,6 +53,7 @@ git clone --recursive git@github.com:beltex/dshb.git
 
 ### References
 
+- [top](http://www.opensource.apple.com/source/top/)
 - [NCURSES Programming HOWTO](http://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html)
 - [Programmer's Guide to ncurses](http://www.c-for-dummies.com/ncurses/)
 - [Writing Programs with NCURSES](http://invisible-island.net/ncurses/ncurses-intro.html)
