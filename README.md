@@ -2,53 +2,49 @@ dshb
 ====
 
 An OS X system monitor in Swift, inspired by
-[top](https://en.wikipedia.org/wiki/Top_(software) &
+<a href="https://en.wikipedia.org/wiki/Top_(software)">top</a> &
 [htop](https://github.com/hishamhm/htop).
+
+![alt text](http://beltex.github.io/dshb/dshb.png)
 
 
 ### Why?
 
 - Exploration of Swift. In particular, systems programming and interfacing with
-  low-level C APIs in Swift
-- Improved top*
-- Improved htop (for OS X)*. htop was originally written for Linux. It was forked
+  low-level C APIs
+- Improved top
+- Improved htop (for OS X). htop was originally written for Linux. It was forked
   at some point and ported over to OS X. However, the port is now using what is
-  a 5 year old fork. Working is being done on this front:
-  https://www.bountysource.com/teams/htop/fundraiser
-  Also, more OS X native stats
-- Usage of SMCKit & SystemKit libraries 
+  a 5 year old fork. Work is being done to address
+  [this](https://www.bountysource.com/teams/htop/fundraiser)
 
-* Of course, these are yet to come to fruition, as both have been around for
-  some time and are battle tested.
+> Of course, the last two are far from being true! :) dshb is still early in
+> development.
 
 
 ### Requirements
 
+- [Xcode 6.1](https://developer.apple.com/xcode/downloads/)
 - OS X 10.9+
     - This is due to Swift  
 
 
-### Install
+### Clone
 
-This will auto init all submodules as well.
+Make sure to use the recursive option on clone to auto init all submodules.
 
 ```bash
-git clone --recursive git@github.com:beltex/dshb.git
+git clone --recursive https://github.com/beltex/dshb
 ```
 
 
 ### Stack
 
-- [Xcode 6.1](https://developer.apple.com/xcode/downloads/)
 - [ncurses](https://www.gnu.org/software/ncurses/ncurses.html)
 - [SystemKit](https://github.com/beltex/SystemKit)
 - [SMCKit](https://github.com/beltex/SMCKit)
 - [CommandLine](https://github.com/jatoben/CommandLine)
-
-
-### Manual page
-
-- Via [ronn](https://github.com/rtomayko/ronn)
+- [ronn](https://github.com/rtomayko/ronn)
 
 
 ### References
@@ -62,3 +58,11 @@ git clone --recursive git@github.com:beltex/dshb.git
 ### License
 
 This project is under the **MIT License**.
+
+
+##### _P.S._
+
+Working on this always brought a smile to my face. I hope it brings a smile to
+yours too.
+[Enjoy](http://hypem.com/track/23j7h/First+Aid+Kit+-+My+Silver+Lining). :)
+ 
