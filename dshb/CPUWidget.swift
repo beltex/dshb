@@ -41,14 +41,17 @@ public struct CPUWidget: Widget {
         self.win = win
         
         // Title init
-        let titleCoords = Window(length: win.length, pos: (x:win.pos.x, y:win.pos.y))
-        title = WidgetTitle(title: "CPU", winCoords: titleCoords, colour: COLOR_PAIR(5))
+        let titleCoords = Window(length: win.length, pos: (x:win.pos.x,
+                                                           y:win.pos.y))
+        title = WidgetTitle(title: "CPU", winCoords: titleCoords,
+                                          colour: COLOR_PAIR(5))
         
         var yShift = 1
         for stat in stats {
             meters.append(Meter(name: stat,
                                 winCoords: Window(length: win.length,
-                                                  pos: (x:win.pos.x, y:win.pos.y + yShift)),
+                                                  pos: (x:win.pos.x,
+                                                        y:win.pos.y + yShift)),
                                 max: 100.0,
                                 unit: Meter.Unit.Percentage))
             ++yShift
@@ -61,10 +64,14 @@ public struct CPUWidget: Widget {
     
     mutating func draw() {
         let values = sys.usageCPU()
-        meters[0].draw(String(Int(values.system)), percentage: values.system / 100.0)
-        meters[1].draw(String(Int(values.user)), percentage: values.user / 100.0)
-        meters[2].draw(String(Int(values.idle)), percentage: values.idle / 100.0)
-        meters[3].draw(String(Int(values.nice)), percentage: values.nice / 100.0)
+        meters[0].draw(String(Int(values.system)),
+                       percentage: values.system / 100.0)
+        meters[1].draw(String(Int(values.user)),
+                       percentage: values.user / 100.0)
+        meters[2].draw(String(Int(values.idle)),
+                       percentage: values.idle / 100.0)
+        meters[3].draw(String(Int(values.nice)),
+                       percentage: values.nice / 100.0)
     }
     
     
@@ -74,7 +81,8 @@ public struct CPUWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x,
+                                                              y: y_pos)))
             y_pos++
         }
         

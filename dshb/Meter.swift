@@ -26,7 +26,6 @@
 
 import Foundation
 
-///
 public struct Meter {
     
     //--------------------------------------------------------------------------
@@ -116,7 +115,8 @@ public struct Meter {
             return
         }
         
-        let spaceLen = winCoords.length - (countElements(nameEdit) + valueLength + unitLength)
+        let spaceLen = winCoords.length - (countElements(nameEdit) + valueLength
+                                                                   + unitLength)
 
         
         // Range setup

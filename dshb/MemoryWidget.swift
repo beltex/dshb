@@ -49,7 +49,8 @@ public struct MemoryWidget: Widget {
         for stat in stats {
             meters.append(Meter(name: stat,
                                 winCoords: Window(length: win.length,
-                                                  pos: (x:win.pos.x, y:win.pos.y + yShift)),
+                                                  pos: (x:win.pos.x,
+                                                        y:win.pos.y + yShift)),
                                 max: maxValueGB,
                                 unit: Meter.Unit.Gigabyte))
             ++yShift
@@ -78,7 +79,8 @@ public struct MemoryWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x,
+                                                              y: y_pos)))
             y_pos++
         }
         
@@ -91,12 +93,14 @@ public struct MemoryWidget: Widget {
             meters[index].unit = Meter.Unit.Megabyte
             meters[index].max = maxValueMB
             let value = val * 1000.0
-            meters[index].draw(String(Int(value)), percentage: value / maxValueMB)
+            meters[index].draw(String(Int(value)),
+                               percentage: value / maxValueMB)
         }
         else {
             meters[index].unit = Meter.Unit.Gigabyte
             meters[index].max = maxValueGB
-            meters[index].draw(NSString(format:"%.2f", val), percentage: val / maxValueGB)
+            meters[index].draw(NSString(format:"%.2f", val),
+                               percentage: val / maxValueGB)
         }
     }
 }

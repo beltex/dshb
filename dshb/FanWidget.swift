@@ -39,8 +39,10 @@ public struct FanWidget: Widget {
         
         self.win = win
         
-        let titleCoords = Window(length: win.length, pos: (x:win.pos.x, y:win.pos.y))
-        title = WidgetTitle(title: "Fan", winCoords: titleCoords, colour: COLOR_PAIR(5))
+        let titleCoords = Window(length: win.length, pos: (x: win.pos.x,
+                                                           y: win.pos.y))
+        title = WidgetTitle(title: "Fan", winCoords: titleCoords,
+                                          colour: COLOR_PAIR(5))
         
         let numFans = smc.getNumFans().numFans
         var y_pos = win.pos.y + 1 // Becuase of title
@@ -48,8 +50,12 @@ public struct FanWidget: Widget {
         // TODO: Sort fan names
         
         for var x : UInt = 0; x < numFans; ++x {
-            let winCoords = Window(length: win.length, pos: (x:win.pos.x, y:y_pos))
-            meters.append(Meter(name: smc.getFanName(x).name, winCoords : winCoords, max: Double(smc.getFanMaxRPM(x).rpm), unit: Meter.Unit.RPM))
+            let winCoords = Window(length: win.length, pos: (x: win.pos.x,
+                                                             y: y_pos))
+            meters.append(Meter(name: smc.getFanName(x).name,
+                                winCoords: winCoords,
+                                max: Double(smc.getFanMaxRPM(x).rpm),
+                                unit: Meter.Unit.RPM))
             ++y_pos
         }
     }
@@ -58,7 +64,8 @@ public struct FanWidget: Widget {
     mutating func draw() {
         for var x = 0; x < meters.count; ++x {
             let value = smc.getFanRPM(UInt(x)).rpm
-            meters[x].draw(String(value), percentage: Double(value) / meters[x].max)
+            meters[x].draw(String(value),
+                           percentage: Double(value) / meters[x].max)
         }
     }
     
@@ -70,7 +77,8 @@ public struct FanWidget: Widget {
         var y_pos = win.pos.y + 1 // Becuase of title
         
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: win.length,
+                                    pos: (x: win.pos.x, y: y_pos)))
             y_pos++
         }
         

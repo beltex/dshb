@@ -39,8 +39,10 @@ public struct TMPWidget: Widget {
         self.win = win
         
         // Title init
-        let titleCoords = Window(length: win.length, pos: (x:win.pos.x, y:win.pos.y))
-        title = WidgetTitle(title: "Temperature", winCoords: titleCoords, colour: COLOR_PAIR(5))
+        let titleCoords = Window(length: win.length, pos: (x: win.pos.x,
+                                                           y: win.pos.y))
+        title = WidgetTitle(title: "Temperature", winCoords: titleCoords,
+                                                  colour: COLOR_PAIR(5))
         
         
         // Sensors list
@@ -51,9 +53,11 @@ public struct TMPWidget: Widget {
         // This comes from SystemKit, have to manually added
         if (hasBattery) {
             temperatureSensorNames.append("BATTERY")
-            // Only need to sort if have battery, since already sorted from SMCKit
+            // Only need to sort if have battery, since already sorted via
+            // SMCKit
             if (temperatureSensorNames.count > 1) {
-                temperatureSensorNames = sorted(temperatureSensorNames, { $0 < $1 })
+                temperatureSensorNames = sorted(temperatureSensorNames,
+                                                                    { $0 < $1 })
             }
         }
         
@@ -65,8 +69,11 @@ public struct TMPWidget: Widget {
         // Meters init - should be sorted here
         var y_pos = win.pos.y + 1 // Becuase of title
         for sensor in temperatureSensorNames {
-            let winCoords = Window(length: win.length, pos: (x:win.pos.x, y:y_pos))
-            meters.append(Meter(name: sensor, winCoords: winCoords, max: maxValue, unit: Meter.Unit.Celsius))
+            let winCoords = Window(length: win.length, pos: (x: win.pos.x,
+                                                             y: y_pos))
+            meters.append(Meter(name: sensor, winCoords: winCoords,
+                                              max: maxValue,
+                                              unit: Meter.Unit.Celsius))
             ++y_pos
         }
     }
@@ -92,7 +99,8 @@ public struct TMPWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x,
+                                                              y: y_pos)))
             y_pos++
         }
         

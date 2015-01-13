@@ -38,14 +38,17 @@ public struct SystemWidget: Widget {
     init(win: Window = Window()) {        
         self.win = win
         
-        let titleCoords = Window(length: win.length, pos: (x:win.pos.x, y:win.pos.y))
-        title = WidgetTitle(title: "System", winCoords: titleCoords, colour: COLOR_PAIR(5))
+        let titleCoords = Window(length: win.length, pos: (x:win.pos.x,
+                                                           y:win.pos.y))
+        title = WidgetTitle(title: "System", winCoords: titleCoords,
+                                             colour: COLOR_PAIR(5))
         
         var yShift = 1
         for stat in stats {
             meters.append(Meter(name: stat,
                                 winCoords: Window(length: win.length,
-                                                  pos: (x:win.pos.x, y:win.pos.y + yShift)),
+                                                  pos: (x:win.pos.x,
+                                                        y:win.pos.y + yShift)),
                                 max: 1.0,
                                 unit: Meter.Unit.None))
             ++yShift
@@ -59,11 +62,15 @@ public struct SystemWidget: Widget {
         meters[1].draw(String(System.processCount()), percentage: 0.0)
         meters[2].draw(String(System.threadCount()), percentage: 0.0)
         
-        let loadAverage = System.loadAverage().map({ NSString(format:"%.2f", $0) })
-        meters[3].draw("\(loadAverage[0]), \(loadAverage[1]), \(loadAverage[2])", percentage: 0.0)
+        let loadAverage = System.loadAverage().map({ NSString(format:"%.2f", $0)
+                                                                              })
+        meters[3].draw("\(loadAverage[0]), \(loadAverage[1])," +
+                       "\(loadAverage[2])", percentage: 0.0)
         
-        let machFactor = System.machFactor().map({ NSString(format:"%.2f", $0) })
-        meters[4].draw("\(machFactor[0]), \(machFactor[1]), \(machFactor[2])", percentage: 0.0)
+        let machFactor = System.machFactor().map({ NSString(format:"%.2f", $0) }
+                                                                               )
+        meters[4].draw("\(machFactor[0]), \(machFactor[1]), \(machFactor[2])",
+                                                            percentage: 0.0)
     }
     
     
@@ -73,7 +80,8 @@ public struct SystemWidget: Widget {
         
         var y_pos = win.pos.y + 1 // Becuase of title
         for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x, y: y_pos)))
+            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x,
+                                                              y: y_pos)))
             y_pos++
         }
 
