@@ -37,6 +37,13 @@ Make sure to use the recursive option on clone to auto init all submodules.
 git clone --recursive https://github.com/beltex/dshb
 ```
 
+Incase you have already cloned the repository.
+
+```bash
+# Inside the project directory
+git submodule update --init --recursive
+```
+
 
 ### Stack
 
@@ -64,5 +71,5 @@ This project is under the **MIT License**.
 
 Working on this always brought a smile to my face. I hope it brings a smile to
 yours too.
-[Enjoy](http://hypem.com/track/23j7h/First+Aid+Kit+-+My+Silver+Lining). :)
+[Enjoy](http://hypem.com/track/23j7h/First+Aid+Kit+-+My+Silver+Lining) :)
  
