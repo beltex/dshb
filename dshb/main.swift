@@ -195,10 +195,14 @@ draw_all()
 //------------------------------------------------------------------------------
 
 // TODO: Custom serial attr prop creation is new to 10.10
+// dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL,
+//                                         QOS_CLASS_USER_INITIATED, 0)
+
 let source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
                                     dispatch_queue_create("com.beltex.dshb",
                                                          DISPATCH_QUEUE_SERIAL))
 
+// TODO: What about dispatch_after?
 dispatch_source_set_timer(source,
                           dispatch_time(DISPATCH_TIME_NOW, 0),
                           FREQ * NSEC_PER_SEC, 0)
