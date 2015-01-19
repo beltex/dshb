@@ -1,4 +1,6 @@
 //
+// Bridging header for accessing ncurses.
+//
 // Bridge.swift
 // dshb
 //

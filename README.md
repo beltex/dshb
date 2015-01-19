@@ -63,10 +63,27 @@ from anywhere.
 ### Stack
 
 - [ncurses](https://www.gnu.org/software/ncurses/ncurses.html)
+    - For drawing to the terminal
 - [SystemKit](https://github.com/beltex/SystemKit)
+    - For almost all statistics
 - [SMCKit](https://github.com/beltex/SMCKit)
+    - For temperature & fan statistics
 - [CommandLine](https://github.com/jatoben/CommandLine)
+    - For the CLI
 - [ronn](https://github.com/rtomayko/ronn)
+    - For generating the manual page
+
+All Git submodules are built part of the project as simply source files, not
+frameworks (which are essentially dynamic libraries). This is because currently,
+the Swift runtime dynamic libraries must be packaged with the application in
+question. In the case of **dshb**, a single binary is generated which has the
+runtime statically linked. Thus, frameworks, which expect to find the libraries
+inside the application bundle (`.app`), cannot _"see"_ them.
+
+For more see:
+
+- [SwiftInFlux/Runtime Dynamic Libraries](https://github.com/ksm/SwiftInFlux#runtime-dynamic-libraries)
+- [SwiftInFlux/Static Libraries](https://github.com/ksm/SwiftInFlux#static-libraries)
 
 
 ### References
