@@ -24,7 +24,7 @@ An OS X system monitor in Swift, inspired by
 
 ### Requirements
 
-- [Xcode 6.1](https://developer.apple.com/xcode/downloads/)
+- [Xcode 6.1.1](https://developer.apple.com/xcode/downloads/)
 - OS X 10.9+
     - This is due to Swift  
 
