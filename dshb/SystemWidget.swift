@@ -57,7 +57,9 @@ public struct SystemWidget: Widget {
     
     
     mutating func draw() {
-        //meters[0].draw(String(System.uptime()), percentage: 0.0)
+        let uptime = System.uptime()
+        meters[0].draw("\(uptime.days)d \(uptime.hrs)h \(uptime.mins)m",
+                       percentage: 0.0)
 
         meters[1].draw(String(System.processCount()), percentage: 0.0)
         meters[2].draw(String(System.threadCount()), percentage: 0.0)
