@@ -46,9 +46,9 @@ public struct TMPWidget: Widget {
         
         
         // Sensors list
-        let temperatureSensors = smc.getAllValidTemperatureKeys()
-        var temperatureSensorNames = temperatureSensors.map({
-                                               SMC.Temperature.allValues[$0]! })
+        let temperatureSensors     = smc.getAllValidTemperatureKeys()
+        var temperatureSensorNames = temperatureSensors.map
+                                              { SMC.Temperature.allValues[$0]! }
         
         // This comes from SystemKit, have to manually added
         if (hasBattery) {
@@ -56,8 +56,7 @@ public struct TMPWidget: Widget {
             // Only need to sort if have battery, since already sorted via
             // SMCKit
             if (temperatureSensorNames.count > 1) {
-                temperatureSensorNames = sorted(temperatureSensorNames,
-                                                                    { $0 < $1 })
+                temperatureSensorNames.sort { $0 < $1 }
             }
         }
         

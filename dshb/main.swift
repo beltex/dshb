@@ -207,12 +207,12 @@ dispatch_source_set_timer(source,
                           dispatch_time(DISPATCH_TIME_NOW, 0),
                           FREQ * NSEC_PER_SEC, 0)
 
-dispatch_source_set_event_handler(source, {
+dispatch_source_set_event_handler(source) {
     for var i = 0; i < widgets.count; ++i {
         widgets[i].draw()
     }
     refresh()
-})
+}
 
 // We have to resume the the dispatch source as it is paused by default
 dispatch_resume(source)

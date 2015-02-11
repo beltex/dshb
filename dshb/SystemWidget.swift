@@ -64,13 +64,13 @@ public struct SystemWidget: Widget {
         meters[1].draw(String(System.processCount()), percentage: 0.0)
         meters[2].draw(String(System.threadCount()), percentage: 0.0)
         
-        let loadAverage = System.loadAverage().map({ NSString(format:"%.2f", $0)
-                                                                              })
+        let loadAverage = System.loadAverage().map
+                                               { NSString(format:"%.2f", $0) }
         meters[3].draw("\(loadAverage[0]), \(loadAverage[1])," +
                        "\(loadAverage[2])", percentage: 0.0)
         
-        let machFactor = System.machFactor().map({ NSString(format:"%.2f", $0) }
-                                                                               )
+        let machFactor = System.machFactor().map { NSString(format:"%.2f", $0) }
+
         meters[4].draw("\(machFactor[0]), \(machFactor[1]), \(machFactor[2])",
                                                             percentage: 0.0)
     }
