@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4C4281FB1A3009040000C114 /* BatteryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4281FA1A3009040000C114 /* BatteryWidget.swift */; };
-		4C6D98BF1A3BF7B700BA2B36 /* kinfo_proc-bridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C6D98BB1A3BF7B700BA2B36 /* kinfo_proc-bridge.c */; };
 		4C81CAC71A05FCFA0078EC22 /* SMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CAC51A05FCFA0078EC22 /* SMC.swift */; };
 		4C81CACB1A05FD140078EC22 /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CAC91A05FD140078EC22 /* Battery.swift */; };
 		4C81CACC1A05FD140078EC22 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CACA1A05FD140078EC22 /* System.swift */; };
@@ -211,7 +210,6 @@
 				4CEBF73B1A4E066F0001B326 /* Option.swift in Sources */,
 				4CB246C81A5BAADC00CA8AC4 /* CPUWidget.swift in Sources */,
 				4C97A53219E4B2F10018EFB6 /* FanWidget.swift in Sources */,
-				4C6D98BF1A3BF7B700BA2B36 /* kinfo_proc-bridge.c in Sources */,
 				4C81CACC1A05FD140078EC22 /* System.swift in Sources */,
 				4CB246C41A5B916F00CA8AC4 /* SystemWidget.swift in Sources */,
 				4C81CAC71A05FCFA0078EC22 /* SMC.swift in Sources */,

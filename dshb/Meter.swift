@@ -88,8 +88,8 @@ public struct Meter {
         self.unit      = unit
         self.max       = max
         
-        nameLength     = countElements(name)
-        unitLength     = countElements(unit.rawValue)
+        nameLength     = count(name)
+        unitLength     = count(unit.rawValue)
         
         computeRanges()
     }
@@ -101,7 +101,7 @@ public struct Meter {
     mutating func draw(value: String, percentage: Double) {
         lastValue = value
         lastPercentage = percentage
-        let valueLength = countElements(value)
+        let valueLength = count(value)
         
         // Name setup
         let numberChars = winCoords.length - (2 + valueLength + unitLength)
@@ -115,8 +115,8 @@ public struct Meter {
             return
         }
         
-        let spaceLen = winCoords.length - (countElements(nameEdit) + valueLength
-                                                                   + unitLength)
+        let spaceLen = winCoords.length - (count(nameEdit) + valueLength
+                                                           + unitLength)
 
         
         // Range setup
@@ -130,10 +130,10 @@ public struct Meter {
     
         var char_array = Array(nameEdit + space + value + unit.rawValue)
         
-        var count = 0
+        var index = 0
         move(winCoords.pos.y, winCoords.pos.x)
         for char in char_array {
-            if (count < valueRange) {
+            if (index < valueRange) {
                 if (valueRange < low) {
                     // Green
                     attrset(COLOR_PAIR(lowColour))
@@ -156,7 +156,7 @@ public struct Meter {
                 addstr(String(char))
             }
             
-            ++count
+            ++index
         }
     }
     

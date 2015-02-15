@@ -58,7 +58,7 @@ public struct WidgetTitle {
     
     private mutating func computeTitlePadding() {
         titlePadding = String()
-        let spaceLength = Int(winCoords.length) - countElements(title)
+        let spaceLength = Int(winCoords.length) - count(title)
         
         for var i = 0; i < spaceLength; ++i {
             titlePadding.append(UnicodeScalar(" "))

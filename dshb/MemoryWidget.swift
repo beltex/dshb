@@ -99,7 +99,7 @@ public struct MemoryWidget: Widget {
         else {
             meters[index].unit = Meter.Unit.Gigabyte
             meters[index].max = maxValueGB
-            meters[index].draw(NSString(format:"%.2f", val),
+            meters[index].draw(NSString(format:"%.2f", val) as String,
                                percentage: val / maxValueGB)
         }
     }
