@@ -26,7 +26,7 @@
 
 import Foundation
 
-public struct MemoryWidget: Widget {
+struct MemoryWidget: Widget {
     
     private var meters = [Meter]()
     let maxValueGB = System.physicalMemory(unit: System.Unit.Gigabyte)

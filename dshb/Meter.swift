@@ -26,13 +26,13 @@
 
 import Foundation
 
-public struct Meter {
+struct Meter {
     
     //--------------------------------------------------------------------------
     // MARK: PUBLIC ENUMS
     //--------------------------------------------------------------------------
     
-    public enum Unit : String {
+    enum Unit: String {
         case Celsius         = "°C"
         case Fahrenheit      = "°F"
         case Gigabyte        = "GB"

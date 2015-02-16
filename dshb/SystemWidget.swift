@@ -26,7 +26,7 @@
 
 import Foundation
 
-public struct SystemWidget: Widget {
+struct SystemWidget: Widget {
     
     private var meters = [Meter]()
     var title : WidgetTitle

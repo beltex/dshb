@@ -27,7 +27,7 @@
 import Foundation
 
 
-public struct FanWidget: Widget {
+struct FanWidget: Widget {
     
     private var meters = [Meter]()
     //let maxValue : Int

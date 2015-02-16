@@ -27,7 +27,7 @@
 import Foundation
 
 
-public struct TMPWidget: Widget {
+struct TMPWidget: Widget {
     
     private var meters = [Meter]()
     let maxValue = 128.0

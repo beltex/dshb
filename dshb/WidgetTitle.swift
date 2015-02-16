@@ -24,7 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public struct WidgetTitle {
+struct WidgetTitle {
 
     let title     : String
     let colour    : Int32
