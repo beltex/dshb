@@ -72,7 +72,7 @@ struct BatteryWidget: Widget {
     
     
     mutating func draw() {
-        var charge = battery.charge()
+        let charge = battery.charge()
         meters[0].draw(String(Int(battery.charge())),
                        percentage: charge / 100.0)
         

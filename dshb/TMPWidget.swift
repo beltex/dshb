@@ -80,7 +80,7 @@ struct TMPWidget: Widget {
     
     mutating func draw() {
         for var i = 0; i < meters.count; ++i {
-            var value = 0.0
+            let value: Double
             switch meters[i].name {
                 case "BATTERY":
                     value = battery.temperature()
