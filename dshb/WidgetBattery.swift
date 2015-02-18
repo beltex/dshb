@@ -43,7 +43,7 @@ struct WidgetBattery: WidgetType {
         window.point.y++
         for stat in stats {
             widget.meters.append(Meter(name: stat.name,
-                                       winCoords: window,
+                                       window: window,
                                        max: stat.maxValue,
                                        unit: stat.unit))
             window.point.y++

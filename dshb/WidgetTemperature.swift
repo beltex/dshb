@@ -59,7 +59,7 @@ struct WidgetTemperature: WidgetType {
         // Meters init - should be sorted here
         window.point.y++
         for sensor in temperatureSensorNames {
-            widget.meters.append(Meter(name: sensor, winCoords: window,
+            widget.meters.append(Meter(name: sensor, window: window,
                                                      max: maxValue,
                                                      unit: .Celsius))
             window.point.y++

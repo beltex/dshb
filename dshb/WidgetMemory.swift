@@ -41,7 +41,7 @@ struct WidgetMemory: WidgetType {
         window.point.y++
         for stat in stats {
             widget.meters.append(Meter(name: stat,
-                                       winCoords: window,
+                                       window: window,
                                        max: WidgetMemory.maxValueGB,
                                        unit: .Gigabyte))
             window.point.y++

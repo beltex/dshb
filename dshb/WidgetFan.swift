@@ -40,7 +40,7 @@ struct WidgetFan: WidgetType {
         window.point.y++
         for var i: UInt = 0; i < numFans; ++i {
             widget.meters.append(Meter(name: smc.getFanName(i).name,
-                                       winCoords: window,
+                                       window: window,
                                        max: Double(smc.getFanMaxRPM(i).rpm),
                                        unit: .RPM))
             window.point.y++

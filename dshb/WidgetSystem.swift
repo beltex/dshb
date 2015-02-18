@@ -39,7 +39,7 @@ struct WidgetSystem: WidgetType {
         window.point.y++
         for stat in stats {
             widget.meters.append(Meter(name: stat,
-                                       winCoords: window,
+                                       window: window,
                                        max: 1.0,
                                        unit: .None))
             window.point.y++

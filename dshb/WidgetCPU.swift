@@ -40,7 +40,7 @@ struct WidgetCPU: WidgetType {
         window.point.y++
         for stat in stats {
             widget.meters.append(Meter(name: stat,
-                                       winCoords: window,
+                                       window: window,
                                        max: 100.0,
                                        unit: .Percentage))
             window.point.y++

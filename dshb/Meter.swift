@@ -48,22 +48,20 @@ struct Meter {
     // MARK: PUBLIC PROPERTIES
     //--------------------------------------------------------------------------
     
-    let name : String
-    var unit : Unit
+    let name: String
+    var unit: Unit
     
     var value : Double = 0
-    var winCoords : Window
+    var window: Window
     var max   : Double
     
     var lowPercentage  = 0.45
     var midPercentage  = 0.30
     var highPercentage = 0.20
     
-    
-    var lowColour  : Int32 = 1
-    var midColour  : Int32 = 2
-    var highColour : Int32 = 3
-    
+    var lowColour : Int32 = 1
+    var midColour : Int32 = 2
+    var highColour: Int32 = 3
     
     //--------------------------------------------------------------------------
     // MARK: PRIVATE PROPERTIES
@@ -82,14 +80,14 @@ struct Meter {
     // MARK: INITIALIZERS
     //--------------------------------------------------------------------------
     
-    init(name: String, winCoords: Window, max: Double, unit: Unit) {
-        self.name      = name
-        self.winCoords = winCoords
-        self.unit      = unit
-        self.max       = max
+    init(name: String, window: Window, max: Double, unit: Unit) {
+        self.name   = name
+        self.window = window
+        self.unit   = unit
+        self.max    = max
         
-        nameLength     = count(name)
-        unitLength     = count(unit.rawValue)
+        nameLength  = count(name)
+        unitLength  = count(unit.rawValue)
         
         computeRanges()
     }
@@ -99,12 +97,12 @@ struct Meter {
     //--------------------------------------------------------------------------
     
     mutating func draw(value: String, percentage: Double) {
-        lastValue = value
-        lastPercentage = percentage
+        lastValue       = value
+        lastPercentage  = percentage
         let valueLength = count(value)
         
         // Name setup
-        let numberChars = winCoords.length - (2 + valueLength + unitLength)
+        let numberChars = window.length - (2 + valueLength + unitLength)
         
         var nameEdit = name
         if (nameLength > Int(numberChars) && Int(numberChars) > 0) {
@@ -115,13 +113,12 @@ struct Meter {
             return
         }
         
-        let spaceLen = winCoords.length - (count(nameEdit) + valueLength
+        let spaceLen = window.length - (count(nameEdit) + valueLength
                                                            + unitLength)
 
         
         // Range setup
-        //let percentage = Double(value) / Double(max)
-        var valueRange = Int(floor(Double(winCoords.length) * percentage))
+        var valueRange = Int(floor(Double(window.length) * percentage))
         
         var space = String()
         for var x = 0; x < Int(spaceLen); ++x {
@@ -131,7 +128,7 @@ struct Meter {
         var char_array = Array(nameEdit + space + value + unit.rawValue)
         
         var index = 0
-        move(winCoords.point.y, winCoords.point.x)
+        move(window.point.y, window.point.x)
         for char in char_array {
             if (index < valueRange) {
                 if (valueRange < low) {
@@ -160,17 +157,15 @@ struct Meter {
         }
     }
     
-    
-    mutating func resize(winCoords: Window) {
-        self.winCoords = winCoords
+    mutating func resize(window: Window) {
+        self.window = window
         computeRanges()
         draw(lastValue, percentage: lastPercentage)
     }
     
-    
     private mutating func computeRanges() {
-        low  = Int(ceil(Double(winCoords.length) * lowPercentage))
-        mid  = Int(floor(Double(winCoords.length) * midPercentage)) + low
-        high = Int(floor(Double(winCoords.length) * highPercentage))
+        low  = Int(ceil(Double(window.length) * lowPercentage))
+        mid  = Int(floor(Double(window.length) * midPercentage)) + low
+        high = Int(floor(Double(window.length) * highPercentage))
     }
 }

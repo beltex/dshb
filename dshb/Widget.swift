@@ -56,7 +56,6 @@ struct WidgetBase {
     }
     
     mutating func resize(var window: Window) -> Int32 {
-        var test = window
         title.resize(window)
         
         window.point.y++    // Becuase of title
