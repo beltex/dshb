@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C08F2981A94F3C3006F9359 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C08F2971A94F3C3006F9359 /* Widget.swift */; };
-		4C4281FB1A3009040000C114 /* BatteryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4281FA1A3009040000C114 /* BatteryWidget.swift */; };
+		4C4281FB1A3009040000C114 /* WidgetBattery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4281FA1A3009040000C114 /* WidgetBattery.swift */; };
 		4C81CAC71A05FCFA0078EC22 /* SMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CAC51A05FCFA0078EC22 /* SMC.swift */; };
 		4C81CACB1A05FD140078EC22 /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CAC91A05FD140078EC22 /* Battery.swift */; };
 		4C81CACC1A05FD140078EC22 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CACA1A05FD140078EC22 /* System.swift */; };
@@ -16,9 +16,9 @@
 		4C97A53219E4B2F10018EFB6 /* WidgetFan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97A53119E4B2F10018EFB6 /* WidgetFan.swift */; };
 		4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */; };
 		4C9C0E5119E32921009EF6A9 /* WidgetTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C0E5019E32921009EF6A9 /* WidgetTemperature.swift */; };
-		4CB246C41A5B916F00CA8AC4 /* SystemWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C31A5B916F00CA8AC4 /* SystemWidget.swift */; };
-		4CB246C81A5BAADC00CA8AC4 /* CPUWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C71A5BAADC00CA8AC4 /* CPUWidget.swift */; };
-		4CB246CA1A5BACF200CA8AC4 /* MemoryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C91A5BACF200CA8AC4 /* MemoryWidget.swift */; };
+		4CB246C41A5B916F00CA8AC4 /* WidgetSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */; };
+		4CB246C81A5BAADC00CA8AC4 /* WidgetCPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */; };
+		4CB246CA1A5BACF200CA8AC4 /* WidgetMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C91A5BACF200CA8AC4 /* WidgetMemory.swift */; };
 		4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* Meter.swift */; };
 		4CCC4D8E1A0EFBD600C47931 /* libncurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CCC4D8D1A0EFBD600C47931 /* libncurses.dylib */; };
 		4CEBF73A1A4E066F0001B326 /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBF7371A4E066F0001B326 /* CommandLine.swift */; };
@@ -40,7 +40,7 @@
 
 /* Begin PBXFileReference section */
 		4C08F2971A94F3C3006F9359 /* Widget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
-		4C4281FA1A3009040000C114 /* BatteryWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryWidget.swift; sourceTree = "<group>"; };
+		4C4281FA1A3009040000C114 /* WidgetBattery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetBattery.swift; sourceTree = "<group>"; };
 		4C6D98BB1A3BF7B700BA2B36 /* kinfo_proc-bridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "kinfo_proc-bridge.c"; sourceTree = "<group>"; };
 		4C7F147D19C7B49700F9DCE4 /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		4C81CAC51A05FCFA0078EC22 /* SMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMC.swift; sourceTree = "<group>"; };
@@ -51,9 +51,9 @@
 		4C97A53119E4B2F10018EFB6 /* WidgetFan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetFan.swift; sourceTree = "<group>"; };
 		4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTitle.swift; sourceTree = "<group>"; };
 		4C9C0E5019E32921009EF6A9 /* WidgetTemperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTemperature.swift; sourceTree = "<group>"; };
-		4CB246C31A5B916F00CA8AC4 /* SystemWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemWidget.swift; sourceTree = "<group>"; };
-		4CB246C71A5BAADC00CA8AC4 /* CPUWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUWidget.swift; sourceTree = "<group>"; };
-		4CB246C91A5BACF200CA8AC4 /* MemoryWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryWidget.swift; sourceTree = "<group>"; };
+		4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSystem.swift; sourceTree = "<group>"; };
+		4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetCPU.swift; sourceTree = "<group>"; };
+		4CB246C91A5BACF200CA8AC4 /* WidgetMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetMemory.swift; sourceTree = "<group>"; };
 		4CCB22A119D4F07B0058E62D /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meter.swift; sourceTree = "<group>"; };
 		4CCC4D8D1A0EFBD600C47931 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = usr/lib/libncurses.dylib; sourceTree = SDKROOT; };
 		4CEBF7371A4E066F0001B326 /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandLine.swift; path = libs/CommandLine/CommandLine/CommandLine.swift; sourceTree = "<group>"; };
@@ -129,10 +129,10 @@
 				4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */,
 				4C9C0E5019E32921009EF6A9 /* WidgetTemperature.swift */,
 				4C97A53119E4B2F10018EFB6 /* WidgetFan.swift */,
-				4C4281FA1A3009040000C114 /* BatteryWidget.swift */,
-				4CB246C31A5B916F00CA8AC4 /* SystemWidget.swift */,
-				4CB246C71A5BAADC00CA8AC4 /* CPUWidget.swift */,
-				4CB246C91A5BACF200CA8AC4 /* MemoryWidget.swift */,
+				4C4281FA1A3009040000C114 /* WidgetBattery.swift */,
+				4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */,
+				4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */,
+				4CB246C91A5BACF200CA8AC4 /* WidgetMemory.swift */,
 				4C08F2971A94F3C3006F9359 /* Widget.swift */,
 				4C7F147D19C7B49700F9DCE4 /* Bridge.h */,
 			);
@@ -208,19 +208,19 @@
 				4C81CACB1A05FD140078EC22 /* Battery.swift in Sources */,
 				4C9C0E5119E32921009EF6A9 /* WidgetTemperature.swift in Sources */,
 				4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */,
-				4CB246CA1A5BACF200CA8AC4 /* MemoryWidget.swift in Sources */,
+				4CB246CA1A5BACF200CA8AC4 /* WidgetMemory.swift in Sources */,
 				4CEBF73A1A4E066F0001B326 /* CommandLine.swift in Sources */,
 				4CEBF73B1A4E066F0001B326 /* Option.swift in Sources */,
-				4CB246C81A5BAADC00CA8AC4 /* CPUWidget.swift in Sources */,
+				4CB246C81A5BAADC00CA8AC4 /* WidgetCPU.swift in Sources */,
 				4C97A53219E4B2F10018EFB6 /* WidgetFan.swift in Sources */,
 				4C81CACC1A05FD140078EC22 /* System.swift in Sources */,
-				4CB246C41A5B916F00CA8AC4 /* SystemWidget.swift in Sources */,
+				4CB246C41A5B916F00CA8AC4 /* WidgetSystem.swift in Sources */,
 				4C81CAC71A05FCFA0078EC22 /* SMC.swift in Sources */,
 				4C08F2981A94F3C3006F9359 /* Widget.swift in Sources */,
 				4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */,
 				4C87280119C7B41C002D093F /* main.swift in Sources */,
 				4CEBF73C1A4E066F0001B326 /* StringExtensions.swift in Sources */,
-				4C4281FB1A3009040000C114 /* BatteryWidget.swift in Sources */,
+				4C4281FB1A3009040000C114 /* WidgetBattery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
