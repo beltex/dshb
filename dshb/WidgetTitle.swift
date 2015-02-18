@@ -26,42 +26,42 @@
 
 struct WidgetTitle {
 
-    let title     : String
-    let colour    : Int32
-    var winCoords : Window
+    let name  : String
+    var window: Window
+    let colour: Int32
     
-    private var titlePadding = String()
+    private var padding = String()
     
     
-    init(title: String, winCoords: Window, colour: Int32) {
-        self.title     = title
-        self.colour    = colour
-        self.winCoords = winCoords
+    init(name: String, window: Window, colour: Int32) {
+        self.name   = name
+        self.colour = colour
+        self.window = window
         
-        computeTitlePadding()
+        generatePadding()
     }
     
     
     func draw() {
-        move(winCoords.pos.y, winCoords.pos.x)
+        move(window.point.y, window.point.x)
         attrset(colour)
-        addstr(title + titlePadding)
+        addstr(name + padding)
     }
     
     
-    mutating func resize(winCoords: Window) {
-        self.winCoords = winCoords
-        computeTitlePadding()
+    mutating func resize(window: Window) {
+        self.window = window
+        generatePadding()
         draw()
     }
     
     
-    private mutating func computeTitlePadding() {
-        titlePadding = String()
-        let spaceLength = Int(winCoords.length) - count(title)
+    private mutating func generatePadding() {
+        padding = String()
+        let spaceLength = Int(window.length) - count(name)
         
         for var i = 0; i < spaceLength; ++i {
-            titlePadding.append(UnicodeScalar(" "))
+            padding.append(UnicodeScalar(" "))
         }
     }
 }
