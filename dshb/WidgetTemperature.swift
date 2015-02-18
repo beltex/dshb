@@ -30,7 +30,7 @@ struct WidgetTemperature: WidgetType {
 
     private var widget: WidgetBase
     let maxValue = 128.0
-    var map : [String : SMC.Temperature] = [ : ]
+    private static var map: [String : SMC.Temperature] = [ : ]
     
     init(var window: Window = Window()) {
         widget = WidgetBase(name: "Temperature", window: window)
@@ -52,7 +52,7 @@ struct WidgetTemperature: WidgetType {
         }
         
         for key in temperatureSensors {
-            map.updateValue(key, forKey: SMC.Temperature.allValues[key]!)
+            WidgetTemperature.map.updateValue(key, forKey: SMC.Temperature.allValues[key]!)
         }
         
         
@@ -73,7 +73,7 @@ struct WidgetTemperature: WidgetType {
                 case "BATTERY":
                     value = battery.temperature()
                 default:
-                    value = smc.getTemperature(map[widget.meters[i].name]!).tmp
+                    value = smc.getTemperature(WidgetTemperature.map[widget.meters[i].name]!).tmp
             }
             widget.meters[i].draw(String(Int(value)), percentage: value / maxValue)
         }

@@ -29,7 +29,7 @@ import Foundation
 struct WidgetCPU: WidgetType {
     
     private var widget: WidgetBase
-    private var sys = System()
+    private static var system = System()
     
     init(var window: Window = Window()) {
         widget = WidgetBase(name: "CPU", window: window)
@@ -51,7 +51,7 @@ struct WidgetCPU: WidgetType {
     }
     
     mutating func draw() {
-        let values = sys.usageCPU()
+        let values = WidgetCPU.system.usageCPU()
         widget.meters[0].draw(String(Int(values.system)),
                        percentage: values.system / 100.0)
         widget.meters[1].draw(String(Int(values.user)),

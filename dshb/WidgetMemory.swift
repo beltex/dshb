@@ -29,8 +29,8 @@ import Foundation
 struct WidgetMemory: WidgetType {
     
     private var widget: WidgetBase
-    private let maxValueGB = System.physicalMemory(unit: .Gigabyte)
-    private let maxValueMB = System.physicalMemory(unit: .Megabyte)
+    private static let maxValueGB = System.physicalMemory(unit: .Gigabyte)
+    private static let maxValueMB = System.physicalMemory(unit: .Megabyte)
     
     init(var window: Window = Window()) {
         widget = WidgetBase(name: "CPU", window: window)
@@ -42,7 +42,7 @@ struct WidgetMemory: WidgetType {
         for stat in stats {
             widget.meters.append(Meter(name: stat,
                                        winCoords: window,
-                                       max: maxValueGB,
+                                       max: WidgetMemory.maxValueGB,
                                        unit: .Gigabyte))
             window.point.y++
         }
@@ -68,17 +68,17 @@ struct WidgetMemory: WidgetType {
     
     private mutating func unitCheck(val: Double, index: Int) {
         if (val < 1.0) {
-            widget.meters[index].unit = Meter.Unit.Megabyte
-            widget.meters[index].max = maxValueMB
+            widget.meters[index].unit = .Megabyte
+            widget.meters[index].max = WidgetMemory.maxValueMB
             let value = val * 1000.0
             widget.meters[index].draw(String(Int(value)),
-                               percentage: value / maxValueMB)
+                               percentage: value / WidgetMemory.maxValueMB)
         }
         else {
-            widget.meters[index].unit = Meter.Unit.Gigabyte
-            widget.meters[index].max = maxValueGB
+            widget.meters[index].unit = .Gigabyte
+            widget.meters[index].max = WidgetMemory.maxValueGB
             widget.meters[index].draw(NSString(format:"%.2f", val) as String,
-                               percentage: val / maxValueGB)
+                               percentage: val / WidgetMemory.maxValueGB)
         }
     }
 }
