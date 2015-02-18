@@ -1,5 +1,5 @@
 //
-// TMPWidget.swift
+// WidgetTemperature.swift
 // dshb
 //
 // The MIT License
@@ -26,7 +26,7 @@
 
 import Foundation
 
-struct TMPWidget: WidgetType {
+struct WidgetTemperature: WidgetType {
 
     private var widget: WidgetBase
     let maxValue = 128.0

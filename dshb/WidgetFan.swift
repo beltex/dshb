@@ -1,5 +1,5 @@
 //
-// FanWidget.swift
+// WidgetFan.swift
 // dshb
 //
 // The MIT License

@@ -131,7 +131,7 @@ struct Meter {
         var char_array = Array(nameEdit + space + value + unit.rawValue)
         
         var index = 0
-        move(winCoords.pos.y, winCoords.pos.x)
+        move(winCoords.point.y, winCoords.point.x)
         for char in char_array {
             if (index < valueRange) {
                 if (valueRange < low) {

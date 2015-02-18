@@ -125,23 +125,23 @@ func computeWidgetLength() -> Int {
     return Int(floor(Double((COLS - (gap * Int32(3 - 1)))) / Double(3)))
 }
 
-widgets.append(CPUWidget())
-widgets.append(MemoryWidget())
-widgets.append(SystemWidget())
+widgets.append(WidgetCPU())
+widgets.append(WidgetMemory())
+widgets.append(WidgetSystem())
 
 // Do this before SMC, since temperature widget needs to know about battery
 var battery = Battery()
 if (battery.open() == kIOReturnSuccess) {
     // TODO: Could this change during use? MacBook with removeable battery?
     hasBattery = true
-    widgets.append(BatteryWidget())
+    widgets.append(WidgetBattery())
 }
 
 var smc = SMC()
 if (smc.open() == kIOReturnSuccess) {
     hasSMC = true
-    widgets.append(TMPWidget())
-    widgets.append(FanWidget())
+    widgets.append(WidgetTemperature())
+    widgets.append(WidgetFan())
 }
 
 func draw_all() {
