@@ -30,26 +30,6 @@ import Dispatch
 import Foundation
 
 //------------------------------------------------------------------------------
-// MARK: GLOBAL PROTOCOLS
-//------------------------------------------------------------------------------
-
-protocol Widget {
-    init(win: Window)
-    mutating func draw()
-    mutating func resize(newCoords: Window) -> Int32
-}
-
-//------------------------------------------------------------------------------
-// MARK: GLOBAL STRUCTS
-//------------------------------------------------------------------------------
-
-/// Like an ncurses window
-struct Window {
-    var length = 0
-    var pos    : (x: Int32, y: Int32) = (0, 0)
-}
-
-//------------------------------------------------------------------------------
 // MARK: GLOBAL PROPERTIES
 //------------------------------------------------------------------------------
 
@@ -69,7 +49,7 @@ var FREQ: UInt64 = 1
 var gap: Int32 = 1
 
 /// Statistic widgets that are on (displayed)
-var widgets = [Widget]()
+var widgets = [WidgetType]()
 
 //------------------------------------------------------------------------------
 // MARK: CLI
@@ -178,7 +158,7 @@ func draw_all() {
         }
         
         result_pos = widgets[i].resize(Window(length: widgetLength,
-                                              pos: (x: (widgetLength + gap) * x_multi,
+                                              point: (x: (widgetLength + gap) * x_multi,
                                                     y: y_pos_new)))
         
         if (result_pos > result_max) {

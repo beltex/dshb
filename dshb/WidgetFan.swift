@@ -1,5 +1,5 @@
 //
-// WidgetCPU.swift
+// FanWidget.swift
 // dshb
 //
 // The MIT License
@@ -26,43 +26,37 @@
 
 import Foundation
 
-struct WidgetCPU: WidgetType {
-    
-    private var widget: WidgetBase
-    private var sys = System()
-    
-    init(var window: Window = Window()) {
-        widget = WidgetBase(name: "CPU", window: window)
-        
-        
-        let stats = ["System", "User", "Idle", "Nice"]
+struct WidgetFan: WidgetType {
 
+    private var widget: WidgetBase
+
+    init(var window: Window = Window()) {
+        widget = WidgetBase(name: "Fan", window: window)
+
+
+        // TODO: Sort fan names
+        let numFans = smc.getNumFans().numFans
+        
         window.point.y++
-        for stat in stats {
-            widget.meters.append(Meter(name: stat,
+        for var i: UInt = 0; i < numFans; ++i {
+            widget.meters.append(Meter(name: smc.getFanName(i).name,
                                        winCoords: window,
-                                       max: 100.0,
-                                       unit: .Percentage))
+                                       max: Double(smc.getFanMaxRPM(i).rpm),
+                                       unit: .RPM))
             window.point.y++
         }
+    }
 
-        widget.meters[2].lowColour = Int32(3)
-        widget.meters[2].highColour = Int32(1)
-    }
-    
     mutating func draw() {
-        let values = sys.usageCPU()
-        widget.meters[0].draw(String(Int(values.system)),
-                       percentage: values.system / 100.0)
-        widget.meters[1].draw(String(Int(values.user)),
-                       percentage: values.user / 100.0)
-        widget.meters[2].draw(String(Int(values.idle)),
-                       percentage: values.idle / 100.0)
-        widget.meters[3].draw(String(Int(values.nice)),
-                       percentage: values.nice / 100.0)
+        for var i = 0; i < widget.meters.count; ++i {
+            let fanRPM = smc.getFanRPM(UInt(i)).rpm
+            widget.meters[i].draw(String(fanRPM),
+                                  percentage: Double(fanRPM) / widget.meters[i].max)
+        }
     }
-    
+
     mutating func resize(window: Window) -> Int32 {
         return widget.resize(window)
     }
 }
+

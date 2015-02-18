@@ -1,5 +1,5 @@
 //
-// MemoryWidget.swift
+// WidgetMemory.swift
 // dshb
 //
 // The MIT License
@@ -26,42 +26,32 @@
 
 import Foundation
 
-struct MemoryWidget: Widget {
+struct WidgetMemory: WidgetType {
     
-    private var meters = [Meter]()
-    let maxValueGB = System.physicalMemory(unit: System.Unit.Gigabyte)
-    let maxValueMB = System.physicalMemory(unit: System.Unit.Megabyte)
+    private var widget: WidgetBase
+    private let maxValueGB = System.physicalMemory(unit: .Gigabyte)
+    private let maxValueMB = System.physicalMemory(unit: .Megabyte)
+    
+    init(var window: Window = Window()) {
+        widget = WidgetBase(name: "CPU", window: window)
 
-    let stats = ["Free", "Wired", "Active", "Inactive", "Compressed"]
-    
-    var title : WidgetTitle
-    var win   : Window
-    
-    init(win: Window = Window()) {
-        // win.size.width not currently used
-        self.win = win
         
-        // Title init
-        let titleCoords = Window(length: win.length, pos: (x:win.pos.x, y:win.pos.y))
-        title = WidgetTitle(title: "Memory", winCoords: titleCoords, colour: COLOR_PAIR(5))
-        
-        var yShift = 1
+        let stats = ["Free", "Wired", "Active", "Inactive", "Compressed"]
+
+        window.point.y++
         for stat in stats {
-            meters.append(Meter(name: stat,
-                                winCoords: Window(length: win.length,
-                                                  pos: (x:win.pos.x,
-                                                        y:win.pos.y + yShift)),
-                                max: maxValueGB,
-                                unit: Meter.Unit.Gigabyte))
-            ++yShift
+            widget.meters.append(Meter(name: stat,
+                                       winCoords: window,
+                                       max: maxValueGB,
+                                       unit: .Gigabyte))
+            window.point.y++
         }
         
-        meters[0].lowPercentage = 0.20
-        meters[0].highPercentage = 0.45
-        meters[0].lowColour = Int32(3)
-        meters[0].highColour = Int32(1)
+        widget.meters[0].lowPercentage = 0.20
+        widget.meters[0].highPercentage = 0.45
+        widget.meters[0].lowColour = Int32(3)
+        widget.meters[0].highColour = Int32(1)
     }
-    
     
     mutating func draw() {
         let values = System.memoryUsage()
@@ -72,34 +62,22 @@ struct MemoryWidget: Widget {
         unitCheck(values.compressed, index: 4)
     }
     
-    
-    mutating func resize(newCoords: Window) -> Int32 {
-        win = newCoords
-        title.resize(win)
-        
-        var y_pos = win.pos.y + 1 // Becuase of title
-        for var i = 0; i < meters.count; ++i {
-            meters[i].resize(Window(length: win.length, pos: (x: win.pos.x,
-                                                              y: y_pos)))
-            y_pos++
-        }
-        
-        return y_pos
+    mutating func resize(window: Window) -> Int32 {
+        return widget.resize(window)
     }
-    
     
     private mutating func unitCheck(val: Double, index: Int) {
         if (val < 1.0) {
-            meters[index].unit = Meter.Unit.Megabyte
-            meters[index].max = maxValueMB
+            widget.meters[index].unit = Meter.Unit.Megabyte
+            widget.meters[index].max = maxValueMB
             let value = val * 1000.0
-            meters[index].draw(String(Int(value)),
+            widget.meters[index].draw(String(Int(value)),
                                percentage: value / maxValueMB)
         }
         else {
-            meters[index].unit = Meter.Unit.Gigabyte
-            meters[index].max = maxValueGB
-            meters[index].draw(NSString(format:"%.2f", val) as String,
+            widget.meters[index].unit = Meter.Unit.Gigabyte
+            widget.meters[index].max = maxValueGB
+            widget.meters[index].draw(NSString(format:"%.2f", val) as String,
                                percentage: val / maxValueGB)
         }
     }
