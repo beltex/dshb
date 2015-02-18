@@ -54,7 +54,7 @@ struct Window {
 //------------------------------------------------------------------------------
 
 /// Application version
-let DSHB_VERSION = "0.0.1"
+let DSHB_VERSION = "0.0.2"
 
 /// Does this machine have a battery?
 var hasBattery = false
