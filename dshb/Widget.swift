@@ -27,6 +27,14 @@
 import Foundation
 
 //------------------------------------------------------------------------------
+// MARK: PROPERTIES
+//------------------------------------------------------------------------------
+
+/// Number of pixels between widgets
+private let widgetSpacing   : Int32 = 1
+private let maxWidgetsPerRow: Int32 = 3
+
+//------------------------------------------------------------------------------
 // MARK: PROTOCOLS
 //------------------------------------------------------------------------------
 
@@ -50,20 +58,60 @@ struct Window {
 struct WidgetBase {
     var title: WidgetTitle
     var meters = [Meter]()
-    
+
     init(name: String, window: Window = Window()) {
         title = WidgetTitle(name: name, window: window, colour: COLOR_PAIR(5))
     }
-    
+
     mutating func resize(var window: Window) -> Int32 {
         title.resize(window)
-        
+
         window.point.y++    // Becuase of title
         for var i = 0; i < meters.count; ++i {
             meters[i].resize(window)
             window.point.y++
         }
-        
+
         return window.point.y
     }
 }
+
+//------------------------------------------------------------------------------
+// MARK: FUNCTIONS
+//------------------------------------------------------------------------------
+
+func computeWidgetLength() -> Int {
+    return Int(floor(Double((COLS - (widgetSpacing * maxWidgetsPerRow - 1))) / Double(maxWidgetsPerRow)))
+}
+
+/// Clear the screen and redraw all widgets from scratch
+func drawAllWidgets() {
+    clear()
+
+    let widgetLength          = computeWidgetLength()
+    var result_pos    : Int32 = 0
+    var maxHeight     : Int32 = 0
+    var y_pos_new     : Int32 = 0
+    var widgetRowCount: Int32 = 0
+
+    for var i = 0; i < widgets.count; ++i {
+        // Are we on a new row?
+        if i % Int(maxWidgetsPerRow) == 0 {
+            y_pos_new += maxHeight
+            widgetRowCount = 0
+        }
+
+        result_pos = widgets[i].resize(Window(length: widgetLength,
+                                              point: (x: (widgetLength + widgetSpacing) * widgetRowCount,
+                                                      y: y_pos_new)))
+
+        // While the width of each widget is fixed, the height is not, so
+        // we need to know the max height of a row of widgets
+        if result_pos > maxHeight {
+            maxHeight = result_pos
+        }
+
+        widgetRowCount++
+    }
+}
+

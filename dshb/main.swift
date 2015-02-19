@@ -45,9 +45,6 @@ var hasSMC = false
 /// Statistic update frequency in seconds
 var FREQ: UInt64 = 1
 
-/// Gap between widgets
-var gap: Int32 = 1
-
 /// Statistic widgets that are on (displayed)
 var widgets = [WidgetType]()
 
@@ -120,11 +117,6 @@ bkgd(UInt32(COLOR_PAIR(Int32(4))))
 // MARK: WIDGET SETUP
 //------------------------------------------------------------------------------
 
-func computeWidgetLength() -> Int {
-    // 3 = max widgets per row
-    return Int(floor(Double((COLS - (gap * Int32(3 - 1)))) / Double(3)))
-}
-
 widgets.append(WidgetCPU())
 widgets.append(WidgetMemory())
 widgets.append(WidgetSystem())
@@ -144,31 +136,7 @@ if (smc.open() == kIOReturnSuccess) {
     widgets.append(WidgetFan())
 }
 
-func draw_all() {
-    let widgetLength = computeWidgetLength()
-    
-    var result_pos: Int32 = 0
-    var result_max: Int32 = 0
-    var y_pos_new: Int32 = 0
-    var x_multi: Int32 = 0
-    for var i = 0; i < widgets.count; ++i {
-        if (i % 3 == 0) {
-            y_pos_new += result_max
-            x_multi = 0
-        }
-        
-        result_pos = widgets[i].resize(Window(length: widgetLength,
-                                              point: (x: (widgetLength + gap) * x_multi,
-                                                    y: y_pos_new)))
-        
-        if (result_pos > result_max) {
-            result_max = result_pos
-        }
-        ++x_multi
-    }
-}
-
-draw_all()
+drawAllWidgets()
 
 //------------------------------------------------------------------------------
 // MARK: GCD TIMER SETUP
@@ -202,19 +170,17 @@ dispatch_resume(source)
 //------------------------------------------------------------------------------
 
 while true {
-    // TODO: Why does esc (27) cause such a slow response, as oppossed to
+    // TODO: Why does 'esc' (27) cause such a slow response, as oppossed to
     //       something like 'q'?
-    let key = getch()
     
-    switch key {
+    switch getch() {
         // TODO: has_key() check for KEY_RESIZE?
         case KEY_RESIZE:
             // This could be done through GCD signal handler as well
             dispatch_suspend(source)
             // If this takes too long, queue will build up. Also, there is the 
             // issue of mutiple resize calls.
-            clear()
-            draw_all()
+            drawAllWidgets()
             refresh()
             dispatch_resume(source)
         case Int32(UnicodeScalar("q").value):
