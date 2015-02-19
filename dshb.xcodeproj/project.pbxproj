@@ -20,7 +20,6 @@
 		4CB246C81A5BAADC00CA8AC4 /* WidgetCPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */; };
 		4CB246CA1A5BACF200CA8AC4 /* WidgetMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C91A5BACF200CA8AC4 /* WidgetMemory.swift */; };
 		4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* Meter.swift */; };
-		4CCC4D8E1A0EFBD600C47931 /* libncurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CCC4D8D1A0EFBD600C47931 /* libncurses.dylib */; };
 		4CEBF73A1A4E066F0001B326 /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBF7371A4E066F0001B326 /* CommandLine.swift */; };
 		4CEBF73B1A4E066F0001B326 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBF7381A4E066F0001B326 /* Option.swift */; };
 		4CEBF73C1A4E066F0001B326 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBF7391A4E066F0001B326 /* StringExtensions.swift */; };
@@ -55,7 +54,6 @@
 		4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetCPU.swift; sourceTree = "<group>"; };
 		4CB246C91A5BACF200CA8AC4 /* WidgetMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetMemory.swift; sourceTree = "<group>"; };
 		4CCB22A119D4F07B0058E62D /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meter.swift; sourceTree = "<group>"; };
-		4CCC4D8D1A0EFBD600C47931 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = usr/lib/libncurses.dylib; sourceTree = SDKROOT; };
 		4CEBF7371A4E066F0001B326 /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandLine.swift; path = libs/CommandLine/CommandLine/CommandLine.swift; sourceTree = "<group>"; };
 		4CEBF7381A4E066F0001B326 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Option.swift; path = libs/CommandLine/CommandLine/Option.swift; sourceTree = "<group>"; };
 		4CEBF7391A4E066F0001B326 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = libs/CommandLine/CommandLine/StringExtensions.swift; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CCC4D8E1A0EFBD600C47931 /* libncurses.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +73,6 @@
 		4C81CABE1A05FCA10078EC22 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				4CCC4D8D1A0EFBD600C47931 /* libncurses.dylib */,
 				4CEBF73D1A4E067C0001B326 /* CommandLine */,
 				4C81CAC31A05FCFA0078EC22 /* SMCKit */,
 				4C81CAC81A05FD140078EC22 /* SystemKit */,
