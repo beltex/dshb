@@ -65,12 +65,12 @@ struct WidgetBattery: WidgetType {
         widget.meters[0].draw(String(Int(battery.charge())),
                        percentage: charge / 100.0)
         
-        var v1 = battery.maxCapactiy()
-        var v2 = battery.cycleCount()
+        let maxCapactiy = battery.maxCapactiy()
+        let cycleCount  = battery.cycleCount()
         
-        widget.meters[1].draw(String(v1 - Int(widget.meters[1].max)),
-                              percentage:  Double(v1) / widget.meters[1].max)
-        widget.meters[2].draw(String(v2), percentage: Double(v2) / widget.meters[2].max)
+        widget.meters[1].draw(String(maxCapactiy - Int(widget.meters[1].max)),
+                              percentage:  Double(maxCapactiy) / widget.meters[1].max)
+        widget.meters[2].draw(String(cycleCount), percentage: Double(cycleCount) / widget.meters[2].max)
         widget.meters[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
     }
     

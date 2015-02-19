@@ -69,14 +69,12 @@ struct WidgetMemory: WidgetType {
     private mutating func unitCheck(val: Double, index: Int) {
         if (val < 1.0) {
             widget.meters[index].unit = .Megabyte
-            widget.meters[index].max = WidgetMemory.maxValueMB
             let value = val * 1000.0
             widget.meters[index].draw(String(Int(value)),
                                percentage: value / WidgetMemory.maxValueMB)
         }
         else {
             widget.meters[index].unit = .Gigabyte
-            widget.meters[index].max = WidgetMemory.maxValueGB
             widget.meters[index].draw(NSString(format:"%.2f", val) as String,
                                percentage: val / WidgetMemory.maxValueGB)
         }
