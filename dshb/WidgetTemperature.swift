@@ -30,35 +30,35 @@ struct WidgetTemperature: WidgetType {
 
     private var widget: WidgetBase
     let maxValue = 128.0
-    private static var map: [String : SMC.Temperature] = [ : ]
+    private static var sensorMap: [String : SMC.Temperature] = [ : ]
     
     init(var window: Window = Window()) {
         widget = WidgetBase(name: "Temperature", window: window)
         
         
         // Sensors list
-        let temperatureSensors     = smc.getAllValidTemperatureKeys()
-        var temperatureSensorNames = temperatureSensors.map
-                                              { SMC.Temperature.allValues[$0]! }
+        let sensors     = smc.getAllValidTemperatureKeys()
+        var sensorNames = sensors.map { sensor -> String in
+            let sensorName = SMC.Temperature.allValues[sensor]!
+            WidgetTemperature.sensorMap.updateValue(sensor, forKey: sensorName)
+            return sensorName
+        }
         
+
         // This comes from SystemKit, have to manually added
         if (hasBattery) {
-            temperatureSensorNames.append("BATTERY")
+            sensorNames.append("BATTERY")
             // Only need to sort if have battery, since already sorted via
             // SMCKit
-            if (temperatureSensorNames.count > 1) {
-                temperatureSensorNames.sort { $0 < $1 }
+            if (sensorNames.count > 1) {
+                sensorNames.sort { $0 < $1 }
             }
         }
-        
-        for key in temperatureSensors {
-            WidgetTemperature.map.updateValue(key, forKey: SMC.Temperature.allValues[key]!)
-        }
-        
+    
         
         // Meters init - should be sorted here
         window.point.y++
-        for sensor in temperatureSensorNames {
+        for sensor in sensorNames {
             widget.meters.append(Meter(name: sensor, window: window,
                                                      max: maxValue,
                                                      unit: .Celsius))
@@ -73,7 +73,7 @@ struct WidgetTemperature: WidgetType {
                 case "BATTERY":
                     value = battery.temperature()
                 default:
-                    value = smc.getTemperature(WidgetTemperature.map[widget.meters[i].name]!).tmp
+                    value = smc.getTemperature(WidgetTemperature.sensorMap[widget.meters[i].name]!).tmp
             }
             widget.meters[i].draw(String(Int(value)), percentage: value / maxValue)
         }
