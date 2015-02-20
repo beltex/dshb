@@ -1,5 +1,5 @@
 //
-// BarGraph.swift
+// WidgetUIStat.swift
 // dshb
 //
 // The MIT License
@@ -26,23 +26,27 @@
 
 import Foundation
 
+//------------------------------------------------------------------------------
+// MARK: ENUMS
+//------------------------------------------------------------------------------
+
+enum Unit: String {
+    case Celsius         = "°C"
+    case Fahrenheit      = "°F"
+    case Gigabyte        = "GB"
+    case Kelvin          = "K"
+    case Percentage      = "%"
+    case Megabyte        = "MB"
+    case MilliampereHour = " mAh"
+    case None            = ""
+    case RPM             = " RPM"
+}
+
+//------------------------------------------------------------------------------
+// MARK: STRUCTS
+//------------------------------------------------------------------------------
+
 struct Meter {
-    
-    //--------------------------------------------------------------------------
-    // MARK: PUBLIC ENUMS
-    //--------------------------------------------------------------------------
-    
-    enum Unit: String {
-        case Celsius         = "°C"
-        case Fahrenheit      = "°F"
-        case Gigabyte        = "GB"
-        case Kelvin          = "K"
-        case Percentage      = "%"
-        case Megabyte        = "MB"
-        case MilliampereHour = " mAh"
-        case None            = ""
-        case RPM             = " RPM"
-    }
     
     //--------------------------------------------------------------------------
     // MARK: PUBLIC PROPERTIES

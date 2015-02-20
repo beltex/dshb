@@ -34,7 +34,7 @@ struct WidgetBattery: WidgetType {
         widget = WidgetBase(name: "Battery", window: window)
 
         
-        let stats: [(name: String, maxValue: Double, unit: Meter.Unit)] =
+        let stats: [(name: String, maxValue: Double, unit: Unit)] =
   [("Charge", 100.0, .Percentage),
    ("Capacity Degradation", Double(battery.designCapacity()), .MilliampereHour),
    ("Cycles", Double(battery.designCycleCount()), .None),
