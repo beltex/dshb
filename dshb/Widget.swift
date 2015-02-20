@@ -60,7 +60,7 @@ struct WidgetBase {
     var meters = [Meter]()
 
     init(name: String, window: Window = Window()) {
-        title = WidgetUITitle(name: name, window: window, colour: COLOR_PAIR(5))
+        title = WidgetUITitle(name: name, window: window)
     }
 
     mutating func resize(var window: Window) -> Int32 {

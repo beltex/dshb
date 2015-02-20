@@ -28,13 +28,12 @@ struct WidgetUITitle {
 
     let name  : String
     var window: Window
-    let colour: Int32
+    let colour: Int32 = COLOR_PAIR(5)
     
     private var padding = String()
     
-    init(name: String, window: Window, colour: Int32) {
+    init(name: String, window: Window) {
         self.name   = name
-        self.colour = colour
         self.window = window
         
         generatePadding()
