@@ -80,15 +80,11 @@ struct WidgetBase {
 // MARK: FUNCTIONS
 //------------------------------------------------------------------------------
 
-func computeWidgetLength() -> Int {
-    return Int(floor(Double((COLS - (widgetSpacing * maxWidgetsPerRow - 1))) / Double(maxWidgetsPerRow)))
-}
-
 /// Clear the screen and redraw all widgets from scratch
 func drawAllWidgets() {
     clear()
 
-    let widgetLength          = computeWidgetLength()
+    let widgetLength = Int(floor(Double((COLS - (widgetSpacing * (maxWidgetsPerRow - widgetSpacing)))) / Double(maxWidgetsPerRow)))
     var result_pos    : Int32 = 0
     var maxHeight     : Int32 = 0
     var y_pos_new     : Int32 = 0
@@ -114,4 +110,3 @@ func drawAllWidgets() {
         widgetRowCount++
     }
 }
-

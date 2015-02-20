@@ -32,7 +32,6 @@ struct WidgetTitle {
     
     private var padding = String()
     
-    
     init(name: String, window: Window, colour: Int32) {
         self.name   = name
         self.colour = colour
@@ -41,20 +40,17 @@ struct WidgetTitle {
         generatePadding()
     }
     
-    
     func draw() {
         move(window.point.y, window.point.x)
         attrset(colour)
         addstr(name + padding)
     }
     
-    
     mutating func resize(window: Window) {
         self.window = window
         generatePadding()
         draw()
     }
-    
     
     private mutating func generatePadding() {
         padding = String()

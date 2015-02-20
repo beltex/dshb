@@ -97,14 +97,9 @@ intrflush(stdscr, true)     // Prevent flush
 keypad(stdscr, true)        // Enable function and arrow keys
 curs_set(0)                 // Set cursor to invisible
 
-
-// TODO: If no colour support, is it still safe to make colour related ncurses
-//       calls?
-if (!has_colors()) {
-    println("WARN: Terminal doesn't have support for colours")
-}
-
 // Init terminal colours
+// TODO: Do has_color() check when we have a way to log the error, println()
+//       won't work
 start_color()
 init_pair(1, Int16(COLOR_BLACK), Int16(COLOR_GREEN))
 init_pair(2, Int16(COLOR_BLACK), Int16(COLOR_YELLOW))
