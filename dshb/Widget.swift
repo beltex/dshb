@@ -56,11 +56,11 @@ struct Window {
 
 /// Base (parent) widget
 struct WidgetBase {
-    var title: WidgetTitle
+    var title: WidgetUITitle
     var meters = [Meter]()
 
     init(name: String, window: Window = Window()) {
-        title = WidgetTitle(name: name, window: window, colour: COLOR_PAIR(5))
+        title = WidgetUITitle(name: name, window: window, colour: COLOR_PAIR(5))
     }
 
     mutating func resize(var window: Window) -> Int32 {

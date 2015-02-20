@@ -14,7 +14,7 @@
 		4C81CACC1A05FD140078EC22 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81CACA1A05FD140078EC22 /* System.swift */; };
 		4C87280119C7B41C002D093F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C87280019C7B41C002D093F /* main.swift */; };
 		4C97A53219E4B2F10018EFB6 /* WidgetFan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C97A53119E4B2F10018EFB6 /* WidgetFan.swift */; };
-		4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */; };
+		4C9A7D2019D98D74004ABADA /* WidgetUITitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9A7D1F19D98D74004ABADA /* WidgetUITitle.swift */; };
 		4C9C0E5119E32921009EF6A9 /* WidgetTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C0E5019E32921009EF6A9 /* WidgetTemperature.swift */; };
 		4CB246C41A5B916F00CA8AC4 /* WidgetSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */; };
 		4CB246C81A5BAADC00CA8AC4 /* WidgetCPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */; };
@@ -48,7 +48,7 @@
 		4C8727FD19C7B41C002D093F /* dshb */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dshb; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C87280019C7B41C002D093F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4C97A53119E4B2F10018EFB6 /* WidgetFan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetFan.swift; sourceTree = "<group>"; };
-		4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTitle.swift; sourceTree = "<group>"; };
+		4C9A7D1F19D98D74004ABADA /* WidgetUITitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetUITitle.swift; sourceTree = "<group>"; };
 		4C9C0E5019E32921009EF6A9 /* WidgetTemperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTemperature.swift; sourceTree = "<group>"; };
 		4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSystem.swift; sourceTree = "<group>"; };
 		4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetCPU.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 			children = (
 				4C87280019C7B41C002D093F /* main.swift */,
 				4C08F2971A94F3C3006F9359 /* Widget.swift */,
-				4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */,
+				4C9A7D1F19D98D74004ABADA /* WidgetUITitle.swift */,
 				4CCB22A119D4F07B0058E62D /* Meter.swift */,
 				4C4281FA1A3009040000C114 /* WidgetBattery.swift */,
 				4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */,
@@ -203,7 +203,7 @@
 			files = (
 				4C81CACB1A05FD140078EC22 /* Battery.swift in Sources */,
 				4C9C0E5119E32921009EF6A9 /* WidgetTemperature.swift in Sources */,
-				4C9A7D2019D98D74004ABADA /* WidgetTitle.swift in Sources */,
+				4C9A7D2019D98D74004ABADA /* WidgetUITitle.swift in Sources */,
 				4CB246CA1A5BACF200CA8AC4 /* WidgetMemory.swift in Sources */,
 				4CEBF73A1A4E066F0001B326 /* CommandLine.swift in Sources */,
 				4CEBF73B1A4E066F0001B326 /* Option.swift in Sources */,

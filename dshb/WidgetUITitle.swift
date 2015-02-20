@@ -1,5 +1,5 @@
 //
-// WidgetTitle.swift
+// WidgetUITitle.swift
 // dshb
 //
 // The MIT License
@@ -24,7 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-struct WidgetTitle {
+struct WidgetUITitle {
 
     let name  : String
     var window: Window
