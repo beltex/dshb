@@ -30,19 +30,14 @@ struct WidgetSystem: WidgetType {
     
     private var widget: WidgetBase
     
-    init(var window: Window = Window()) {
+    init(window: Window = Window()) {
         widget = WidgetBase(name: "System", window: window)
 
         
         let stats = ["Uptime","Processes","Threads","Load Avg","Mach factor"]
         
-        window.point.y++
         for stat in stats {
-            widget.meters.append(Meter(name: stat,
-                                       window: window,
-                                       max: 1.0,
-                                       unit: .None))
-            window.point.y++
+            widget.meters.append(Meter(name: stat, max: 1.0, unit: .None))
         }
     }
     

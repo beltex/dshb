@@ -39,7 +39,7 @@ private let maxWidgetsPerRow: Int32 = 3
 //------------------------------------------------------------------------------
 
 protocol WidgetType {
-    init(var window: Window)
+    init(window: Window)
     mutating func draw()
     mutating func resize(window: Window) -> Int32
 }

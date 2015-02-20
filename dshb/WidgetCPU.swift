@@ -31,19 +31,14 @@ struct WidgetCPU: WidgetType {
     private var widget: WidgetBase
     private static var system = System()
     
-    init(var window: Window = Window()) {
+    init(window: Window = Window()) {
         widget = WidgetBase(name: "CPU", window: window)
         
         
         let stats = ["System", "User", "Idle", "Nice"]
 
-        window.point.y++
         for stat in stats {
-            widget.meters.append(Meter(name: stat,
-                                       window: window,
-                                       max: 100.0,
-                                       unit: .Percentage))
-            window.point.y++
+            widget.meters.append(Meter(name: stat, max: 100.0, unit: .Percentage))
         }
 
         widget.meters[2].lowColour = Int32(3)

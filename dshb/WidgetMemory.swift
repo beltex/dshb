@@ -32,19 +32,16 @@ struct WidgetMemory: WidgetType {
     private static let maxValueGB = System.physicalMemory(unit: .Gigabyte)
     private static let maxValueMB = System.physicalMemory(unit: .Megabyte)
     
-    init(var window: Window = Window()) {
+    init(window: Window = Window()) {
         widget = WidgetBase(name: "CPU", window: window)
 
         
         let stats = ["Free", "Wired", "Active", "Inactive", "Compressed"]
 
-        window.point.y++
         for stat in stats {
             widget.meters.append(Meter(name: stat,
-                                       window: window,
                                        max: WidgetMemory.maxValueGB,
                                        unit: .Gigabyte))
-            window.point.y++
         }
         
         widget.meters[0].lowPercentage = 0.20

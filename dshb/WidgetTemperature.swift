@@ -32,7 +32,7 @@ struct WidgetTemperature: WidgetType {
     let maxValue = 128.0
     private static var sensorMap: [String : SMC.Temperature] = [ : ]
     
-    init(var window: Window = Window()) {
+    init(window: Window = Window()) {
         widget = WidgetBase(name: "Temperature", window: window)
         
         
@@ -57,12 +57,8 @@ struct WidgetTemperature: WidgetType {
     
         
         // Meters init - should be sorted here
-        window.point.y++
         for sensor in sensorNames {
-            widget.meters.append(Meter(name: sensor, window: window,
-                                                     max: maxValue,
-                                                     unit: .Celsius))
-            window.point.y++
+            widget.meters.append(Meter(name: sensor, max: maxValue, unit: .Celsius))
         }
     }
     

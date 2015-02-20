@@ -124,12 +124,12 @@
 				4C08F2971A94F3C3006F9359 /* Widget.swift */,
 				4C9A7D1F19D98D74004ABADA /* WidgetTitle.swift */,
 				4CCB22A119D4F07B0058E62D /* Meter.swift */,
-				4C9C0E5019E32921009EF6A9 /* WidgetTemperature.swift */,
-				4C97A53119E4B2F10018EFB6 /* WidgetFan.swift */,
 				4C4281FA1A3009040000C114 /* WidgetBattery.swift */,
-				4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */,
 				4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */,
+				4C97A53119E4B2F10018EFB6 /* WidgetFan.swift */,
 				4CB246C91A5BACF200CA8AC4 /* WidgetMemory.swift */,
+				4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */,
+				4C9C0E5019E32921009EF6A9 /* WidgetTemperature.swift */,
 				4C7F147D19C7B49700F9DCE4 /* Bridge.h */,
 			);
 			path = dshb;

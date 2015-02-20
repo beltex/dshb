@@ -80,7 +80,7 @@ struct Meter {
     // MARK: INITIALIZERS
     //--------------------------------------------------------------------------
     
-    init(name: String, window: Window, max: Double, unit: Unit) {
+    init(name: String, window: Window = Window(), max: Double, unit: Unit) {
         self.name   = name
         self.window = window
         self.unit   = unit

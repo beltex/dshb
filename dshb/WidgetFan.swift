@@ -30,20 +30,17 @@ struct WidgetFan: WidgetType {
 
     private var widget: WidgetBase
 
-    init(var window: Window = Window()) {
+    init(window: Window = Window()) {
         widget = WidgetBase(name: "Fan", window: window)
 
 
         // TODO: Sort fan names
         let numFans = smc.getNumFans().numFans
         
-        window.point.y++
         for var i: UInt = 0; i < numFans; ++i {
             widget.meters.append(Meter(name: smc.getFanName(i).name,
-                                       window: window,
                                        max: Double(smc.getFanMaxRPM(i).rpm),
                                        unit: .RPM))
-            window.point.y++
         }
     }
 

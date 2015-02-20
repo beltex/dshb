@@ -30,7 +30,7 @@ struct WidgetBattery: WidgetType {
     
     private var widget: WidgetBase
     
-    init(var window: Window = Window()) {
+    init(window: Window = Window()) {
         widget = WidgetBase(name: "Battery", window: window)
 
         
@@ -40,13 +40,9 @@ struct WidgetBattery: WidgetType {
    ("Cycles", Double(battery.designCycleCount()), .None),
    ("Time Remaining", 0.0, .None)]
         
-        window.point.y++
         for stat in stats {
-            widget.meters.append(Meter(name: stat.name,
-                                       window: window,
-                                       max: stat.maxValue,
-                                       unit: stat.unit))
-            window.point.y++
+            widget.meters.append(Meter(name: stat.name, max: stat.maxValue,
+                                                        unit: stat.unit))
         }
         
         
