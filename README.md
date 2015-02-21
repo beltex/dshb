@@ -51,7 +51,7 @@ Besides building from inside of Xcode, you can compile dshb from the command
 line like so
 
 ```sh
-make
+make build
 ```
 
 The resulting binary will be found inside the `bin/` directory. If you copy it
