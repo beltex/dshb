@@ -34,7 +34,7 @@ Placeholder. Define interface.
 
 ## AUTHOR
 
-Copyright (C) 2014  beltex <https://github.com/beltex>
+beltex <https://github.com/beltex>
 
 ## SEE ALSO
 
