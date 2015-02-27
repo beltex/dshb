@@ -37,13 +37,13 @@ import Foundation
 let DSHB_VERSION = "0.0.3"
 
 /// Does this machine have a battery?
-var hasBattery = false
+let hasBattery: Bool
 
 /// Does this machine have a SMC (System Management Controller)?
-var hasSMC = false
+let hasSMC: Bool
 
 /// Statistic update frequency in seconds
-var FREQ: UInt64 = 1
+let FREQ: UInt64
 
 /// Statistic widgets that are on (displayed)
 var widgets = [WidgetType]()
@@ -82,6 +82,9 @@ else if (CLI_VERSION.value) {
 
 if let user_freq = CLI_FREQ.value {
     FREQ = UInt64(user_freq)
+}
+else {
+    FREQ = 1
 }
 
 //------------------------------------------------------------------------------
@@ -122,6 +125,8 @@ if (battery.open() == kIOReturnSuccess) {
     // TODO: Could this change during use? MacBook with removeable battery?
     hasBattery = true
     widgets.append(WidgetBattery())
+} else {
+    hasBattery = false
 }
 
 var smc = SMC()
@@ -129,6 +134,9 @@ if (smc.open() == kIOReturnSuccess) {
     hasSMC = true
     widgets.append(WidgetTemperature())
     widgets.append(WidgetFan())
+}
+else {
+    hasSMC = false
 }
 
 drawAllWidgets()
