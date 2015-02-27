@@ -34,7 +34,7 @@ import Foundation
 //------------------------------------------------------------------------------
 
 /// Application version
-let DSHB_VERSION = "0.0.2"
+let DSHB_VERSION = "0.0.3"
 
 /// Does this machine have a battery?
 var hasBattery = false
