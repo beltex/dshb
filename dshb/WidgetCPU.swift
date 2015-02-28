@@ -38,22 +38,22 @@ struct WidgetCPU: WidgetType {
         let stats = ["System", "User", "Idle", "Nice"]
 
         for stat in stats {
-            widget.meters.append(Meter(name: stat, max: 100.0, unit: .Percentage))
+            widget.stats.append(WidgetUIStat(name: stat, max: 100.0, unit: .Percentage))
         }
 
-        widget.meters[2].lowColour = Int32(3)
-        widget.meters[2].highColour = Int32(1)
+        widget.stats[2].lowColour = Int32(3)
+        widget.stats[2].highColour = Int32(1)
     }
     
     mutating func draw() {
         let values = WidgetCPU.system.usageCPU()
-        widget.meters[0].draw(String(Int(values.system)),
+        widget.stats[0].draw(String(Int(values.system)),
                        percentage: values.system / 100.0)
-        widget.meters[1].draw(String(Int(values.user)),
+        widget.stats[1].draw(String(Int(values.user)),
                        percentage: values.user / 100.0)
-        widget.meters[2].draw(String(Int(values.idle)),
+        widget.stats[2].draw(String(Int(values.idle)),
                        percentage: values.idle / 100.0)
-        widget.meters[3].draw(String(Int(values.nice)),
+        widget.stats[3].draw(String(Int(values.nice)),
                        percentage: values.nice / 100.0)
     }
     

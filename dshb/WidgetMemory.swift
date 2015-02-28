@@ -39,15 +39,15 @@ struct WidgetMemory: WidgetType {
         let stats = ["Free", "Wired", "Active", "Inactive", "Compressed"]
 
         for stat in stats {
-            widget.meters.append(Meter(name: stat,
+            widget.stats.append(WidgetUIStat(name: stat,
                                        max: WidgetMemory.maxValueGB,
                                        unit: .Gigabyte))
         }
         
-        widget.meters[0].lowPercentage = 0.20
-        widget.meters[0].highPercentage = 0.45
-        widget.meters[0].lowColour = Int32(3)
-        widget.meters[0].highColour = Int32(1)
+        widget.stats[0].lowPercentage = 0.20
+        widget.stats[0].highPercentage = 0.45
+        widget.stats[0].lowColour = Int32(3)
+        widget.stats[0].highColour = Int32(1)
     }
     
     mutating func draw() {
@@ -65,14 +65,14 @@ struct WidgetMemory: WidgetType {
     
     private mutating func unitCheck(val: Double, index: Int) {
         if (val < 1.0) {
-            widget.meters[index].unit = .Megabyte
+            widget.stats[index].unit = .Megabyte
             let value = val * 1000.0
-            widget.meters[index].draw(String(Int(value)),
+            widget.stats[index].draw(String(Int(value)),
                                percentage: value / WidgetMemory.maxValueMB)
         }
         else {
-            widget.meters[index].unit = .Gigabyte
-            widget.meters[index].draw(NSString(format:"%.2f", val) as String,
+            widget.stats[index].unit = .Gigabyte
+            widget.stats[index].draw(NSString(format:"%.2f", val) as String,
                                percentage: val / WidgetMemory.maxValueGB)
         }
     }

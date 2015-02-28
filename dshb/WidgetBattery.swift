@@ -41,33 +41,34 @@ struct WidgetBattery: WidgetType {
    ("Time Remaining", 0.0, .None)]
         
         for stat in stats {
-            widget.meters.append(Meter(name: stat.name, max: stat.maxValue,
-                                                        unit: stat.unit))
+            widget.stats.append(WidgetUIStat(name: stat.name,
+                                              max: stat.maxValue,
+                                              unit: stat.unit))
         }
         
         
-        widget.meters[0].lowPercentage = 0.2
-        widget.meters[0].midPercentage = 0.0
-        widget.meters[0].highPercentage = 0.8
-        widget.meters[0].lowColour = Int32(3)
-        widget.meters[0].highColour = Int32(1)
+        widget.stats[0].lowPercentage = 0.2
+        widget.stats[0].midPercentage = 0.0
+        widget.stats[0].highPercentage = 0.8
+        widget.stats[0].lowColour = Int32(3)
+        widget.stats[0].highColour = Int32(1)
         
-        widget.meters[1].lowColour = Int32(3)
-        widget.meters[1].highColour = Int32(1)
+        widget.stats[1].lowColour = Int32(3)
+        widget.stats[1].highColour = Int32(1)
     }
     
     mutating func draw() {
         let charge = battery.charge()
-        widget.meters[0].draw(String(Int(battery.charge())),
+        widget.stats[0].draw(String(Int(battery.charge())),
                        percentage: charge / 100.0)
         
         let maxCapactiy = battery.maxCapactiy()
         let cycleCount  = battery.cycleCount()
         
-        widget.meters[1].draw(String(maxCapactiy - Int(widget.meters[1].max)),
-                              percentage:  Double(maxCapactiy) / widget.meters[1].max)
-        widget.meters[2].draw(String(cycleCount), percentage: Double(cycleCount) / widget.meters[2].max)
-        widget.meters[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
+        widget.stats[1].draw(String(maxCapactiy - Int(widget.stats[1].max)),
+                              percentage:  Double(maxCapactiy) / widget.stats[1].max)
+        widget.stats[2].draw(String(cycleCount), percentage: Double(cycleCount) / widget.stats[2].max)
+        widget.stats[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
     }
     
     mutating func resize(window: Window) -> Int32 {

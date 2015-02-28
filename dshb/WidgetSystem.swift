@@ -37,26 +37,26 @@ struct WidgetSystem: WidgetType {
         let stats = ["Uptime","Processes","Threads","Load Avg","Mach factor"]
         
         for stat in stats {
-            widget.meters.append(Meter(name: stat, max: 1.0, unit: .None))
+            widget.stats.append(WidgetUIStat(name: stat, max: 1.0, unit: .None))
         }
     }
     
     mutating func draw() {
         let uptime = System.uptime()
-        widget.meters[0].draw("\(uptime.days)d \(uptime.hrs)h \(uptime.mins)m",
+        widget.stats[0].draw("\(uptime.days)d \(uptime.hrs)h \(uptime.mins)m",
                        percentage: 0.0)
 
-        widget.meters[1].draw(String(System.processCount()), percentage: 0.0)
-        widget.meters[2].draw(String(System.threadCount()), percentage: 0.0)
+        widget.stats[1].draw(String(System.processCount()), percentage: 0.0)
+        widget.stats[2].draw(String(System.threadCount()), percentage: 0.0)
         
         let loadAverage = System.loadAverage().map
                                                { NSString(format:"%.2f", $0) }
-        widget.meters[3].draw("\(loadAverage[0]), \(loadAverage[1])," +
+        widget.stats[3].draw("\(loadAverage[0]), \(loadAverage[1])," +
                        "\(loadAverage[2])", percentage: 0.0)
         
         let machFactor = System.machFactor().map { NSString(format:"%.2f", $0) }
 
-        widget.meters[4].draw("\(machFactor[0]), \(machFactor[1]), \(machFactor[2])",
+        widget.stats[4].draw("\(machFactor[0]), \(machFactor[1]), \(machFactor[2])",
                                                             percentage: 0.0)
     }
     

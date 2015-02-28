@@ -19,7 +19,7 @@
 		4CB246C41A5B916F00CA8AC4 /* WidgetSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */; };
 		4CB246C81A5BAADC00CA8AC4 /* WidgetCPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */; };
 		4CB246CA1A5BACF200CA8AC4 /* WidgetMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB246C91A5BACF200CA8AC4 /* WidgetMemory.swift */; };
-		4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* Meter.swift */; };
+		4CCB22A219D4F07B0058E62D /* WidgetUIStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB22A119D4F07B0058E62D /* WidgetUIStat.swift */; };
 		4CEBF73A1A4E066F0001B326 /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBF7371A4E066F0001B326 /* CommandLine.swift */; };
 		4CEBF73B1A4E066F0001B326 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBF7381A4E066F0001B326 /* Option.swift */; };
 		4CEBF73C1A4E066F0001B326 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBF7391A4E066F0001B326 /* StringExtensions.swift */; };
@@ -53,7 +53,7 @@
 		4CB246C31A5B916F00CA8AC4 /* WidgetSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSystem.swift; sourceTree = "<group>"; };
 		4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetCPU.swift; sourceTree = "<group>"; };
 		4CB246C91A5BACF200CA8AC4 /* WidgetMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetMemory.swift; sourceTree = "<group>"; };
-		4CCB22A119D4F07B0058E62D /* Meter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meter.swift; sourceTree = "<group>"; };
+		4CCB22A119D4F07B0058E62D /* WidgetUIStat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetUIStat.swift; sourceTree = "<group>"; };
 		4CEBF7371A4E066F0001B326 /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandLine.swift; path = libs/CommandLine/CommandLine/CommandLine.swift; sourceTree = "<group>"; };
 		4CEBF7381A4E066F0001B326 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Option.swift; path = libs/CommandLine/CommandLine/Option.swift; sourceTree = "<group>"; };
 		4CEBF7391A4E066F0001B326 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = libs/CommandLine/CommandLine/StringExtensions.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 				4C87280019C7B41C002D093F /* main.swift */,
 				4C08F2971A94F3C3006F9359 /* Widget.swift */,
 				4C9A7D1F19D98D74004ABADA /* WidgetUITitle.swift */,
-				4CCB22A119D4F07B0058E62D /* Meter.swift */,
+				4CCB22A119D4F07B0058E62D /* WidgetUIStat.swift */,
 				4C4281FA1A3009040000C114 /* WidgetBattery.swift */,
 				4CB246C71A5BAADC00CA8AC4 /* WidgetCPU.swift */,
 				4C97A53119E4B2F10018EFB6 /* WidgetFan.swift */,
@@ -213,7 +213,7 @@
 				4CB246C41A5B916F00CA8AC4 /* WidgetSystem.swift in Sources */,
 				4C81CAC71A05FCFA0078EC22 /* SMC.swift in Sources */,
 				4C08F2981A94F3C3006F9359 /* Widget.swift in Sources */,
-				4CCB22A219D4F07B0058E62D /* Meter.swift in Sources */,
+				4CCB22A219D4F07B0058E62D /* WidgetUIStat.swift in Sources */,
 				4C87280119C7B41C002D093F /* main.swift in Sources */,
 				4CEBF73C1A4E066F0001B326 /* StringExtensions.swift in Sources */,
 				4C4281FB1A3009040000C114 /* WidgetBattery.swift in Sources */,

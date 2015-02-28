@@ -56,22 +56,22 @@ struct WidgetTemperature: WidgetType {
         }
     
         
-        // Meters init - should be sorted here
+        // stats init - should be sorted here
         for sensor in sensorNames {
-            widget.meters.append(Meter(name: sensor, max: maxValue, unit: .Celsius))
+            widget.stats.append(WidgetUIStat(name: sensor, max: maxValue, unit: .Celsius))
         }
     }
     
     mutating func draw() {
-        for var i = 0; i < widget.meters.count; ++i {
+        for var i = 0; i < widget.stats.count; ++i {
             let value: Double
-            switch widget.meters[i].name {
+            switch widget.stats[i].name {
                 case "BATTERY":
                     value = battery.temperature()
                 default:
-                    value = smc.getTemperature(WidgetTemperature.sensorMap[widget.meters[i].name]!).tmp
+                    value = smc.getTemperature(WidgetTemperature.sensorMap[widget.stats[i].name]!).tmp
             }
-            widget.meters[i].draw(String(Int(value)), percentage: value / maxValue)
+            widget.stats[i].draw(String(Int(value)), percentage: value / maxValue)
         }
     }
     

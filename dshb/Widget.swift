@@ -57,7 +57,7 @@ struct Window {
 /// Base (parent) widget
 struct WidgetBase {
     var title: WidgetUITitle
-    var meters = [Meter]()
+    var stats = [WidgetUIStat]()
 
     init(name: String, window: Window = Window()) {
         title = WidgetUITitle(name: name, window: window)
@@ -67,8 +67,8 @@ struct WidgetBase {
         title.resize(window)
 
         window.point.y++    // Becuase of title
-        for var i = 0; i < meters.count; ++i {
-            meters[i].resize(window)
+        for var i = 0; i < stats.count; ++i {
+            stats[i].resize(window)
             window.point.y++
         }
 

@@ -38,17 +38,17 @@ struct WidgetFan: WidgetType {
         let numFans = smc.getNumFans().numFans
         
         for var i: UInt = 0; i < numFans; ++i {
-            widget.meters.append(Meter(name: smc.getFanName(i).name,
+            widget.stats.append(WidgetUIStat(name: smc.getFanName(i).name,
                                        max: Double(smc.getFanMaxRPM(i).rpm),
                                        unit: .RPM))
         }
     }
 
     mutating func draw() {
-        for var i = 0; i < widget.meters.count; ++i {
+        for var i = 0; i < widget.stats.count; ++i {
             let fanRPM = smc.getFanRPM(UInt(i)).rpm
-            widget.meters[i].draw(String(fanRPM),
-                                  percentage: Double(fanRPM) / widget.meters[i].max)
+            widget.stats[i].draw(String(fanRPM),
+                                  percentage: Double(fanRPM) / widget.stats[i].max)
         }
     }
 
