@@ -40,7 +40,6 @@
 /* Begin PBXFileReference section */
 		4C08F2971A94F3C3006F9359 /* Widget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		4C4281FA1A3009040000C114 /* WidgetBattery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetBattery.swift; sourceTree = "<group>"; };
-		4C6D98BB1A3BF7B700BA2B36 /* kinfo_proc-bridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "kinfo_proc-bridge.c"; sourceTree = "<group>"; };
 		4C7F147D19C7B49700F9DCE4 /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		4C81CAC51A05FCFA0078EC22 /* SMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMC.swift; sourceTree = "<group>"; };
 		4C81CAC91A05FD140078EC22 /* Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
@@ -94,7 +93,6 @@
 			children = (
 				4C81CAC91A05FD140078EC22 /* Battery.swift */,
 				4C81CACA1A05FD140078EC22 /* System.swift */,
-				4C6D98BB1A3BF7B700BA2B36 /* kinfo_proc-bridge.c */,
 			);
 			name = SystemKit;
 			path = libs/SystemKit/SystemKit;

@@ -125,7 +125,7 @@ struct WidgetUIStat {
         var valueRange = Int(floor(Double(window.length) * percentage))
         
         var space = String()
-        for var x = 0; x < Int(spaceLen); ++x {
+        for var x = 0; x < spaceLen; ++x {
             space.append(UnicodeScalar(" "))
         }
     
