@@ -24,8 +24,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-
 struct WidgetCPU: WidgetType {
     
     private var widget: WidgetBase
