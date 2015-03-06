@@ -26,6 +26,7 @@
 
 import IOKit
 import Darwin
+import Darwin.ncurses
 import Dispatch
 import Foundation
 
