@@ -39,8 +39,8 @@ struct WidgetCPU: WidgetType {
             widget.stats.append(WidgetUIStat(name: stat, max: 100.0, unit: .Percentage))
         }
 
-        widget.stats[2].lowColour = Int32(3)
-        widget.stats[2].highColour = Int32(1)
+        widget.stats[2].lowColor  = WidgetUIColorStatDanger
+        widget.stats[2].highColor = WidgetUIColorStatGood
     }
     
     mutating func draw() {

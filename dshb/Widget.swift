@@ -28,6 +28,13 @@
 // MARK: PROPERTIES
 //------------------------------------------------------------------------------
 
+// Color pair refs
+let WidgetUIColorBackground : Int32 = 1
+let WidgetUIColorTitle      : Int32 = 2
+let WidgetUIColorStatGood   : Int32 = 3
+let WidgetUIColorStatWarning: Int32 = 4
+let WidgetUIColorStatDanger : Int32 = 5
+
 /// Number of pixels between widgets
 private let widgetSpacing   : Int32 = 1
 private let maxWidgetsPerRow: Int32 = 3

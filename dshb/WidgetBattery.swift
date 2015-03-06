@@ -48,11 +48,11 @@ struct WidgetBattery: WidgetType {
         widget.stats[0].lowPercentage = 0.2
         widget.stats[0].midPercentage = 0.0
         widget.stats[0].highPercentage = 0.8
-        widget.stats[0].lowColour = Int32(3)
-        widget.stats[0].highColour = Int32(1)
+        widget.stats[0].lowColor  = WidgetUIColorStatDanger
+        widget.stats[0].highColor = WidgetUIColorStatGood
         
-        widget.stats[1].lowColour = Int32(3)
-        widget.stats[1].highColour = Int32(1)
+        widget.stats[1].lowColor  = WidgetUIColorStatDanger
+        widget.stats[1].highColor = WidgetUIColorStatGood
     }
     
     mutating func draw() {

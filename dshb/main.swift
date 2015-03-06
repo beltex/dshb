@@ -105,12 +105,18 @@ curs_set(0)                 // Set cursor to invisible
 // TODO: Do has_color() check when we have a way to log the error, println()
 //       won't work
 start_color()
-init_pair(1, Int16(COLOR_BLACK), Int16(COLOR_GREEN))
-init_pair(2, Int16(COLOR_BLACK), Int16(COLOR_YELLOW))
-init_pair(3, Int16(COLOR_BLACK), Int16(COLOR_RED))
-init_pair(4, Int16(COLOR_WHITE), Int16(use_default_colors()))
-init_pair(5, Int16(COLOR_WHITE), Int16(COLOR_CYAN))
-bkgd(UInt32(COLOR_PAIR(Int32(4))))
+init_pair(Int16(WidgetUIColorBackground),  Int16(COLOR_WHITE),
+                                           Int16(use_default_colors()))
+init_pair(Int16(WidgetUIColorTitle),       Int16(COLOR_WHITE),
+                                           Int16(COLOR_CYAN))
+init_pair(Int16(WidgetUIColorStatGood),    Int16(COLOR_BLACK),
+                                           Int16(COLOR_GREEN))
+init_pair(Int16(WidgetUIColorStatWarning), Int16(COLOR_BLACK),
+                                           Int16(COLOR_YELLOW))
+init_pair(Int16(WidgetUIColorStatDanger),  Int16(COLOR_BLACK),
+                                           Int16(COLOR_RED))
+
+bkgd(UInt32(COLOR_PAIR(WidgetUIColorBackground)))
 
 //------------------------------------------------------------------------------
 // MARK: WIDGET SETUP

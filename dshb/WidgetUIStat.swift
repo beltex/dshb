@@ -63,9 +63,9 @@ struct WidgetUIStat {
     var midPercentage  = 0.30
     var highPercentage = 0.20
     
-    var lowColour : Int32 = 1
-    var midColour : Int32 = 2
-    var highColour: Int32 = 3
+    var lowColor  = WidgetUIColorStatGood
+    var midColor  = WidgetUIColorStatWarning
+    var highColor = WidgetUIColorStatDanger
     
     //--------------------------------------------------------------------------
     // MARK: PRIVATE PROPERTIES
@@ -137,23 +137,23 @@ struct WidgetUIStat {
             if (index < valueRange) {
                 if (valueRange < low) {
                     // Green
-                    attrset(COLOR_PAIR(lowColour))
+                    attrset(COLOR_PAIR(lowColor))
                     addstr(String(char))
                 }
                 else if (valueRange >= low && valueRange < mid) {
                     // Yellow
-                    attrset(COLOR_PAIR(midColour))
+                    attrset(COLOR_PAIR(midColor))
                     addstr(String(char))
                 }
                 else {
                     // Red
                     // > 23
-                    attrset(COLOR_PAIR(highColour))
+                    attrset(COLOR_PAIR(highColor))
                     addstr(String(char))
                 }
             }
             else {
-                attrset(COLOR_PAIR(Int32(4)))
+                attrset(COLOR_PAIR(WidgetUIColorBackground))
                 addstr(String(char))
             }
             

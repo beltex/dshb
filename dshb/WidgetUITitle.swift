@@ -28,7 +28,6 @@ struct WidgetUITitle {
 
     let name  : String
     var window: Window
-    let colour: Int32 = COLOR_PAIR(5)
     
     private var padding = String()
     
@@ -41,7 +40,7 @@ struct WidgetUITitle {
     
     func draw() {
         move(window.point.y, window.point.x)
-        attrset(colour)
+        attrset(COLOR_PAIR(WidgetUIColorTitle))
         addstr(name + padding)
     }
     
