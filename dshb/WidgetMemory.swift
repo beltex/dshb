@@ -33,7 +33,7 @@ struct WidgetMemory: WidgetType {
     private static let maxValueMB = System.physicalMemory(unit: .Megabyte)
     
     init(window: Window = Window()) {
-        widget = WidgetBase(name: "CPU", window: window)
+        widget = WidgetBase(name: "Memory", window: window)
 
         
         let stats = ["Free", "Wired", "Active", "Inactive", "Compressed"]
