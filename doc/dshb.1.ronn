@@ -3,38 +3,99 @@ dshb(1) -- OS X system monitor
 
 ## SYNOPSIS
 
+`dshb` [`-f` <frequency>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`-h`]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`-v`]<br>
+
 ## DESCRIPTION
+
+An OS X system monitor in Swift, inspired by top & htop. Displays live readings
+of system CPU & memory usage, machine temperature sensors, fan speeds, battery
+information and other miscellaneous system statistics. The TUI (text-based user
+interface) uses color coating to imply status and is fully resizable. Stats are
+updated at one second intervals while still maintaining low overhead (the
+observer effect is inescapable in this case sadly).
 
 ## OPTIONS
 
-Placeholder. Define interface.
-
-  * `-f`, `--frequency`:
-    Statistic update frequency in seconds.
+  * `-f`, `--frequency` <value>:
+    Statistic update frequency in seconds. Default is 1.
 
   * `-h`, `--help`:
-    Show help message (list of ops).
+    Show the help message (list of options) and exit.
   
-  * `-s`, `--sort`:
-    Sort processes by this statistic.
-  
-  * `-u`, `--user`:
-    Show only processes of a given user.
-
   * `-v`, `--version`:
     Show dshb version and exit.
 
-## EXAMPLES
+## STATS
+
+Statistic sections are defined as _"widgets"_ (hence the name _dashboard_ -
+metaphorically akin to OS X's Dashboard). Widgets are composed of related
+statistics. Here we look at the various widgets in detail.
+
+  * `Battery`:
+     <br>
+    Displays information about the state of the battery. If the machine does not
+    have a battery, this widget will not appear. The information includes
+    _Charge_, _Capacity Degradation_, _Cycles_ and _Time Remaining_.
+
+  * `CPU`:
+    Displays CPU usage broken down into _System_, _User_, _Idle_ and _Nice_.
+
+  * `Fan`:
+    Displays a list of all the fans the machine has with the current speed
+    (RPM - revolutions per minute) of each. All Intel based Macs to this point
+    have at least one fan.
+
+  * `Memory`:
+    Displays memory usage broken down into _Free_, _Wired_, _Active_,
+    _Inactive_ and _Compressed_.
+
+  * `System`:
+    Miscellaneous system stats including _Uptime_, _Processes_ & _Threads_
+    (global counts), _Load Average_ (1, 5 and 15 minute intervals) and _Mach
+    Factor_ (5, 30 and 60 second intervals).
+
+  * `Temperature`:
+    Displays a list of the machine temperature sensors in Celsius. The list
+    may not be exhaustive. In addition, the maximum temperature of each
+    individual sensor is not known. Thus, a global max of 128 degrees is used.
+    Finally, the names of the sensors may not be mapped to the correct hardware
+    component. This is all due to the fact that the SMC (System Management
+    Controller) has a closed source driver, and thus information about it's
+    inner workings is limited.
+
+    If a sensor has a value that is constant and completely disproportionate to
+    the rest, then there is a chance that it is faulty. This could be due to bad
+    or damaged hardware (liquid on the logic board), or a bug in the SMC driver
+    itself. Run the _Apple Hardware Test_ diagnostics suite in such a case to
+    confirm. See here for example <https://github.com/beltex/SMCKit/issues/15>
 
 ## ENVIRONMENT
 
-## BUGS
+Due to Swift, dshb requires OS X 10.9 (Mavericks) and above. This implies an
+Intel based 64-bit machine. Of course, ncurses is required as well, but it
+should be installed by default as a part of OS X, as base install tools such as
+top, rely on it as well.
+
+## REPOSITORY
+
+<https://github.com/beltex/dshb>
+
+All project related matters, including source code, can be found at the GitHub
+repository listed above. In particular, the issue tracker, which can be used to
+report feedback, feature requests and bugs.
 
 ## COPYRIGHT
+
+This project is under the _MIT License_.
 
 ## AUTHOR
 
 beltex <https://github.com/beltex>
+
+Working on this always brought a smile to my face. I hope it brings a smile to
+yours too. Enjoy :)
 
 ## SEE ALSO
 

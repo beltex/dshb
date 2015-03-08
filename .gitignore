@@ -1,7 +1,6 @@
-# Swift.gitignore @ https://github.com/github/gitignore
+# Based off of Swift.gitignore @ https://github.com/github/gitignore
 
-# Temp
-dshb.1
+# HTML manual page generated via ronn. Only used for GitHub Pages branch
 dshb.1.html
 
 # Xcode
