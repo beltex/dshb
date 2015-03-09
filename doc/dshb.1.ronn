@@ -45,7 +45,8 @@ statistics. Here we look at the various widgets in detail.
   * `Fan`:
     Displays a list of all the fans the machine has with the current speed
     (RPM - revolutions per minute) of each. All Intel based Macs to this point
-    have at least one fan.
+    have at least one fan, with the exception of the newly added fanless
+    MacBook.
 
   * `Memory`:
     Displays memory usage broken down into _Free_, _Wired_, _Active_,

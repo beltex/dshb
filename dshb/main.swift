@@ -143,7 +143,11 @@ var smc = SMC()
 if (smc.open() == kIOReturnSuccess) {
     hasSMC = true
     widgets.append(WidgetTemperature())
-    widgets.append(WidgetFan())
+
+    // For the new fanless MacBook
+    if smc.getNumFans().numFans > 0 {
+        widgets.append(WidgetFan())
+    }
 }
 else {
     hasSMC = false
