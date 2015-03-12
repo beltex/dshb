@@ -35,7 +35,7 @@ import Foundation
 //------------------------------------------------------------------------------
 
 /// Application version
-let DSHB_VERSION = "0.0.3"
+let DSHB_VERSION = "0.0.4"
 
 /// Does this machine have a battery?
 let hasBattery: Bool
