@@ -1,9 +1,9 @@
 [submodule "libs/SMCKit"]
 	path = libs/SMCKit
-	url = git@github.com:beltex/SMCKit.git
+	url = https://github.com/beltex/SMCKit.git
 [submodule "libs/SystemKit"]
 	path = libs/SystemKit
-	url = git@github.com:beltex/SystemKit.git
+	url = https://github.com/beltex/SystemKit.git
 [submodule "libs/CommandLine"]
 	path = libs/CommandLine
-	url = git@github.com:jatoben/CommandLine.git
+	url = https://github.com/jatoben/CommandLine.git
