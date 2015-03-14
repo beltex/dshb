@@ -3,7 +3,13 @@ dshb
 
 An OS X system monitor in Swift, inspired by
 <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a> &
-[htop](https://github.com/hishamhm/htop).
+[htop](https://github.com/hishamhm/htop). Displays live readings of system CPU &
+memory usage, machine temperature sensors, fan speeds, battery information and
+other miscellaneous system statistics. The ncurses based TUI (text-based user
+interface) uses color coating to imply status and is fully resizable. Stats are
+updated at one second intervals while still maintaining low overhead (the
+<a href="https://en.wikipedia.org/wiki/Observer_effect_(physics)">observer effect</a>
+is inescapable in this case sadly).
 
 ![alt text](http://beltex.github.io/dshb/dshb.png)
 
@@ -63,7 +69,7 @@ from anywhere.
 ### Stack
 
 - [ncurses](https://www.gnu.org/software/ncurses/ncurses.html)
-    - For drawing to the terminal
+    - For drawing to the terminal (tested with version 5.4 - default on OS X)
 - [SystemKit](https://github.com/beltex/SystemKit)
     - For almost all statistics
 - [SMCKit](https://github.com/beltex/SMCKit)
