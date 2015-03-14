@@ -98,7 +98,7 @@ func drawAllWidgets() {
     for var i = 0; i < widgets.count; ++i {
         // Are we on a new row?
         if i % Int(maxWidgetsPerRow) == 0 {
-            y_pos_new += maxHeight
+            y_pos_new += maxHeight - y_pos_new
             widgetRowCount = 0
         }
 
