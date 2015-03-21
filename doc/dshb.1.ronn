@@ -11,12 +11,14 @@ dshb(1) -- OS X system monitor
 
 An OS X system monitor in Swift, inspired by top & htop. Displays live readings
 of system CPU & memory usage, machine temperature sensors, fan speeds, battery
-information and other miscellaneous system statistics. The TUI (text-based user
-interface) uses color coating to imply status and is fully resizable. Stats are
-updated at one second intervals while still maintaining low overhead (the
-observer effect is inescapable in this case sadly).
+information and other miscellaneous system statistics. The ncurses based TUI
+(text-based user interface) uses color coating to imply status and is fully
+resizable. Stats are updated at one second intervals while still maintaining
+low overhead (the observer effect is inescapable in this case sadly).
 
 ## OPTIONS
+
+List of supported command line options (flags/switchs):
 
   * `-f`, `--frequency` <value>:
     Statistic update frequency in seconds. Default is 1.
@@ -26,6 +28,13 @@ observer effect is inescapable in this case sadly).
   
   * `-v`, `--version`:
     Show dshb version and exit.
+
+## COMMANDS
+
+List of supported interactive commands for use during application runtime:
+
+  * `q`:
+    Quit.
 
 ## STATS
 

@@ -18,9 +18,10 @@
 .br
 .
 .SH "DESCRIPTION"
-An OS X system monitor in Swift, inspired by top & htop\. Displays live readings of system CPU & memory usage, machine temperature sensors, fan speeds, battery information and other miscellaneous system statistics\. The TUI (text\-based user interface) uses color coating to imply status and is fully resizable\. Stats are updated at one second intervals while still maintaining low overhead (the observer effect is inescapable in this case sadly)\.
+An OS X system monitor in Swift, inspired by top & htop\. Displays live readings of system CPU & memory usage, machine temperature sensors, fan speeds, battery information and other miscellaneous system statistics\. The ncurses based TUI (text\-based user interface) uses color coating to imply status and is fully resizable\. Stats are updated at one second intervals while still maintaining low overhead (the observer effect is inescapable in this case sadly)\.
 .
 .SH "OPTIONS"
+List of supported command line options (flags/switchs):
 .
 .TP
 \fB\-f\fR, \fB\-\-frequency\fR \fIvalue\fR
@@ -33,6 +34,13 @@ Show the help message (list of options) and exit\.
 .TP
 \fB\-v\fR, \fB\-\-version\fR
 Show dshb version and exit\.
+.
+.SH "COMMANDS"
+List of supported interactive commands for use during application runtime:
+.
+.TP
+\fBq\fR
+Quit\.
 .
 .SH "STATS"
 Statistic sections are defined as \fI"widgets"\fR (hence the name \fIdashboard\fR \- metaphorically akin to OS X\'s Dashboard)\. Widgets are composed of related statistics\. Here we look at the various widgets in detail\.
