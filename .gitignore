@@ -1,8 +1,5 @@
 # Based off of Swift.gitignore @ https://github.com/github/gitignore
 
-# HTML manual page generated via ronn. Only used for GitHub Pages branch
-dshb.1.html
-
 # Xcode
 build/
 *.pbxuser
