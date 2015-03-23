@@ -187,9 +187,6 @@ dispatch_resume(source)
 //------------------------------------------------------------------------------
 
 while true {
-    // TODO: Why does 'esc' (27) cause such a slow response, as oppossed to
-    //       something like 'q'?
-    
     switch getch() {
         // TODO: has_key() check for KEY_RESIZE?
         case KEY_RESIZE:
