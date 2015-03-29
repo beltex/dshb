@@ -26,15 +26,17 @@
 
 struct WidgetUITitle {
 
-    let name  : String
-    var window: Window
+    let name     : String
+    let nameCount: Int
+    var window   : Window
     
     private var padding = String()
     
     init(name: String, window: Window) {
         self.name   = name
         self.window = window
-        
+        nameCount   = count(name)
+
         generatePadding()
     }
     
@@ -52,8 +54,8 @@ struct WidgetUITitle {
     
     private mutating func generatePadding() {
         padding = String()
-        let spaceLength = Int(window.length) - count(name)
-        
+        let spaceLength = Int(window.length) - nameCount
+
         for var i = 0; i < spaceLength; ++i {
             padding.append(UnicodeScalar(" "))
         }
