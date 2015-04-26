@@ -46,9 +46,10 @@ struct WidgetSystem: WidgetType {
         widget.stats[0].draw("\(uptime.days)d \(uptime.hrs)h \(uptime.mins)m",
                        percentage: 0.0)
 
-        widget.stats[1].draw(String(System.processCount()), percentage: 0.0)
-        widget.stats[2].draw(String(System.threadCount()), percentage: 0.0)
-        
+        let counts = System.processCounts()
+        widget.stats[1].draw(String(counts.processCount), percentage: 0.0)
+        widget.stats[2].draw(String(counts.threadCount), percentage: 0.0)
+
         let loadAverage = System.loadAverage().map
                                                { NSString(format:"%.2f", $0) }
         widget.stats[3].draw("\(loadAverage[0]), \(loadAverage[1])," +
