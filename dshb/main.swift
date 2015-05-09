@@ -144,6 +144,9 @@ else { hasSMC = false }
 
 widgets.sortInPlace { $0.displayOrder < $1.displayOrder }
 
+// Process widget must be last
+widgets.append(WidgetProcess())
+
 drawAllWidgets()
 
 //------------------------------------------------------------------------------
