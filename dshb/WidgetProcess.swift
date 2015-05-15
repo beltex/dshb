@@ -29,14 +29,14 @@ import Darwin
 
 struct WidgetProcess: WidgetType {
 
-    static let titleTokens = ["PID", "USER", "COMMAND"]
-    var title: WidgetUITitleProcess
-    var window: Window
-    
+    private var widget: WidgetBase
+    var window = Window()
+    var usernames = [uid_t : String]()
+
     init(window: Window = Window()) {
-        self.window = window
-        title = WidgetUITitleProcess(tokens: WidgetProcess.titleTokens,
-                                     window: window)
+        self.window = Window()
+        widget = WidgetBase(name: "   PID USER            COMMAND",
+                            window: window)
     }
 
     mutating func draw() {
@@ -44,106 +44,77 @@ struct WidgetProcess: WidgetType {
 
         list.sort { $0.0.kp_proc.p_pid > $1.0.kp_proc.p_pid }
 
-        for var i = 0; i < 5; ++i {
+        for var i = 0; i < Int(LINES) - Int(window.point.y) - 1; ++i {
+            if i >= list.count { break }
+
             var kinfo = list[i]
             let command = withUnsafePointer(&kinfo.kp_proc.p_comm) {
                 String.fromCString(UnsafePointer($0))!
             }
 
-            let tokens = [String(kinfo.kp_proc.p_pid), String(kinfo.kp_eproc.e_ucred.cr_uid), command]
+            let username: String
+            let uid = kinfo.kp_eproc.e_ucred.cr_uid
 
+            if let index = usernames.indexForKey(uid) {
+                username = usernames[index].1
+            }
+            else { username = getUsername(uid) }
 
-//            var tempWindow = Window(length: window.length, point: (window.point.x, window.point.y + i + 1))
-//            var temp = WidgetUITitleProcess(tokens: tokens, window: tempWindow, spacing: title.spaceLength)
-//            temp.draw()
+            let tokens = [String(kinfo.kp_proc.p_pid),
+                          username,
+                          command]
+
+            let procStat = WidgetUIProcess(name: processString(tokens, window.length), window: Window(length: window.length, point: (0, window.point.y + i + 1)))
+
+            procStat.draw()
         }
     }
 
     mutating func resize(window: Window) -> Int32 {
-        title.resize(window)
-
-        return window.point.y
+        self.window = window
+        return widget.resize(window)
     }
 }
 
 struct WidgetUIProcess {
-    var window: Window
-    var padding = String()
-    var spaceLength = 0
-    private let tokens: [String]
-    private var title = String()
-    private var tokensCharacterCount = 0
 
-    init(tokens: [String], window: Window) {
-        self.tokens = tokens
+    let name     : String
+    var window   : Window
+
+    init(name: String, window: Window) {
+        self.name   = name
         self.window = window
-
-        for token in tokens { tokensCharacterCount += count(token) }
-
-        generatePadding()
     }
 
     func draw() {
         move(window.point.y, window.point.x)
-        attrset(COLOR_PAIR(WidgetUIColorBackground))
-        addstr(title)
+        addstr(name)
     }
 
     mutating func resize(window: Window) {
         self.window = window
-        generatePadding()
         draw()
-    }
-
-    private mutating func generatePadding() {
-        title   = String()
-        padding = String()
-        spaceLength = (Int(window.length) - tokensCharacterCount) / tokens.count
-
-        for var i = 0; i < spaceLength; ++i { padding.append(UnicodeScalar(" ")) }
-        for token in tokens { title = title + token + padding }
     }
 }
 
-struct WidgetUITitleProcess {
 
-    var window: Window
-    var padding = String()
-    var spaceLength = 0
-    private let tokens: [String]
-    private var title = String()
-    private var tokensCharacterCount = 0
+private func processString(tokens: [String], length: Int) -> String {
+    let pidSpace = 6
+    let userSpace = 16
 
-    init(tokens: [String], window: Window) {
-        self.tokens = tokens
-        self.window = window
+    let pidCount  = count(tokens[0])
+    let userCount = count(tokens[1])
 
-        for token in tokens { tokensCharacterCount += count(token) }
+    var pidSpaceString  = String()
+    var userSpaceString = String()
 
-        generatePadding()
-    }
+    for var i = 0; i < pidSpace - pidCount; ++i { pidSpaceString.append(UnicodeScalar(" ")) }
+    for var i = 0; i < userSpace - userCount; ++i { userSpaceString.append(UnicodeScalar(" ")) }
 
-    func draw() {
-        move(window.point.y, window.point.x)
-        attrset(COLOR_PAIR(WidgetUIColorTitle))
-        addstr(title)
-    }
 
-    mutating func resize(window: Window) {
-        self.window = window
-        generatePadding()
-        draw()
-    }
-
-    private mutating func generatePadding() {
-        title   = String()
-        padding = String()
-        spaceLength = (Int(window.length) - tokensCharacterCount) / tokens.count
-
-        for var i = 0; i < spaceLength; ++i { padding.append(UnicodeScalar(" ")) }
-        for token in tokens { title = title + token + padding }
-    }
+    return pidSpaceString + tokens[0] + " " + tokens[1] + userSpaceString + tokens[2]
 }
+
 
 private func processList() -> [kinfo_proc] {
     var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0]
@@ -160,4 +131,31 @@ private func processList() -> [kinfo_proc] {
     assert(result == KERN_SUCCESS)
 
     return procList
+}
+
+
+private func getUsername(uid: uid_t) -> String {
+    let username: String
+    var userInfo = passwd()
+    var result   = UnsafeMutablePointer<passwd>.alloc(1)
+
+    // TODO: Can we cache this?
+    // TODO: Returns -1 on not error
+    let bufferSize = sysconf(_SC_GETPW_R_SIZE_MAX)
+    let buffer     = UnsafeMutablePointer<Int8>.alloc(bufferSize)
+
+    // TODO: Check result for nil pointer - indictes not found
+    // TODO: Add note about not using getpwuid()
+    if getpwuid_r(uid, &userInfo, buffer, bufferSize, &result) == 0 {
+        username = String.fromCString(userInfo.pw_name)!
+    }
+    else {
+        username = String()
+    }
+
+    buffer.dealloc(bufferSize)
+    // TODO: Why does this fail?
+    //result.dealloc(1)
+
+    return username
 }
