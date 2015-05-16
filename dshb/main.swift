@@ -150,27 +150,26 @@ drawAllWidgets()
 // MARK: GCD TIMER SETUP
 //------------------------------------------------------------------------------
 
-// TODO: Custom serial attr prop creation is new to 10.10
-// dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL,
-//                                         QOS_CLASS_USER_INITIATED, 0)
+// See comment for background for reference.
+// https://github.com/beltex/dshb/issues/16#issuecomment-70699890
 
 let source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
                                     dispatch_queue_create("com.beltex.dshb",
                                                          DISPATCH_QUEUE_SERIAL))
 
-// TODO: What about dispatch_after?
 dispatch_source_set_timer(source,
                           dispatch_time(DISPATCH_TIME_NOW, 0),
                           updateFrequency * NSEC_PER_SEC, 0)
 
 dispatch_source_set_event_handler(source) {
-    for var i = 0; i < widgets.count; ++i {
-        widgets[i].draw()
-    }
+    // TODO: If we call clear() here, can help address display "race condition"
+    //       mentioned in issue #16 (see URL above). Though we'd have to redraw
+    //       titles too
+    for var i = 0; i < widgets.count; ++i { widgets[i].draw() }
     refresh()
 }
 
-// We have to resume the the dispatch source as it is paused by default
+// We have to resume the dispatch source as it is paused by default
 dispatch_resume(source)
 
 //------------------------------------------------------------------------------
