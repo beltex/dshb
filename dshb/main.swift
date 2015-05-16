@@ -25,17 +25,17 @@
 // THE SOFTWARE.
 
 import IOKit
-import Darwin
 import Darwin.ncurses
-import Dispatch
-import Foundation
 
 //------------------------------------------------------------------------------
 // MARK: GLOBAL PROPERTIES
 //------------------------------------------------------------------------------
 
 /// Application version
-let DSHB_VERSION = "0.0.4"
+let dshbVersion = "0.0.4"
+
+/// Statistic update frequency in seconds. Default is 1
+let updateFrequency: UInt64
 
 /// Does this machine have a battery?
 let hasBattery: Bool
@@ -43,53 +43,52 @@ let hasBattery: Bool
 /// Does this machine have a SMC (System Management Controller)?
 let hasSMC: Bool
 
-/// Statistic update frequency in seconds
-let FREQ: UInt64
-
 /// Statistic widgets that are on (displayed)
 var widgets = [WidgetType]()
 
 //------------------------------------------------------------------------------
-// MARK: CLI
+// MARK: COMMAND LINE INTERFACE
 //------------------------------------------------------------------------------
 
+let CLIFrequencyFlag = IntOption(shortFlag: "f", longFlag: "frequency",
+                                 required: false,
+            helpMessage: "Statistic update frequency in seconds. Default is 1.")
+let CLIHelpFlag      = BoolOption(shortFlag: "h", longFlag: "help",
+               helpMessage: "Show the help message (list of options) and exit.")
+let CLIVersionFlag   = BoolOption(shortFlag: "v", longFlag: "version",
+                                  helpMessage: "Show dshb version and exit.")
+
 let CLI = CommandLine()
+CLI.addOptions(CLIFrequencyFlag, CLIHelpFlag, CLIVersionFlag)
 
-let CLI_VERSION = BoolOption(shortFlag: "v", longFlag: "version",
-                             helpMessage: "Show dshb version and exit.")
-let CLI_HELP = BoolOption(shortFlag: "h", longFlag: "help",
-                          helpMessage: "Show help message.")
-let CLI_FREQ = IntOption(shortFlag: "f", longFlag: "frequency", required: false,
-                         helpMessage: "Statistic update frequency in seconds.")
-
-CLI.addOptions(CLI_VERSION, CLI_HELP, CLI_FREQ)
 let (success, error) = CLI.parse()
-if (!success) {
+if !success {
     println(error!)
     CLI.printUsage()
     exit(EX_USAGE)
 }
 
-if (CLI_HELP.value) {
+
+// Give precedence to help flag
+if CLIHelpFlag.value {
     CLI.printUsage()
     exit(EX_USAGE)
 }
-else if (CLI_VERSION.value) {
-    println(DSHB_VERSION)
+else if CLIVersionFlag.value {
+    println(dshbVersion)
     exit(EX_USAGE)
 }
 
-if let user_freq = CLI_FREQ.value {
-    if user_freq < 1 {
+
+if let customFrequency = CLIFrequencyFlag.value {
+    if customFrequency < 1 {
         println("Usage: Statistic update frequency must be >= 1")
         exit(EX_USAGE)
     }
 
-    FREQ = UInt64(user_freq)
+    updateFrequency = UInt64(customFrequency)
 }
-else {
-    FREQ = 1
-}
+else { updateFrequency = 1 }
 
 //------------------------------------------------------------------------------
 // MARK: NCURSES SETTINGS
@@ -170,7 +169,7 @@ let source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
 // TODO: What about dispatch_after?
 dispatch_source_set_timer(source,
                           dispatch_time(DISPATCH_TIME_NOW, 0),
-                          FREQ * NSEC_PER_SEC, 0)
+                          updateFrequency * NSEC_PER_SEC, 0)
 
 dispatch_source_set_event_handler(source) {
     for var i = 0; i < widgets.count; ++i {
