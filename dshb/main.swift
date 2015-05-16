@@ -190,8 +190,8 @@ while true {
         case Int32(UnicodeScalar("q").value):
             dispatch_source_cancel(source)
             endwin()    // ncurses cleanup
-            if (hasSMC)     { smc.close()     }
-            if (hasBattery) { battery.close() }
+            if hasSMC     { smc.close()     }
+            if hasBattery { battery.close() }
             exit(EX_OK)
         default:
             true

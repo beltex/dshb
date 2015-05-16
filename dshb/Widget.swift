@@ -89,7 +89,8 @@ struct WidgetBase {
 func drawAllWidgets() {
     clear()
 
-    let widgetLength = Int(floor(Double((COLS - (widgetSpacing * (maxWidgetsPerRow - widgetSpacing)))) / Double(maxWidgetsPerRow)))
+    let widgetLength = Int((COLS - (widgetSpacing * (maxWidgetsPerRow - 1)))
+                                                             / maxWidgetsPerRow)
     var result_pos    : Int32 = 0
     var maxHeight     : Int32 = 0
     var y_pos_new     : Int32 = 0
