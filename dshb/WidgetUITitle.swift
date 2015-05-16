@@ -53,11 +53,10 @@ struct WidgetUITitle {
     }
     
     private mutating func generatePadding() {
-        padding = String()
-        let spaceLength = Int(window.length) - nameCount
+        var paddingSize = window.length - nameCount
 
-        for var i = 0; i < spaceLength; ++i {
-            padding.append(UnicodeScalar(" "))
-        }
+        if paddingSize < 0 { paddingSize = 0 }
+
+        padding = String(count: paddingSize, repeatedValue: Character(" "))
     }
 }
