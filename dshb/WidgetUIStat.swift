@@ -109,38 +109,34 @@ struct WidgetUIStat {
         let numberChars = window.length - (2 + valueLength + unitLength)
         
         var nameEdit = name
-        if (nameLength > Int(numberChars) && Int(numberChars) > 0) {
-            nameEdit = (name as NSString).substringToIndex(Int(numberChars - 1))
+        if nameLength > numberChars && numberChars > 0 {
+            nameEdit = (name as NSString).substringToIndex(numberChars - 1)
             nameEdit.append(UnicodeScalar("…"))
         }
-        else if (Int(numberChars) < 0) {
-            return
-        }
+        else if numberChars < 0 { return }
         
         let spaceLen = window.length - (count(nameEdit) + valueLength
-                                                           + unitLength)
+                                                        + unitLength)
 
         
         // Range setup
         var valueRange = Int(floor(Double(window.length) * percentage))
         
         var space = String()
-        for var x = 0; x < spaceLen; ++x {
-            space.append(UnicodeScalar(" "))
-        }
+        for var x = 0; x < spaceLen; ++x { space.append(UnicodeScalar(" ")) }
     
-        var char_array = Array(nameEdit + space + value + unit.rawValue)
+        var char_array = String(nameEdit + space + value + unit.rawValue)
         
         var index = 0
         move(window.point.y, window.point.x)
         for char in char_array {
-            if (index < valueRange) {
-                if (valueRange < low) {
+            if index < valueRange {
+                if valueRange < low {
                     // Green
                     attrset(COLOR_PAIR(lowColor))
                     addstr(String(char))
                 }
-                else if (valueRange >= low && valueRange < mid) {
+                else if valueRange >= low && valueRange < mid {
                     // Yellow
                     attrset(COLOR_PAIR(midColor))
                     addstr(String(char))
