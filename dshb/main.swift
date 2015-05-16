@@ -44,7 +44,7 @@ let hasBattery: Bool
 let hasSMC: Bool
 
 /// Statistic widgets that are on (displayed)
-var widgets = [WidgetType]()
+var widgets: [WidgetType] = [WidgetCPU(), WidgetMemory(), WidgetSystem()]
 
 //------------------------------------------------------------------------------
 // MARK: COMMAND LINE INTERFACE
@@ -124,33 +124,25 @@ bkgd(UInt32(COLOR_PAIR(WidgetUIColorBackground)))
 // MARK: WIDGET SETUP
 //------------------------------------------------------------------------------
 
-widgets.append(WidgetCPU())
-widgets.append(WidgetMemory())
-widgets.append(WidgetSystem())
-
 // Do this before SMC, since temperature widget needs to know about battery
 var battery = Battery()
-if (battery.open() == kIOReturnSuccess) {
-    // TODO: Could this change during use? MacBook with removeable battery?
+
+if battery.open() == kIOReturnSuccess {
+    // TODO: Could this change during use? Old MacBook with removeable battery?
     hasBattery = true
     widgets.append(WidgetBattery())
-} else {
-    hasBattery = false
-}
+} else { hasBattery = false }
+
 
 var smc = SMC()
-if (smc.open() == kIOReturnSuccess) {
+if smc.open() == kIOReturnSuccess {
     hasSMC = true
     widgets.append(WidgetTemperature())
 
-    // For the new fanless MacBook
-    if smc.getNumFans().numFans > 0 {
-        widgets.append(WidgetFan())
-    }
+    // For the new fanless MacBook8,1
+    if smc.getNumFans().numFans > 0 { widgets.append(WidgetFan()) }
 }
-else {
-    hasSMC = false
-}
+else { hasSMC = false }
 
 drawAllWidgets()
 
