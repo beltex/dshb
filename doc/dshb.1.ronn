@@ -102,7 +102,7 @@ This project is under the _MIT License_.
 
 ## AUTHOR
 
-beltex <https://github.com/beltex>
+beltex <http://beltex.github.io>
 
 Working on this always brought a smile to my face. I hope it brings a smile to
 yours too. Enjoy :)
