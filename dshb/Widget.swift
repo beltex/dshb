@@ -115,4 +115,6 @@ func drawAllWidgets() {
 
         widgetRowCount++
     }
+
+    refresh()
 }

@@ -185,7 +185,6 @@ while true {
             // If this takes too long, queue will build up. Also, there is the 
             // issue of mutiple resize calls.
             drawAllWidgets()
-            refresh()
             dispatch_resume(source)
         case Int32(UnicodeScalar("q").value):
             dispatch_source_cancel(source)
