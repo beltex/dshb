@@ -32,7 +32,8 @@ struct WidgetFan: WidgetType {
         widget = WidgetBase(name: "Fan", window: window)
 
 
-        // TODO: Sort fan names
+        // No point in sorting fan names. Most machines will not have more than
+        // 2
         let numFans = smc.getNumFans().numFans
         
         for var i: UInt = 0; i < numFans; ++i {
