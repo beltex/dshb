@@ -11,3 +11,5 @@ install: build
 	# TODO: Better install dir (this requires Homebrew)
 	cp bin/dshb ${INSTALL_DIR}
 	cp doc/dshb.1 ${MANUAL_DIR}
+ronn:
+	ronn --style=toc doc/dshb.1.ronn
