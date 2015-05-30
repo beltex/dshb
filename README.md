@@ -43,27 +43,22 @@ Make sure to use the recursive option on clone to auto init all submodules.
 git clone --recursive https://github.com/beltex/dshb
 ```
 
-Incase you have already cloned the repository.
+Incase you have already cloned the repository, run the following inside the
+project directory.
 
 ```sh
-# Inside the project directory
-git submodule update --init --recursive
+git submodule update --init
 ```
 
 
-### Build
+### Install
 
-Besides building from inside of Xcode, you can compile dshb from the command
-line like so
+This will build dshb from source and place the binary and manual page in your
+path.
 
 ```sh
-make build
+make install
 ```
-
-The resulting binary will be found inside the `bin/` directory. If you copy it
-to either `/usr/bin/` (requires `sudo`) or `/usr/local/bin/` (assuming it's in
-your `PATH` - Homebrew would have done this for you), you can then run `dshb`
-from anywhere.
 
 
 ### Stack
