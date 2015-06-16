@@ -49,7 +49,7 @@ struct WidgetTemperature: WidgetType {
             // Only need to sort if have battery, since already sorted via
             // SMCKit
             if (sensorNames.count > 1) {
-                sensorNames.sort { $0 < $1 }
+                sensorNames.sortInPlace { $0 < $1 }
             }
         }
     

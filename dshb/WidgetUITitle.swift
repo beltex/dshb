@@ -35,7 +35,7 @@ struct WidgetUITitle {
     init(name: String, window: Window) {
         self.name   = name
         self.window = window
-        nameCount   = count(name)
+        nameCount   = name.characters.count
 
         generatePadding()
     }

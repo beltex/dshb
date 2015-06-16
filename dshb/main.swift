@@ -61,10 +61,10 @@ let CLIVersionFlag   = BoolOption(shortFlag: "v", longFlag: "version",
 let CLI = CommandLine()
 CLI.addOptions(CLIFrequencyFlag, CLIHelpFlag, CLIVersionFlag)
 
-let (success, error) = CLI.parse()
-if !success {
-    println(error!)
-    CLI.printUsage()
+do {
+    try CLI.parse()
+} catch {
+    CLI.printUsage(error)
     exit(EX_USAGE)
 }
 
@@ -75,14 +75,14 @@ if CLIHelpFlag.value {
     exit(EX_USAGE)
 }
 else if CLIVersionFlag.value {
-    println(dshbVersion)
+    print(dshbVersion)
     exit(EX_USAGE)
 }
 
 
 if let customFrequency = CLIFrequencyFlag.value {
     if customFrequency < 1 {
-        println("Usage: Statistic update frequency must be >= 1")
+        print("Usage: Statistic update frequency must be >= 1")
         exit(EX_USAGE)
     }
 
@@ -104,7 +104,7 @@ keypad(stdscr, true)        // Enable function and arrow keys
 curs_set(0)                 // Set cursor to invisible
 
 // Init terminal colours
-// TODO: Do has_color() check when we have a way to log the error, println()
+// TODO: Do has_color() check when we have a way to log the error, print()
 //       won't work
 start_color()
 init_pair(Int16(WidgetUIColorBackground),  Int16(COLOR_WHITE),

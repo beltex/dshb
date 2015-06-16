@@ -90,8 +90,8 @@ struct WidgetUIStat {
         self.unit   = unit
         self.max    = max
         
-        nameLength  = count(name)
-        unitLength  = count(unit.rawValue)
+        nameLength  = name.characters.count
+        unitLength  = unit.rawValue.characters.count
         
         computeRanges()
     }
@@ -103,7 +103,7 @@ struct WidgetUIStat {
     mutating func draw(value: String, percentage: Double) {
         lastValue       = value
         lastPercentage  = percentage
-        let valueLength = count(value)
+        let valueLength = value.characters.count
         
         // Name setup
         let numberChars = window.length - (2 + valueLength + unitLength)
@@ -115,21 +115,22 @@ struct WidgetUIStat {
         }
         else if numberChars < 0 { return }
         
-        let spaceLen = window.length - (count(nameEdit) + valueLength
-                                                        + unitLength)
+        let spaceLen = window.length - (nameEdit.characters.count + valueLength
+                                                                  + unitLength)
 
         
         // Range setup
-        var valueRange = Int(floor(Double(window.length) * percentage))
+        let valueRange = Int(floor(Double(window.length) * percentage))
         
         var space = String()
         for var x = 0; x < spaceLen; ++x { space.append(UnicodeScalar(" ")) }
     
-        var char_array = String(nameEdit + space + value + unit.rawValue)
+        let char_array = String(nameEdit + space + value + unit.rawValue)
         
         var index = 0
         move(window.point.y, window.point.x)
-        for char in char_array {
+
+        for char in char_array.characters {
             if index < valueRange {
                 if valueRange < low {
                     // Green

@@ -29,8 +29,8 @@ import Foundation
 struct WidgetMemory: WidgetType {
     
     private var widget: WidgetBase
-    private static let maxValueGB = System.physicalMemory(unit: .Gigabyte)
-    private static let maxValueMB = System.physicalMemory(unit: .Megabyte)
+    private static let maxValueGB = System.physicalMemory(.Gigabyte)
+    private static let maxValueMB = System.physicalMemory(.Megabyte)
     
     init(window: Window = Window()) {
         widget = WidgetBase(name: "Memory", window: window)
