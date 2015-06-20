@@ -1,5 +1,5 @@
-INSTALL_DIR     = /usr/local/bin
-MANPAGE_DIR     = /usr/local/share/man/man1
+INSTALL_FOLDER  = /usr/local/bin
+MANPAGE_FOLDER  = /usr/local/share/man/man1
 XCODE_CONFIG    = Release
 DSHB_VERSION    = 0.0.4
 ARCHIVE_FOLDER  = archive
@@ -9,33 +9,40 @@ SUBMODULES      = `find ${SUBMODULES_PATH} -type d -depth 1 | \
                    sed 's/${SUBMODULES_PATH}//' | tr -d '/'`
 REPO_URL        = https://github.com/beltex/dshb.git
 
-.PHONY: install machine release debug build uninstall archive archive-remote \
-        ronn clean distclean
+.PHONY: help install machine release debug build uninstall archive \
+        archive-remote ronn clean distclean
 
+help:
+	@echo "Usage: make [targets]                                                     \
+\n  install  \tBuilds in release mode, placing the binary & manual page in your path \
+\n  uninstall\tDeletes the binary & manual page from your path                       \
+\n  release  \tRelease mode build with compiler optimizations & symbol removal       \
+\n  debug    \tDebug mode build                                                      \
+\n  clean    \tCleans the build folder                                               \
+\n  distclean\tWipes the build, bin, & archive folders"
 install: machine release
-	cp bin/dshb ${INSTALL_DIR}
-	cp doc/dshb.1 ${MANPAGE_DIR}
-	du -sh ${INSTALL_DIR}/dshb
+	cp bin/dshb ${INSTALL_FOLDER}
+	cp doc/dshb.1 ${MANPAGE_FOLDER}
+	du -sh ${INSTALL_FOLDER}/dshb
 machine:
-	@sysctl hw.model
-	@sw_vers
-	@uname -v
-	@ioreg -lbrc AppleSMC | grep smc-version | tr -d "|" | xargs
-	@xcodebuild -version
-	@swiftc -v
+	@sysctl hw.model;                                             \
+	 sw_vers;                                                     \
+	 uname -v;                                                    \
+	 ioreg -lbrc AppleSMC | grep smc-version | tr -d "|" | xargs; \
+	 xcodebuild -version;                                         \
+	 swiftc -v
 release: build
 	strip bin/dshb
 debug: XCODE_CONFIG=Debug
 debug: build
-build: libs/SMCKit/README.md
+build:
+	git submodule update --init
 	xcodebuild -configuration ${XCODE_CONFIG} build
 	mkdir -p bin
 	cp build/${XCODE_CONFIG}/dshb bin
-libs/SMCKit/README.md:
-	git submodule update --init
 uninstall:
-	rm ${INSTALL_DIR}/dshb
-	rm ${MANPAGE_DIR}/dshb.1
+	rm ${INSTALL_FOLDER}/dshb
+	rm ${MANPAGE_FOLDER}/dshb.1
 ronn:
 	ronn --style=toc doc/dshb.1.ronn
 archive:
