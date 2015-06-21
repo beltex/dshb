@@ -30,7 +30,7 @@ is inescapable in this case sadly).
 
 ### Requirements
 
-- [Xcode 6.3.2](https://developer.apple.com/xcode/downloads/)
+- [Xcode 7 Beta 1](https://developer.apple.com/xcode/downloads/)
 - OS X 10.9+
     - This is due to Swift  
 
