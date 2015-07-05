@@ -1,5 +1,8 @@
 # Based off of Swift.gitignore @ https://github.com/github/gitignore
 
+# dshb
+archive
+
 # Xcode
 build/
 *.pbxuser
