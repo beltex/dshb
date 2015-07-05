@@ -3,23 +3,26 @@ MANPAGE_FOLDER  = /usr/local/share/man/man1
 XCODE_CONFIG    = Release
 DSHB_VERSION    = 0.0.4
 ARCHIVE_FOLDER  = archive
-ARCHIVE_NAME    = dshb-${DSHB_VERSION}
+ARCHIVE_NAME    = dshb-${DSHB_VERSION}-source
 SUBMODULES_PATH = libs
 SUBMODULES      = `find ${SUBMODULES_PATH} -type d -depth 1 | \
                    sed 's/${SUBMODULES_PATH}//' | tr -d '/'`
-REPO_URL        = https://github.com/beltex/dshb.git
+REPO_URL        = https://github.com/beltex/dshb
 
-.PHONY: help install machine release debug build uninstall archive \
+.PHONY: help install machine release debug build uninstall archive-local \
         archive-remote ronn clean distclean
 
-help:
-	@echo "Usage: make [targets]                                                     \
+help: ._hello
+	@echo "Usage: make [targets]                                                  \
 \n  install  \tBuilds in release mode, placing the binary & manual page in your path \
 \n  uninstall\tDeletes the binary & manual page from your path                       \
 \n  release  \tRelease mode build with compiler optimizations & symbol removal       \
 \n  debug    \tDebug mode build                                                      \
 \n  clean    \tCleans the build folder                                               \
-\n  distclean\tWipes the build, bin, & archive folders"
+\n  distclean\tDeletes the build, bin, & archive folders"
+._hello:
+	@echo "Hello `whoami`! I'm the Makefile for dshb. Nice to meet you! How" \
+	      "can I help?\n"; touch ._hello
 install: machine release
 	cp bin/dshb ${INSTALL_FOLDER}
 	cp doc/dshb.1 ${MANPAGE_FOLDER}
@@ -36,16 +39,29 @@ release: build
 debug: XCODE_CONFIG=Debug
 debug: build
 build:
-	git submodule update --init
+	$(if $(wildcard .git), git submodule update --init, \
+            $(if $(wildcard libs/SMCKit/README.md), , $(call bad-archive)))
 	xcodebuild -configuration ${XCODE_CONFIG} build
 	mkdir -p bin
 	cp build/${XCODE_CONFIG}/dshb bin
+define bad-archive
+	@echo "\n Sorry to say this `whoami` but we have a problem!             \n\n\
+Looks like you downloaded an archive of dshb from GitHub via the 'Download ZIP'  \n\
+option or one of the 'Source code' archives on the release page. These do not    \n\
+contain the Git submodules and thus you can't build dshb. Here's what you can do \n\
+instead though!                                                                \n\n\
+[1] Clone the repository via Git                                               \n\n\
+    git clone --recursive ${REPO_URL}                                          \n\n\
+[2] Download the latest release archive that does contain the submodules       \n\n\
+    ${REPO_URL}/releases/download/v${DSHB_VERSION}/${ARCHIVE_NAME}.zip\n";         \
+	 exit 1
+endef
 uninstall:
 	rm ${INSTALL_FOLDER}/dshb
 	rm ${MANPAGE_FOLDER}/dshb.1
 ronn:
 	ronn --style=toc doc/dshb.1.ronn
-archive:
+archive-local:
 	@rm -rf ${ARCHIVE_FOLDER}/*;                                       \
 	 mkdir -p ${ARCHIVE_FOLDER};                                       \
 	 git archive --format zip -o ${ARCHIVE_FOLDER}/tmp HEAD;           \
@@ -74,4 +90,4 @@ clean:
 	xcodebuild -configuration Debug clean
 	xcodebuild -configuration Release clean
 distclean:
-	rm -rf bin build ${ARCHIVE_FOLDER}
+	rm -rf bin build ._hello ${ARCHIVE_FOLDER}
