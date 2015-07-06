@@ -1,7 +1,7 @@
 INSTALL_FOLDER  = /usr/local/bin
 MANPAGE_FOLDER  = /usr/local/share/man/man1
 XCODE_CONFIG    = Release
-DSHB_VERSION    = 0.0.4
+DSHB_VERSION    = 0.0.5
 ARCHIVE_FOLDER  = archive
 ARCHIVE_NAME    = dshb-${DSHB_VERSION}-source
 SUBMODULES_PATH = libs
@@ -13,7 +13,7 @@ REPO_URL        = https://github.com/beltex/dshb
         archive-remote ronn clean distclean
 
 help: ._hello
-	@echo "Usage: make [targets]                                                  \
+	@echo "Usage: make [targets]                                                 \
 \n  install  \tBuilds in release mode, placing the binary & manual page in your path \
 \n  uninstall\tDeletes the binary & manual page from your path                       \
 \n  release  \tRelease mode build with compiler optimizations & symbol removal       \
@@ -45,7 +45,7 @@ build:
 	mkdir -p bin
 	cp build/${XCODE_CONFIG}/dshb bin
 define bad-archive
-	@echo "\n Sorry to say this `whoami` but we have a problem!             \n\n\
+	@echo "\n Sorry to say this `whoami` but we have a problem!            \n\n\
 Looks like you downloaded an archive of dshb from GitHub via the 'Download ZIP'  \n\
 option or one of the 'Source code' archives on the release page. These do not    \n\
 contain the Git submodules and thus you can't build dshb. Here's what you can do \n\

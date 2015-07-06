@@ -32,7 +32,7 @@ import Darwin.ncurses
 //------------------------------------------------------------------------------
 
 /// Application version
-let dshbVersion = "0.0.4"
+let dshbVersion = "0.0.5"
 
 /// Statistic update frequency in seconds. Default is 1
 let updateFrequency: UInt64
