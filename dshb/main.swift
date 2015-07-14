@@ -50,16 +50,15 @@ var widgets: [WidgetType] = [WidgetCPU(), WidgetMemory(), WidgetSystem()]
 // MARK: COMMAND LINE INTERFACE
 //------------------------------------------------------------------------------
 
-let CLIFrequencyFlag = IntOption(shortFlag: "f", longFlag: "frequency",
-                                 required: false,
-            helpMessage: "Statistic update frequency in seconds. Default is 1.")
-let CLIHelpFlag      = BoolOption(shortFlag: "h", longFlag: "help",
-               helpMessage: "Show the help message (list of options) and exit.")
-let CLIVersionFlag   = BoolOption(shortFlag: "v", longFlag: "version",
-                                  helpMessage: "Show dshb version and exit.")
+let CLIFrequencyOption = IntOption(shortFlag: "f", longFlag: "frequency",
+             helpMessage: "Statistic update frequency in seconds. Default is 1")
+let CLIHelpOption      = BoolOption(shortFlag: "h", longFlag: "help",
+                                    helpMessage: "Print the list of options")
+let CLIVersionOption   = BoolOption(shortFlag: "v", longFlag: "version",
+                                    helpMessage: "Print dshb version")
 
 let CLI = CommandLine()
-CLI.addOptions(CLIFrequencyFlag, CLIHelpFlag, CLIVersionFlag)
+CLI.addOptions(CLIFrequencyOption, CLIHelpOption, CLIVersionOption)
 
 do {
     try CLI.parse()
@@ -70,17 +69,16 @@ do {
 
 
 // Give precedence to help flag
-if CLIHelpFlag.value {
+if CLIHelpOption.wasSet {
     CLI.printUsage()
-    exit(EX_USAGE)
-}
-else if CLIVersionFlag.value {
+    exit(EX_OK)
+} else if CLIVersionOption.wasSet {
     print(dshbVersion)
-    exit(EX_USAGE)
+    exit(EX_OK)
 }
 
 
-if let customFrequency = CLIFrequencyFlag.value {
+if let customFrequency = CLIFrequencyOption.value {
     if customFrequency < 1 {
         print("Usage: Statistic update frequency must be >= 1")
         exit(EX_USAGE)
