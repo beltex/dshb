@@ -26,33 +26,31 @@
 
 struct WidgetFan: WidgetType {
 
-    private var widget: WidgetBase
+    let name = "Fan"
+    let displayOrder = 6
+    var title: WidgetUITitle
+    var stats = [WidgetUIStat]()
 
     init(window: Window = Window()) {
-        widget = WidgetBase(name: "Fan", window: window)
-
+        title = WidgetUITitle(name: name, window: window)
 
         // No point in sorting fan names. Most machines will not have more than
         // 2
-        let numFans = smc.getNumFans().numFans
+        let fanCount = smc.getNumFans().numFans
         
-        for var i: UInt = 0; i < numFans; ++i {
-            widget.stats.append(WidgetUIStat(name: smc.getFanName(i).name,
-                                       max: Double(smc.getFanMaxRPM(i).rpm),
-                                       unit: .RPM))
+        for var i: UInt = 0; i < fanCount; ++i {
+            stats.append(WidgetUIStat(name: smc.getFanName(i).name,
+                                      max: Double(smc.getFanMaxRPM(i).rpm),
+                                      unit: .RPM))
         }
     }
 
     mutating func draw() {
-        for var i = 0; i < widget.stats.count; ++i {
-            let fanRPM = smc.getFanRPM(UInt(i)).rpm
-            widget.stats[i].draw(String(fanRPM),
-                                  percentage: Double(fanRPM) / widget.stats[i].max)
+        for var i = 0; i < stats.count; ++i {
+            let fanSpeed = smc.getFanRPM(UInt(i)).rpm
+            stats[i].draw(String(fanSpeed),
+                          percentage: Double(fanSpeed) / stats[i].max)
         }
-    }
-
-    mutating func resize(window: Window) -> Int32 {
-        return widget.resize(window)
     }
 }
 

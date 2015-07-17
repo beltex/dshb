@@ -27,27 +27,30 @@
 import Foundation
 
 struct WidgetMemory: WidgetType {
-    
-    private var widget: WidgetBase
+
+    let name = "Memory"
+    let displayOrder = 2
+    var title: WidgetUITitle
+    var stats = [WidgetUIStat]()
+
     private static let maxValueGB = System.physicalMemory(.Gigabyte)
     private static let maxValueMB = System.physicalMemory(.Megabyte)
     
     init(window: Window = Window()) {
-        widget = WidgetBase(name: "Memory", window: window)
+        title = WidgetUITitle(name: name, window: window)
 
-        
-        let stats = ["Free", "Wired", "Active", "Inactive", "Compressed"]
 
-        for stat in stats {
-            widget.stats.append(WidgetUIStat(name: stat,
-                                       max: WidgetMemory.maxValueGB,
-                                       unit: .Gigabyte))
+        for stat in ["Free", "Wired", "Active", "Inactive", "Compressed"] {
+            stats.append(WidgetUIStat(name: stat,
+                                      max: WidgetMemory.maxValueGB,
+                                      unit: .Gigabyte))
         }
+
         
-        widget.stats[0].lowPercentage = 0.20
-        widget.stats[0].highPercentage = 0.45
-        widget.stats[0].lowColor  = WidgetUIColorStatDanger
-        widget.stats[0].highColor = WidgetUIColorStatGood
+        stats[0].lowPercentage = 0.20
+        stats[0].highPercentage = 0.45
+        stats[0].lowColor  = WidgetUIColorStatDanger
+        stats[0].highColor = WidgetUIColorStatGood
     }
     
     mutating func draw() {
@@ -59,21 +62,17 @@ struct WidgetMemory: WidgetType {
         unitCheck(values.compressed, index: 4)
     }
     
-    mutating func resize(window: Window) -> Int32 {
-        return widget.resize(window)
-    }
-    
     private mutating func unitCheck(val: Double, index: Int) {
-        if (val < 1.0) {
-            widget.stats[index].unit = .Megabyte
+        if val < 1.0 {
+            stats[index].unit = .Megabyte
             let value = val * 1000.0
-            widget.stats[index].draw(String(Int(value)),
-                               percentage: value / WidgetMemory.maxValueMB)
+            stats[index].draw(String(Int(value)),
+                              percentage: value / WidgetMemory.maxValueMB)
         }
         else {
-            widget.stats[index].unit = .Gigabyte
-            widget.stats[index].draw(NSString(format:"%.2f", val) as String,
-                               percentage: val / WidgetMemory.maxValueGB)
+            stats[index].unit = .Gigabyte
+            stats[index].draw(NSString(format:"%.2f", val) as String,
+                              percentage: val / WidgetMemory.maxValueGB)
         }
     }
 }

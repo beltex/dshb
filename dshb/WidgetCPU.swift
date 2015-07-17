@@ -25,37 +25,35 @@
 // THE SOFTWARE.
 
 struct WidgetCPU: WidgetType {
-    
-    private var widget: WidgetBase
+
+    let name = "CPU"
+    let displayOrder = 1
+    var title: WidgetUITitle
+    var stats = [WidgetUIStat]()
+
     private static var system = System()
     
     init(window: Window = Window()) {
-        widget = WidgetBase(name: "CPU", window: window)
-        
-        
-        let stats = ["System", "User", "Idle", "Nice"]
+        title = WidgetUITitle(name: "CPU", window: window)
 
-        for stat in stats {
-            widget.stats.append(WidgetUIStat(name: stat, max: 100.0, unit: .Percentage))
+        for stat in ["System", "User", "Idle", "Nice"] {
+            stats.append(WidgetUIStat(name: stat, max: 100.0,
+                                      unit: .Percentage))
         }
 
-        widget.stats[2].lowColor  = WidgetUIColorStatDanger
-        widget.stats[2].highColor = WidgetUIColorStatGood
+        stats[2].lowColor  = WidgetUIColorStatDanger
+        stats[2].highColor = WidgetUIColorStatGood
     }
     
     mutating func draw() {
         let values = WidgetCPU.system.usageCPU()
-        widget.stats[0].draw(String(Int(values.system)),
-                       percentage: values.system / 100.0)
-        widget.stats[1].draw(String(Int(values.user)),
-                       percentage: values.user / 100.0)
-        widget.stats[2].draw(String(Int(values.idle)),
-                       percentage: values.idle / 100.0)
-        widget.stats[3].draw(String(Int(values.nice)),
-                       percentage: values.nice / 100.0)
-    }
-    
-    mutating func resize(window: Window) -> Int32 {
-        return widget.resize(window)
+        stats[0].draw(String(Int(values.system)),
+                      percentage: values.system / 100.0)
+        stats[1].draw(String(Int(values.user)),
+                      percentage: values.user / 100.0)
+        stats[2].draw(String(Int(values.idle)),
+                      percentage: values.idle / 100.0)
+        stats[3].draw(String(Int(values.nice)),
+                      percentage: values.nice / 100.0)
     }
 }

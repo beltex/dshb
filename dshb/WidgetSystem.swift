@@ -27,41 +27,37 @@
 import Foundation
 
 struct WidgetSystem: WidgetType {
-    
-    private var widget: WidgetBase
-    
-    init(window: Window = Window()) {
-        widget = WidgetBase(name: "System", window: window)
 
-        
-        let stats = ["Uptime","Processes","Threads","Load Avg","Mach factor"]
-        
-        for stat in stats {
-            widget.stats.append(WidgetUIStat(name: stat, max: 1.0, unit: .None))
+    let name = "System"
+    let displayOrder = 3
+    var title: WidgetUITitle
+    var stats = [WidgetUIStat]()
+
+    init(window: Window = Window()) {
+        title = WidgetUITitle(name: name, window: window)
+
+        for stat in ["Uptime", "Processes", "Threads", "Load Average", "Mach Factor"] {
+            stats.append(WidgetUIStat(name: stat, max: 1.0, unit: .None))
         }
     }
     
     mutating func draw() {
         let uptime = System.uptime()
-        widget.stats[0].draw("\(uptime.days)d \(uptime.hrs)h \(uptime.mins)m",
-                       percentage: 0.0)
+        stats[0].draw("\(uptime.days)d \(uptime.hrs)h \(uptime.mins)m",
+                      percentage: 0.0)
 
         let counts = System.processCounts()
-        widget.stats[1].draw(String(counts.processCount), percentage: 0.0)
-        widget.stats[2].draw(String(counts.threadCount), percentage: 0.0)
+        stats[1].draw(String(counts.processCount), percentage: 0.0)
+        stats[2].draw(String(counts.threadCount), percentage: 0.0)
 
         let loadAverage = System.loadAverage().map
                                                { NSString(format:"%.2f", $0) }
-        widget.stats[3].draw("\(loadAverage[0]), \(loadAverage[1])," +
+        stats[3].draw("\(loadAverage[0]), \(loadAverage[1])," +
                        "\(loadAverage[2])", percentage: 0.0)
         
         let machFactor = System.machFactor().map { NSString(format:"%.2f", $0) }
 
-        widget.stats[4].draw("\(machFactor[0]), \(machFactor[1]), \(machFactor[2])",
+        stats[4].draw("\(machFactor[0]), \(machFactor[1]), \(machFactor[2])",
                                                             percentage: 0.0)
-    }
-    
-    mutating func resize(window: Window) -> Int32 {
-        return widget.resize(window)
     }
 }

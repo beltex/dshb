@@ -25,51 +25,47 @@
 // THE SOFTWARE.
 
 struct WidgetBattery: WidgetType {
-    
-    private var widget: WidgetBase
-    
-    init(window: Window = Window()) {
-        widget = WidgetBase(name: "Battery", window: window)
 
+    let name = "Battery"
+    let displayOrder = 4
+    var title: WidgetUITitle
+    var stats = [WidgetUIStat]()
+
+    init(window: Window = Window()) {
+        title = WidgetUITitle(name: name, window: window)
+
+
+        stats = [WidgetUIStat(name: "Charge", max: 100.0, unit: .Percentage),
+                 WidgetUIStat(name: "Capacity Degradation",
+                              max: Double(battery.designCapacity()),
+                              unit: .MilliampereHour),
+                 WidgetUIStat(name: "Cycles",
+                              max: Double(battery.designCycleCount()),
+                              unit: .None),
+                 WidgetUIStat(name: "Time Remaining", max: 0.0, unit: .None)]
+
+
+        stats[0].lowPercentage = 0.2
+        stats[0].midPercentage = 0.0
+        stats[0].highPercentage = 0.8
+        stats[0].lowColor  = WidgetUIColorStatDanger
+        stats[0].highColor = WidgetUIColorStatGood
         
-        let stats: [(name: String, maxValue: Double, unit: Unit)] =
-  [("Charge", 100.0, .Percentage),
-   ("Capacity Degradation", Double(battery.designCapacity()), .MilliampereHour),
-   ("Cycles", Double(battery.designCycleCount()), .None),
-   ("Time Remaining", 0.0, .None)]
-        
-        for stat in stats {
-            widget.stats.append(WidgetUIStat(name: stat.name,
-                                              max: stat.maxValue,
-                                              unit: stat.unit))
-        }
-        
-        
-        widget.stats[0].lowPercentage = 0.2
-        widget.stats[0].midPercentage = 0.0
-        widget.stats[0].highPercentage = 0.8
-        widget.stats[0].lowColor  = WidgetUIColorStatDanger
-        widget.stats[0].highColor = WidgetUIColorStatGood
-        
-        widget.stats[1].lowColor  = WidgetUIColorStatDanger
-        widget.stats[1].highColor = WidgetUIColorStatGood
+        stats[1].lowColor  = WidgetUIColorStatDanger
+        stats[1].highColor = WidgetUIColorStatGood
     }
     
     mutating func draw() {
         let charge = battery.charge()
-        widget.stats[0].draw(String(Int(battery.charge())),
-                       percentage: charge / 100.0)
+        stats[0].draw(String(Int(battery.charge())), percentage: charge / 100.0)
         
         let maxCapactiy = battery.maxCapactiy()
         let cycleCount  = battery.cycleCount()
         
-        widget.stats[1].draw(String(maxCapactiy - Int(widget.stats[1].max)),
-                              percentage:  Double(maxCapactiy) / widget.stats[1].max)
-        widget.stats[2].draw(String(cycleCount), percentage: Double(cycleCount) / widget.stats[2].max)
-        widget.stats[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
-    }
-    
-    mutating func resize(window: Window) -> Int32 {
-        return widget.resize(window)
+        stats[1].draw(String(maxCapactiy - Int(stats[1].max)),
+                             percentage:  Double(maxCapactiy) / stats[1].max)
+        stats[2].draw(String(cycleCount),
+                      percentage: Double(cycleCount) / stats[2].max)
+        stats[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
     }
 }

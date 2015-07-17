@@ -26,13 +26,16 @@
 
 struct WidgetTemperature: WidgetType {
 
-    private var widget: WidgetBase
+    let name = "Temperature"
+    let displayOrder = 5
+    var title: WidgetUITitle
+    var stats = [WidgetUIStat]()
+
     let maxValue = 128.0
     private static var sensorMap: [String : SMC.Temperature] = [ : ]
     
     init(window: Window = Window()) {
-        widget = WidgetBase(name: "Temperature", window: window)
-        
+        title = WidgetUITitle(name: name, window: window)
         
         // Sensors list
         let sensors     = smc.getAllValidTemperatureKeys()
@@ -44,36 +47,32 @@ struct WidgetTemperature: WidgetType {
         
 
         // This comes from SystemKit, have to manually added
-        if (hasBattery) {
+        if hasBattery {
             sensorNames.append("BATTERY")
             // Only need to sort if have battery, since already sorted via
             // SMCKit
-            if (sensorNames.count > 1) {
+            if sensorNames.count > 1 {
                 sensorNames.sortInPlace { $0 < $1 }
             }
         }
     
         
-        // stats init - should be sorted here
         for sensor in sensorNames {
-            widget.stats.append(WidgetUIStat(name: sensor, max: maxValue, unit: .Celsius))
+            stats.append(WidgetUIStat(name: sensor, max: maxValue,
+                                      unit: .Celsius))
         }
     }
     
     mutating func draw() {
-        for var i = 0; i < widget.stats.count; ++i {
+        for var i = 0; i < stats.count; ++i {
             let value: Double
-            switch widget.stats[i].name {
-                case "BATTERY":
-                    value = battery.temperature()
-                default:
-                    value = smc.getTemperature(WidgetTemperature.sensorMap[widget.stats[i].name]!).tmp
+            switch stats[i].name {
+            case "BATTERY":
+                value = battery.temperature()
+            default:
+                value = smc.getTemperature(WidgetTemperature.sensorMap[stats[i].name]!).tmp
             }
-            widget.stats[i].draw(String(Int(value)), percentage: value / maxValue)
+            stats[i].draw(String(Int(value)), percentage: value / maxValue)
         }
-    }
-    
-    mutating func resize(window: Window) -> Int32 {
-        return widget.resize(window)
     }
 }
