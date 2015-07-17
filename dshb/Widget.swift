@@ -44,29 +44,18 @@ private let maxWidgetsPerRow: Int32 = 3
 //------------------------------------------------------------------------------
 
 protocol WidgetType {
+    var name: String          { get     }
+    var displayOrder: Int     { get     }
+    var title: WidgetUITitle  { get set }
+    var stats: [WidgetUIStat] { get set }
+
     init(window: Window)
+
     mutating func draw()
     mutating func resize(window: Window) -> Int32
 }
 
-//------------------------------------------------------------------------------
-// MARK: STRUCTS
-//------------------------------------------------------------------------------
-
-/// Like an ncurses window
-struct Window {
-    var length                      = 0
-    var point: (x: Int32, y: Int32) = (0, 0)
-}
-
-/// Base (parent) widget
-struct WidgetBase {
-    var title: WidgetUITitle
-    var stats = [WidgetUIStat]()
-
-    init(name: String, window: Window = Window()) {
-        title = WidgetUITitle(name: name, window: window)
-    }
+extension WidgetType {
 
     mutating func resize(var window: Window) -> Int32 {
         title.resize(window)
@@ -79,6 +68,16 @@ struct WidgetBase {
 
         return window.point.y
     }
+}
+
+//------------------------------------------------------------------------------
+// MARK: STRUCTS
+//------------------------------------------------------------------------------
+
+/// Like an ncurses window
+struct Window {
+    var length                      = 0
+    var point: (x: Int32, y: Int32) = (0, 0)
 }
 
 //------------------------------------------------------------------------------
