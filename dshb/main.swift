@@ -177,20 +177,19 @@ dispatch_resume(source)
 while true {
     switch getch() {
         // TODO: has_key() check for KEY_RESIZE?
-        case KEY_RESIZE:
-            // This could be done through GCD signal handler as well
-            dispatch_suspend(source)
-            // If this takes too long, queue will build up. Also, there is the 
-            // issue of mutiple resize calls.
-            drawAllWidgets()
-            dispatch_resume(source)
-        case Int32(UnicodeScalar("q").value):
-            dispatch_source_cancel(source)
-            endwin()    // ncurses cleanup
-            if hasSMC     { smc.close()     }
-            if hasBattery { battery.close() }
-            exit(EX_OK)
-        default:
-            true
+    case KEY_RESIZE:
+        // This could be done through GCD signal handler as well
+        dispatch_suspend(source)
+        // If this takes too long, queue will build up. Also, there is the
+        // issue of mutiple resize calls.
+        drawAllWidgets()
+        dispatch_resume(source)
+    case Int32(UnicodeScalar("q").value):
+        dispatch_source_cancel(source)
+        endwin()    // ncurses cleanup
+        if hasSMC     { smc.close()     }
+        if hasBattery { battery.close() }
+        exit(EX_OK)
+    default: true
     }
 }
