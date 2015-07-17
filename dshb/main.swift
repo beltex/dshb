@@ -142,6 +142,8 @@ if smc.open() == kIOReturnSuccess {
 }
 else { hasSMC = false }
 
+widgets.sortInPlace { $0.displayOrder < $1.displayOrder }
+
 drawAllWidgets()
 
 //------------------------------------------------------------------------------
