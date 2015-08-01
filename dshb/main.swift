@@ -153,9 +153,19 @@ drawAllWidgets()
 // See comment for background for reference.
 // https://github.com/beltex/dshb/issues/16#issuecomment-70699890
 
+
+let attr: dispatch_queue_attr_t
+
+if #available(OSX 10.10, *) {
+    attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL,
+                                                   QOS_CLASS_USER_INTERACTIVE,
+                                                   0)
+} else { attr = DISPATCH_QUEUE_SERIAL }
+
+
 let source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
                                     dispatch_queue_create("com.beltex.dshb",
-                                                         DISPATCH_QUEUE_SERIAL))
+                                                          attr))
 
 dispatch_source_set_timer(source,
                           dispatch_time(DISPATCH_TIME_NOW, 0),
