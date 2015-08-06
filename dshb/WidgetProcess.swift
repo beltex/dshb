@@ -29,22 +29,23 @@ import Darwin
 
 struct WidgetProcess: WidgetType {
 
-    private var widget: WidgetBase
-    var window = Window()
+    let name = "   PID USER            COMMAND"
+    let displayOrder = 7
+    var title: WidgetUITitle
+    var stats = [WidgetUIStat]()
+
     var usernames = [uid_t : String]()
 
     init(window: Window = Window()) {
-        self.window = Window()
-        widget = WidgetBase(name: "   PID USER            COMMAND",
-                            window: window)
+        title = WidgetUITitle(name: name, window: window)
     }
 
     mutating func draw() {
         var list = processList()
 
-        list.sort { $0.0.kp_proc.p_pid > $1.0.kp_proc.p_pid }
+        list.sortInPlace { $0.kp_proc.p_pid > $1.kp_proc.p_pid }
 
-        for var i = 0; i < Int(LINES) - Int(window.point.y) - 1; ++i {
+        for var i = 0; i < Int(LINES) - Int(title.window.point.y) - 1; ++i {
             if i >= list.count { break }
 
             var kinfo = list[i]
@@ -64,25 +65,20 @@ struct WidgetProcess: WidgetType {
                           username,
                           command]
 
-            let procStat = WidgetUIProcess(name: processString(tokens, window.length), window: Window(length: window.length, point: (0, window.point.y + i + 1)))
+            let procStat = WidgetUIProcess(name: processString(tokens, length: title.window.length), window: Window(length: title.window.length, point: (0, title.window.point.y + i + 1)))
 
             procStat.draw()
         }
-    }
-
-    mutating func resize(window: Window) -> Int32 {
-        self.window = window
-        return widget.resize(window)
     }
 }
 
 struct WidgetUIProcess {
 
-    let name     : String
-    var window   : Window
+    let name: String
+    var window: Window
 
     init(name: String, window: Window) {
-        self.name   = name
+        self.name = name
         self.window = window
     }
 
@@ -102,8 +98,8 @@ private func processString(tokens: [String], length: Int) -> String {
     let pidSpace = 6
     let userSpace = 16
 
-    let pidCount  = count(tokens[0])
-    let userCount = count(tokens[1])
+    let pidCount  = tokens[0].characters.count
+    let userCount = tokens[1].characters.count
 
     var pidSpaceString  = String()
     var userSpaceString = String()
