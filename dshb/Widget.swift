@@ -95,7 +95,10 @@ func drawAllWidgets() {
     var y_pos_new     : Int32 = 0
     var widgetRowCount: Int32 = 0
 
-    for var i = 0; i < widgets.count - 1; ++i {
+    // FIXME: Bad temporary hack to make proc list optional. Same further below
+    let range = CLIExperimentalOption.wasSet ? widgets.count - 1 : widgets.count
+
+    for var i = 0; i < range; ++i {
         // Are we on a new row?
         if i % Int(maxWidgetsPerRow) == 0 {
             y_pos_new += maxHeight - y_pos_new
@@ -115,6 +118,9 @@ func drawAllWidgets() {
         widgetRowCount++
     }
 
-    widgets[widgets.count - 1].resize(Window(length: Int(COLS), point: (x: 0, y: maxHeight)))
+    if CLIExperimentalOption.wasSet {
+        widgets[widgets.count - 1].resize(Window(length: Int(COLS), point: (x: 0, y: maxHeight)))
+    }
+
     refresh()
 }

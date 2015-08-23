@@ -50,6 +50,8 @@ var widgets: [WidgetType] = [WidgetCPU(), WidgetMemory(), WidgetSystem()]
 // MARK: COMMAND LINE INTERFACE
 //------------------------------------------------------------------------------
 
+let CLIExperimentalOption = BoolOption(shortFlag: "e", longFlag: "experimental",
+                                   helpMessage: "Turn on experimental features")
 let CLIFrequencyOption = IntOption(shortFlag: "f", longFlag: "frequency",
              helpMessage: "Statistic update frequency in seconds. Default is 1")
 let CLIHelpOption      = BoolOption(shortFlag: "h", longFlag: "help",
@@ -58,7 +60,8 @@ let CLIVersionOption   = BoolOption(shortFlag: "v", longFlag: "version",
                                     helpMessage: "Print dshb version")
 
 let CLI = CommandLine()
-CLI.addOptions(CLIFrequencyOption, CLIHelpOption, CLIVersionOption)
+CLI.addOptions(CLIExperimentalOption, CLIFrequencyOption, CLIHelpOption,
+               CLIVersionOption)
 
 do {
     try CLI.parse()
@@ -87,6 +90,9 @@ if let customFrequency = CLIFrequencyOption.value {
     updateFrequency = UInt64(customFrequency)
 }
 else { updateFrequency = 1 }
+
+
+if CLIExperimentalOption.wasSet { widgets.append(WidgetProcess()) }
 
 //------------------------------------------------------------------------------
 // MARK: NCURSES SETTINGS
@@ -143,9 +149,6 @@ if smc.open() == kIOReturnSuccess {
 else { hasSMC = false }
 
 widgets.sortInPlace { $0.displayOrder < $1.displayOrder }
-
-// Process widget must be last
-widgets.append(WidgetProcess())
 
 drawAllWidgets()
 
