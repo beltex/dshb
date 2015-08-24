@@ -56,12 +56,15 @@ let CLIFrequencyOption = IntOption(shortFlag: "f", longFlag: "frequency",
              helpMessage: "Statistic update frequency in seconds. Default is 1")
 let CLIHelpOption      = BoolOption(shortFlag: "h", longFlag: "help",
                                     helpMessage: "Print the list of options")
+let CLIUnknownTemperatureSensorsOption = BoolOption(shortFlag: "u",
+                                        longFlag: "unknown-temperature-sensors",
+      helpMessage: "Show temperature sensors whose hardware mapping is unknown")
 let CLIVersionOption   = BoolOption(shortFlag: "v", longFlag: "version",
                                     helpMessage: "Print dshb version")
 
 let CLI = CommandLine()
 CLI.addOptions(CLIExperimentalOption, CLIFrequencyOption, CLIHelpOption,
-               CLIVersionOption)
+               CLIUnknownTemperatureSensorsOption, CLIVersionOption)
 
 do {
     try CLI.parse()
@@ -140,15 +143,18 @@ if battery.open() == kIOReturnSuccess {
 } else { hasBattery = false }
 
 
-var smc = SMC()
-if smc.open() == kIOReturnSuccess {
+do {
+    try SMCKit.open()
     hasSMC = true
     widgets.append(WidgetTemperature())
 
-    // For the new fanless MacBook8,1
-    if smc.getNumFans().numFans > 0 { widgets.append(WidgetFan()) }
-}
-else { hasSMC = false }
+    do {
+        // For the new fanless MacBook8,1
+        if try SMCKit.fanCount() > 0 { widgets.append(WidgetFan()) }
+    } catch { /* Do nothing */ }
+
+} catch { hasSMC = false }
+
 
 widgets.sortInPlace { $0.displayOrder < $1.displayOrder }
 
@@ -207,7 +213,7 @@ while true {
     case Int32(UnicodeScalar("q").value):   // Quit
         dispatch_source_cancel(source)
         endwin()    // ncurses cleanup
-        if hasSMC     { smc.close()     }
+        if hasSMC     { SMCKit.close()  }
         if hasBattery { battery.close() }
         exit(EX_OK)
     default: true
