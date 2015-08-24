@@ -34,21 +34,41 @@ struct WidgetFan: WidgetType {
     init(window: Window = Window()) {
         title = WidgetUITitle(name: name, window: window)
 
-        // No point in sorting fan names. Most machines will not have more than
-        // 2
-        let fanCount = smc.getNumFans().numFans
         
-        for var i: UInt = 0; i < fanCount; ++i {
-            stats.append(WidgetUIStat(name: smc.getFanName(i).name, unit: .RPM,
-                                      max: Double(smc.getFanMaxRPM(i).rpm)))
+        let fanCount: Int
+        do    { fanCount = try SMCKit.fanCount() }
+        catch { fanCount = 0 }
+
+
+        for var i = 0; i < fanCount; ++i {
+            // Not sorting fan names, most will not have more than 2 anyway
+            let fanName: String
+            do    { fanName = try SMCKit.fanName(i) }
+            catch { fanName = "Fan \(i)" }
+
+
+            let fanMaxSpeed: Int
+            do {
+                fanMaxSpeed = try SMCKit.fanMaxSpeed(i)
+            } catch {
+                // Skip this fan
+                continue
+            }
+
+            stats.append(WidgetUIStat(name: fanName, unit: .RPM,
+                                      max: Double(fanMaxSpeed)))
         }
     }
 
     mutating func draw() {
         for var i = 0; i < stats.count; ++i {
-            let fanSpeed = smc.getFanRPM(UInt(i)).rpm
-            stats[i].draw(String(fanSpeed),
-                          percentage: Double(fanSpeed) / stats[i].maxValue)
+            do {
+                let fanSpeed = try SMCKit.fanCurrentSpeed(i)
+                stats[i].draw(String(fanSpeed),
+                              percentage: Double(fanSpeed) / stats[i].maxValue)
+            } catch {
+                stats[i].draw("Error", percentage: 0)
+            }
         }
     }
 }
