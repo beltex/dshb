@@ -42,6 +42,8 @@ struct WidgetBattery: WidgetType {
                  WidgetUIStat(name: "Cycles",
                               unit: .None,
                               max: Double(battery.designCycleCount())),
+                 // TODO: Better max temp for battery
+                 WidgetUIStat(name: "Temperature", unit: .Celsius, max: 128.0),
                  WidgetUIStat(name: "Time Remaining", unit: .None, max: 0.0)]
 
         stats[0].Nominal.range = 0.2..<1.0
@@ -60,9 +62,12 @@ struct WidgetBattery: WidgetType {
         let cycleCount  = battery.cycleCount()
         
         stats[1].draw(String(maxCapactiy - Int(stats[1].maxValue)),
-                             percentage:  Double(maxCapactiy) / stats[1].maxValue)
+                            percentage: Double(maxCapactiy) / stats[1].maxValue)
         stats[2].draw(String(cycleCount),
-                      percentage: Double(cycleCount) / stats[2].maxValue)
-        stats[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
+                             percentage: Double(cycleCount) / stats[2].maxValue)
+
+        let temperature = battery.temperature()
+        stats[3].draw(String(temperature), percentage: temperature / stats[3].maxValue)
+        stats[4].draw(battery.timeRemainingFormatted(), percentage: 0.0)
     }
 }
