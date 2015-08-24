@@ -4,7 +4,7 @@
 //
 // The MIT License
 //
-// Copyright (C) 2015  beltex <http://beltex.github.io>
+// Copyright (C) 2104-2015  beltex <http://beltex.github.io>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,147 +26,96 @@
 
 import Foundation
 
-//------------------------------------------------------------------------------
-// MARK: ENUMS
-//------------------------------------------------------------------------------
+typealias WarningLevel = (range: HalfOpenInterval<Double>, color: WidgetUIColor)
+
 
 enum Unit: String {
-    case Celsius         = "°C"
-    case Fahrenheit      = "°F"
-    case Gigabyte        = "GB"
-    case Kelvin          = "K"
-    case Percentage      = "%"
-    case Megabyte        = "MB"
+    case Celsius = "°C"
+    case Fahrenheit = "°F"
+    case Gigabyte = "GB"
+    case Kelvin = "K"
+    case Percentage = "%"
+    case Megabyte = "MB"
     case MilliampereHour = " mAh"
-    case None            = ""
-    case RPM             = " RPM"
+    case None = ""
+    case RPM = " RPM"
 }
 
-//------------------------------------------------------------------------------
-// MARK: STRUCTS
-//------------------------------------------------------------------------------
 
 struct WidgetUIStat {
     
-    //--------------------------------------------------------------------------
-    // MARK: PUBLIC PROPERTIES
-    //--------------------------------------------------------------------------
-    
     let name: String
-    var unit: Unit
-    
-    var value : Double = 0
-    var window: Window
-    var max   : Double
-    
-    var lowPercentage  = 0.45
-    var midPercentage  = 0.30
-    var highPercentage = 0.20
-    
-    var lowColor  = WidgetUIColorStatGood
-    var midColor  = WidgetUIColorStatWarning
-    var highColor = WidgetUIColorStatDanger
-    
-    //--------------------------------------------------------------------------
-    // MARK: PRIVATE PROPERTIES
-    //--------------------------------------------------------------------------
 
-    private let nameLength : Int
-    private var unitLength : Int
-    private var lastValue  = String()
-    private var lastPercentage = 0.0
-    
-    private var low  : Int = 0
-    private var mid  : Int = 0
-    private var high : Int = 0
-    
-    //--------------------------------------------------------------------------
-    // MARK: INITIALIZERS
-    //--------------------------------------------------------------------------
-    
-    init(name: String, window: Window = Window(), max: Double, unit: Unit) {
-        self.name   = name
-        self.window = window
-        self.unit   = unit
-        self.max    = max
-        
-        nameLength  = name.characters.count
-        unitLength  = unit.rawValue.characters.count
-        
-        computeRanges()
+    var unit: Unit {
+        didSet {
+            unitCount = unit.rawValue.characters.count
+        }
     }
-    
-    //--------------------------------------------------------------------------
-    // MARK: PUBLIC METHODS
-    //--------------------------------------------------------------------------
-    
-    mutating func draw(value: String, percentage: Double) {
-        lastValue       = value
-        lastPercentage  = percentage
-        let valueLength = value.characters.count
-        
-        // Name setup
-        let numberChars = window.length - (2 + valueLength + unitLength)
-        
-        var nameEdit = name
-        if nameLength > numberChars && numberChars > 0 {
-            nameEdit = (name as NSString).substringToIndex(numberChars - 1)
-            nameEdit.append(UnicodeScalar("…"))
-        }
-        else if numberChars < 0 { return }
-        
-        let spaceLen = window.length - (nameEdit.characters.count + valueLength
-                                                                  + unitLength)
 
-        
-        // Range setup
-        let valueRange = Int(floor(Double(window.length) * percentage))
-        
-        var space = String()
-        for var x = 0; x < spaceLen; ++x { space.append(UnicodeScalar(" ")) }
+    var maxValue: Double
+    var window: Window
+
+    var Cool: WarningLevel = (-Double.infinity..<0, WidgetUIColor.Cool)
+    var Nominal: WarningLevel = (0..<0.45, WidgetUIColor.Nominal)
+    var Danger: WarningLevel = (0.45..<0.75, WidgetUIColor.Danger)
+    var Crisis: WarningLevel = (0.75..<Double.infinity, WidgetUIColor.Crisis)
     
-        let char_array = String(nameEdit + space + value + unit.rawValue)
-        
-        var index = 0
+    var lowColor = WidgetUIColorStatGood
+    var midColor = WidgetUIColorStatWarning
+    var highColor = WidgetUIColorStatDanger
+
+    private let nameCount: Int
+    private var unitCount = 0
+    private var lastStr = String()
+    private var lastPercentage = 0.0
+
+    init(name: String, unit: Unit, max: Double, window: Window = Window()) {
+        self.name = name
+        self.unit = unit
+        self.maxValue = max
+        self.window = window
+
+        nameCount = name.characters.count
+        unitCount = unit.rawValue.characters.count
+    }
+
+    mutating func draw(str: String, percentage: Double) {
+        lastStr = str
+        lastPercentage = percentage
+
+        let spaceCount = window.length - nameCount - str.characters.count - unitCount
+        let space = String(count: max(spaceCount, 2), repeatedValue: Character(" "))
+
+
+        var shortenedName = name
+        if spaceCount <= 0 {
+            shortenedName = (name as NSString).substringToIndex(nameCount + spaceCount - 2)
+            shortenedName.extend("…")
+        }
+
+
+        let charactersToColorCount = Int(Double(window.length) * percentage)
+        let fullStr = (shortenedName + space + str + unit.rawValue) as NSString
+        let coloredStr = fullStr.substringToIndex(charactersToColorCount)
+        let uncoloredStr = fullStr.substringFromIndex(charactersToColorCount)
+
+
         move(window.point.y, window.point.x)
-
-        for char in char_array.characters {
-            if index < valueRange {
-                if valueRange < low {
-                    // Green
-                    attrset(COLOR_PAIR(lowColor))
-                    addstr(String(char))
-                }
-                else if valueRange >= low && valueRange < mid {
-                    // Yellow
-                    attrset(COLOR_PAIR(midColor))
-                    addstr(String(char))
-                }
-                else {
-                    // Red
-                    // > 23
-                    attrset(COLOR_PAIR(highColor))
-                    addstr(String(char))
-                }
-            }
-            else {
-                attrset(COLOR_PAIR(WidgetUIColorBackground))
-                addstr(String(char))
-            }
-            
-            ++index
+        switch percentage {
+        case Cool.range:    attrset(COLOR_PAIR(Cool.color.rawValue))
+        case Nominal.range: attrset(COLOR_PAIR(Nominal.color.rawValue))
+        case Danger.range:  attrset(COLOR_PAIR(Danger.color.rawValue))
+        case Crisis.range:  attrset(COLOR_PAIR(Crisis.color.rawValue))
+        default:            true
         }
+
+        addstr(coloredStr)
+        attrset(COLOR_PAIR(WidgetUIColor.Background.rawValue))
+        addstr(uncoloredStr)
     }
     
     mutating func resize(window: Window) {
         self.window = window
-        computeRanges()
-        draw(lastValue, percentage: lastPercentage)
-    }
-    
-    private mutating func computeRanges() {
-        low  = Int(ceil(Double(window.length) * lowPercentage))
-        mid  = Int(floor(Double(window.length) * midPercentage)) + low
-        high = Int(floor(Double(window.length) * highPercentage))
+        draw(lastStr, percentage: lastPercentage)
     }
 }
