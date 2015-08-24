@@ -55,14 +55,10 @@ struct WidgetUIStat {
     var maxValue: Double
     var window: Window
 
-    var Cool: WarningLevel = (-Double.infinity..<0, WidgetUIColor.Cool)
-    var Nominal: WarningLevel = (0..<0.45, WidgetUIColor.Nominal)
-    var Danger: WarningLevel = (0.45..<0.75, WidgetUIColor.Danger)
-    var Crisis: WarningLevel = (0.75..<Double.infinity, WidgetUIColor.Crisis)
-    
-    var lowColor = WidgetUIColorStatGood
-    var midColor = WidgetUIColorStatWarning
-    var highColor = WidgetUIColorStatDanger
+    var Cool: WarningLevel = (-Double.infinity..<0, WidgetUIColor.WarningLevelCool)
+    var Nominal: WarningLevel = (0..<0.45, WidgetUIColor.WarningLevelNominal)
+    var Danger: WarningLevel = (0.45..<0.75, WidgetUIColor.WarningLevelDanger)
+    var Crisis: WarningLevel = (0.75..<Double.infinity, WidgetUIColor.WarningLevelCrisis)
 
     private let nameCount: Int
     private var unitCount = 0
