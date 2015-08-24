@@ -4,7 +4,7 @@
 //
 // The MIT License
 //
-// Copyright (C) 2015  beltex <http://beltex.github.io>
+// Copyright (C) 2014-2015  beltex <http://beltex.github.io>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,47 +32,50 @@ struct WidgetTemperature: WidgetType {
     var stats = [WidgetUIStat]()
 
     let maxValue = 128.0
-    private static var sensorMap: [String : SMC.Temperature] = [ : ]
+    private let sensors: [TemperatureSensor]
     
     init(window: Window = Window()) {
         title = WidgetUITitle(name: name, window: window)
-        
-        // Sensors list
-        let sensors     = smc.getAllValidTemperatureKeys()
-        var sensorNames = sensors.map { sensor -> String in
-            let sensorName = SMC.Temperature.allValues[sensor]!
-            WidgetTemperature.sensorMap.updateValue(sensor, forKey: sensorName)
-            return sensorName
-        }
-        
 
-        // This comes from SystemKit, have to manually added
-        if hasBattery {
-            sensorNames.append("BATTERY")
-            // Only need to sort if have battery, since already sorted via
-            // SMCKit
-            if sensorNames.count > 1 {
-                sensorNames.sortInPlace(<)
-            }
+
+        do {
+            // TODO: Add battery temperature from SystemKit? SMC will usually
+            //       have a key for it too (though not always certain which one)
+            let allKnownSensors = try SMCKit.allKnownTemperatureSensors().sort
+                                                           { $0.name < $1.name }
+
+            let allUnknownSensors: [TemperatureSensor]
+            if CLIUnknownTemperatureSensorsOption.wasSet {
+                allUnknownSensors = try SMCKit.allUnknownTemperatureSensors()
+            } else { allUnknownSensors = [ ] }
+
+            sensors = allKnownSensors + allUnknownSensors
+        } catch {
+            // TODO: Have some sort of warning message under temperature widget
+            sensors = [ ]
         }
-    
-        
-        for sensor in sensorNames {
-            stats.append(WidgetUIStat(name: sensor, unit: .Celsius,
-                                      max: maxValue))
+
+
+        for sensor in sensors {
+            let name: String
+            if sensor.name == "Unknown" {
+                name = sensor.name + " (\(sensor.code.toString()))"
+            } else { name = sensor.name }
+
+            stats.append(WidgetUIStat(name: name, unit: .Celsius,
+                                                   max: maxValue))
         }
     }
     
     mutating func draw() {
         for var i = 0; i < stats.count; ++i {
-            let value: Double
-            switch stats[i].name {
-            case "BATTERY":
-                value = battery.temperature()
-            default:
-                value = smc.getTemperature(WidgetTemperature.sensorMap[stats[i].name]!).tmp
+            do {
+                let value = try SMCKit.temperature(sensors[i].code)
+                stats[i].draw(String(value), percentage: value / maxValue)
+            } catch {
+                stats[i].draw("Error", percentage: 0)
+                // TODO: stats[i].unit = .None
             }
-            stats[i].draw(String(Int(value)), percentage: value / maxValue)
         }
     }
 }
