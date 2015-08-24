@@ -69,6 +69,9 @@ struct WidgetTemperature: WidgetType {
     
     mutating func draw() {
         for var i = 0; i < stats.count; ++i {
+            // TODO: Fix going past bottom of terminal window
+            //if stats[i].window.point.y >= LINES - 2 { break }
+
             do {
                 let value = try SMCKit.temperature(sensors[i].code)
                 stats[i].draw(String(value), percentage: value / maxValue)
