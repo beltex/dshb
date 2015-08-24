@@ -42,7 +42,7 @@ struct WidgetUITitle {
     
     func draw() {
         move(window.point.y, window.point.x)
-        attrset(COLOR_PAIR(WidgetUIColorTitle))
+        attrset(COLOR_PAIR(WidgetUIColor.Title.rawValue))
         addstr(name + padding)
     }
     

@@ -111,18 +111,20 @@ curs_set(0)                 // Set cursor to invisible
 // TODO: Do has_color() check when we have a way to log the error, print()
 //       won't work
 start_color()
-init_pair(Int16(WidgetUIColorBackground),  Int16(COLOR_WHITE),
-                                           Int16(use_default_colors()))
-init_pair(Int16(WidgetUIColorTitle),       Int16(COLOR_WHITE),
-                                           Int16(COLOR_CYAN))
-init_pair(Int16(WidgetUIColorStatGood),    Int16(COLOR_BLACK),
-                                           Int16(COLOR_GREEN))
-init_pair(Int16(WidgetUIColorStatWarning), Int16(COLOR_BLACK),
-                                           Int16(COLOR_YELLOW))
-init_pair(Int16(WidgetUIColorStatDanger),  Int16(COLOR_BLACK),
-                                           Int16(COLOR_RED))
+init_pair(Int16(WidgetUIColor.Background.rawValue), Int16(COLOR_WHITE),
+                                                    Int16(use_default_colors()))
+init_pair(Int16(WidgetUIColor.Title.rawValue), Int16(COLOR_WHITE),
+                                               Int16(COLOR_CYAN))
+init_pair(Int16(WidgetUIColor.WarningLevelCool.rawValue), Int16(COLOR_BLACK),
+                                                          Int16(COLOR_BLUE))
+init_pair(Int16(WidgetUIColor.WarningLevelNominal.rawValue), Int16(COLOR_BLACK),
+                                                             Int16(COLOR_GREEN))
+init_pair(Int16(WidgetUIColor.WarningLevelDanger.rawValue), Int16(COLOR_BLACK),
+                                                            Int16(COLOR_YELLOW))
+init_pair(Int16(WidgetUIColor.WarningLevelCrisis.rawValue), Int16(COLOR_BLACK),
+                                                            Int16(COLOR_RED))
 
-bkgd(UInt32(COLOR_PAIR(WidgetUIColorBackground)))
+bkgd(UInt32(COLOR_PAIR(WidgetUIColor.Background.rawValue)))
 
 //------------------------------------------------------------------------------
 // MARK: WIDGET SETUP
@@ -202,7 +204,7 @@ while true {
         // issue of mutiple resize calls.
         drawAllWidgets()
         dispatch_resume(source)
-    case Int32(UnicodeScalar("q").value):
+    case Int32(UnicodeScalar("q").value):   // Quit
         dispatch_source_cancel(source)
         endwin()    // ncurses cleanup
         if hasSMC     { smc.close()     }
