@@ -41,16 +41,14 @@ struct WidgetMemory: WidgetType {
 
 
         for stat in ["Free", "Wired", "Active", "Inactive", "Compressed"] {
-            stats.append(WidgetUIStat(name: stat,
-                                      max: WidgetMemory.maxValueGB,
-                                      unit: .Gigabyte))
+            stats.append(WidgetUIStat(name: stat, unit: .Gigabyte,
+                                      max: WidgetMemory.maxValueGB))
         }
 
-        
-        stats[0].lowPercentage = 0.20
-        stats[0].highPercentage = 0.45
-        stats[0].lowColor  = WidgetUIColorStatDanger
-        stats[0].highColor = WidgetUIColorStatGood
+
+        stats[0].Nominal.range = 0.45..<1.0
+        stats[0].Danger.range = 0.2..<0.45
+        stats[0].Crisis.range = 0..<0.2
     }
     
     mutating func draw() {

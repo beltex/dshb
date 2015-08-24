@@ -37,12 +37,12 @@ struct WidgetCPU: WidgetType {
         title = WidgetUITitle(name: "CPU", window: window)
 
         for stat in ["System", "User", "Idle", "Nice"] {
-            stats.append(WidgetUIStat(name: stat, max: 100.0,
-                                      unit: .Percentage))
+            stats.append(WidgetUIStat(name: stat, unit: .Percentage,
+                                      max: 100.0))
         }
 
-        stats[2].lowColor  = WidgetUIColorStatDanger
-        stats[2].highColor = WidgetUIColorStatGood
+        stats[2].Nominal.color = WidgetUIColor.WarningLevelCrisis
+        stats[2].Crisis.color = WidgetUIColor.WarningLevelNominal
     }
     
     mutating func draw() {

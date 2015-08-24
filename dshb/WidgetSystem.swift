@@ -37,7 +37,7 @@ struct WidgetSystem: WidgetType {
         title = WidgetUITitle(name: name, window: window)
 
         for stat in ["Uptime", "Processes", "Threads", "Load Average", "Mach Factor"] {
-            stats.append(WidgetUIStat(name: stat, max: 1.0, unit: .None))
+            stats.append(WidgetUIStat(name: stat, unit: .None, max: 1.0))
         }
     }
     

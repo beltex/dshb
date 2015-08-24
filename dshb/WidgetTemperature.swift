@@ -58,8 +58,8 @@ struct WidgetTemperature: WidgetType {
     
         
         for sensor in sensorNames {
-            stats.append(WidgetUIStat(name: sensor, max: maxValue,
-                                      unit: .Celsius))
+            stats.append(WidgetUIStat(name: sensor, unit: .Celsius,
+                                      max: maxValue))
         }
     }
     

@@ -35,37 +35,34 @@ struct WidgetBattery: WidgetType {
         title = WidgetUITitle(name: name, window: window)
 
 
-        stats = [WidgetUIStat(name: "Charge", max: 100.0, unit: .Percentage),
+        stats = [WidgetUIStat(name: "Charge", unit: .Percentage, max: 100.0),
                  WidgetUIStat(name: "Capacity Degradation",
-                              max: Double(battery.designCapacity()),
-                              unit: .MilliampereHour),
+                              unit: .MilliampereHour,
+                              max: Double(battery.designCapacity())),
                  WidgetUIStat(name: "Cycles",
-                              max: Double(battery.designCycleCount()),
-                              unit: .None),
-                 WidgetUIStat(name: "Time Remaining", max: 0.0, unit: .None)]
+                              unit: .None,
+                              max: Double(battery.designCycleCount())),
+                 WidgetUIStat(name: "Time Remaining", unit: .None, max: 0.0)]
 
+        stats[0].Nominal.range = 0.2..<1.0
+        stats[0].Danger.range = 0..<0
+        stats[0].Crisis.range = 0..<0.2
 
-        stats[0].lowPercentage = 0.2
-        stats[0].midPercentage = 0.0
-        stats[0].highPercentage = 0.8
-        stats[0].lowColor  = WidgetUIColorStatDanger
-        stats[0].highColor = WidgetUIColorStatGood
-        
-        stats[1].lowColor  = WidgetUIColorStatDanger
-        stats[1].highColor = WidgetUIColorStatGood
+        stats[1].Nominal.color = WidgetUIColor.WarningLevelCrisis
+        stats[1].Crisis.color = WidgetUIColor.WarningLevelNominal
     }
     
     mutating func draw() {
         let charge = battery.charge()
-        stats[0].draw(String(Int(battery.charge())), percentage: charge / 100.0)
-        
+        stats[0].draw(String(charge), percentage: charge / 100.0)
+
         let maxCapactiy = battery.maxCapactiy()
         let cycleCount  = battery.cycleCount()
         
-        stats[1].draw(String(maxCapactiy - Int(stats[1].max)),
-                             percentage:  Double(maxCapactiy) / stats[1].max)
+        stats[1].draw(String(maxCapactiy - Int(stats[1].maxValue)),
+                             percentage:  Double(maxCapactiy) / stats[1].maxValue)
         stats[2].draw(String(cycleCount),
-                      percentage: Double(cycleCount) / stats[2].max)
+                      percentage: Double(cycleCount) / stats[2].maxValue)
         stats[3].draw(battery.timeRemainingFormatted(), percentage: 0.0)
     }
 }

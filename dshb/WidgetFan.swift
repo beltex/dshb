@@ -39,9 +39,8 @@ struct WidgetFan: WidgetType {
         let fanCount = smc.getNumFans().numFans
         
         for var i: UInt = 0; i < fanCount; ++i {
-            stats.append(WidgetUIStat(name: smc.getFanName(i).name,
-                                      max: Double(smc.getFanMaxRPM(i).rpm),
-                                      unit: .RPM))
+            stats.append(WidgetUIStat(name: smc.getFanName(i).name, unit: .RPM,
+                                      max: Double(smc.getFanMaxRPM(i).rpm)))
         }
     }
 
@@ -49,7 +48,7 @@ struct WidgetFan: WidgetType {
         for var i = 0; i < stats.count; ++i {
             let fanSpeed = smc.getFanRPM(UInt(i)).rpm
             stats[i].draw(String(fanSpeed),
-                          percentage: Double(fanSpeed) / stats[i].max)
+                          percentage: Double(fanSpeed) / stats[i].maxValue)
         }
     }
 }

@@ -35,6 +35,15 @@ let WidgetUIColorStatGood   : Int32 = 3
 let WidgetUIColorStatWarning: Int32 = 4
 let WidgetUIColorStatDanger : Int32 = 5
 
+enum WidgetUIColor: Int32 {
+    case Background = 1
+    case Title = 2
+    case WarningLevelCool = 6
+    case WarningLevelNominal = 3
+    case WarningLevelDanger = 4
+    case WarningLevelCrisis = 5
+}
+
 /// Number of pixels between widgets
 private let widgetSpacing   : Int32 = 1
 private let maxWidgetsPerRow: Int32 = 3
