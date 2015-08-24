@@ -90,7 +90,13 @@ struct WidgetUIStat {
         }
 
 
-        let charactersToColorCount = Int(Double(window.length) * percentage)
+        let charactersToColorCount: Int
+        if percentage.isSignMinus {
+            charactersToColorCount = window.length
+        } else {
+            charactersToColorCount = Int(Double(window.length) * percentage)
+        }
+
         let fullStr = (shortenedName + space + str + unit.rawValue) as NSString
         let coloredStr = fullStr.substringToIndex(charactersToColorCount)
         let uncoloredStr = fullStr.substringFromIndex(charactersToColorCount)
