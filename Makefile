@@ -1,7 +1,7 @@
 INSTALL_FOLDER  = /usr/local/bin
 MANPAGE_FOLDER  = /usr/local/share/man/man1
 XCODE_CONFIG    = Release
-DSHB_VERSION    = 0.0.5
+DSHB_VERSION    = 0.1.0-dev
 ARCHIVE_FOLDER  = archive
 ARCHIVE_NAME    = dshb-${DSHB_VERSION}-source
 SUBMODULES_PATH = libs
@@ -52,15 +52,15 @@ contain the Git submodules and thus you can't build dshb. Here's what you can do
 instead though!                                                                \n\n\
 [1] Clone the repository via Git                                               \n\n\
     git clone --recursive ${REPO_URL}                                          \n\n\
-[2] Download the latest release archive that does contain the submodules       \n\n\
-    ${REPO_URL}/releases/download/v${DSHB_VERSION}/${ARCHIVE_NAME}.zip\n";         \
+[2] Download the 'dshb-<VERSION>-source.zip' archive which is complete at      \n\n\
+    ${REPO_URL}/releases/latest\n";                                                \
 	 exit 1
 endef
 uninstall:
 	rm ${INSTALL_FOLDER}/dshb
 	rm ${MANPAGE_FOLDER}/dshb.1
 ronn:
-	ronn --style=toc doc/dshb.1.ronn
+	ronn --organization=${DSHB_VERSION} --style=toc doc/dshb.1.ronn
 archive-local:
 	@rm -rf ${ARCHIVE_FOLDER}/*;                                       \
 	 mkdir -p ${ARCHIVE_FOLDER};                                       \
