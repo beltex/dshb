@@ -85,7 +85,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>dshb</code> [<code>-f</code> <var>frequency</var>]<br />
+<p><code>dshb</code> [<code>-eu</code>][<code>-f</code> <var>frequency</var>]<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<code>-h</code>]<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<code>-v</code>]<br /></p>
 
@@ -105,6 +105,7 @@ low overhead (the observer effect is inescapable in this case sadly).</p>
 <dl>
 <dt><code>-f</code>, <code>--frequency</code> <var>value</var></dt><dd><p>Statistic update frequency in seconds. Default is 1.</p></dd>
 <dt><code>-h</code>, <code>--help</code></dt><dd><p>Show the help message (list of options) and exit.</p></dd>
+<dt><code>-u</code>, <code>--unknown-temperature-sensors</code></dt><dd><p>Show temperature sensors whose hardware mapping is unknown.</p></dd>
 <dt><code>-v</code>, <code>--version</code></dt><dd><p>Show dshb version and exit.</p></dd>
 </dl>
 
@@ -140,18 +141,24 @@ MacBook.</p></dd>
 (global counts), <em>Load Average</em> (1, 5 and 15 minute intervals) and <em>Mach
 Factor</em> (5, 30 and 60 second intervals).</p></dd>
 <dt><code>Temperature</code></dt><dd><p>Displays a list of the machine temperature sensors in Celsius. The list
-may not be exhaustive. In addition, the maximum temperature of each
-individual sensor is not known. Thus, a global max of 128 degrees is used.
-Finally, the names of the sensors may not be mapped to the correct hardware
-component. This is all due to the fact that the SMC (System Management
-Controller) has a closed source driver, and thus information about it's
-inner workings is limited.</p>
+is exhaustive when the (<code>-u</code>) switch is used.</p>
 
-<p>If a sensor has a value that is constant and completely disproportionate to
-the rest, then there is a chance that it is faulty. This could be due to bad
-or damaged hardware (liquid on the logic board), or a bug in the SMC driver
-itself. Run the <em>Apple Hardware Test</em> diagnostics suite in such a case to
-confirm. See here for example <a href="https://github.com/beltex/SMCKit/issues/15" data-bare-link="true">https://github.com/beltex/SMCKit/issues/15</a></p></dd>
+<p>Note that the names of the known sensors may not be mapped to the correct
+hardware component. In addition, the maximum temperature of each individual
+sensor is not known. Thus, a global max of 128 degrees is used. This is all
+due to the fact that the SMC (System Management Controller) has a closed
+source driver, and thus information about it's inner workings is limited.</p>
+
+<p>If a sensor has a value that is very high, constant, and completely
+disproportionate to the rest, then there is a chance that it is faulty. This
+could be due to bad or damaged hardware (liquid on the logic board). Run the
+ <em>Apple Diagnostics</em> (<em>Apple Hardware Test</em> for older machines) diagnostics
+suite in such a case to confirm.</p>
+
+<p>Some sensors however report very low values, below zero. The current theory
+on this is that at lower temperatures the sensors have inaccurate readings.
+It maybe that they are located close to an internal fan, and the airflow is
+causing it to be skewed.</p></dd>
 </dl>
 
 
@@ -188,7 +195,7 @@ yours too. Enjoy :)</p>
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>May 2015</li>
+    <li class='tc'>August 2015</li>
     <li class='tr'>dshb(1)</li>
   </ol>
 

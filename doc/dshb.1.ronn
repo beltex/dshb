@@ -3,7 +3,7 @@ dshb(1) -- OS X system monitor
 
 ## SYNOPSIS
 
-`dshb` [`-f` <frequency>]<br>
+`dshb` [`-eu`][`-f` <frequency>]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`-h`]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`-v`]<br>
 
@@ -24,10 +24,13 @@ List of supported command line options (flags/switchs):
     Statistic update frequency in seconds. Default is 1.
 
   * `-h`, `--help`:
-    Show the help message (list of options) and exit.
+    Print the list of options.
   
+  * `-u`, `--unknown-temperature-sensors`:
+    Show temperature sensors whose hardware mapping is unknown.
+
   * `-v`, `--version`:
-    Show dshb version and exit.
+    Show dshb version.
 
 ## COMMANDS
 
@@ -68,18 +71,24 @@ statistics. Here we look at the various widgets in detail.
 
   * `Temperature`:
     Displays a list of the machine temperature sensors in Celsius. The list
-    may not be exhaustive. In addition, the maximum temperature of each
-    individual sensor is not known. Thus, a global max of 128 degrees is used.
-    Finally, the names of the sensors may not be mapped to the correct hardware
-    component. This is all due to the fact that the SMC (System Management
-    Controller) has a closed source driver, and thus information about it's
-    inner workings is limited.
+    is exhaustive when the (`-u`) switch is used.
 
-    If a sensor has a value that is constant and completely disproportionate to
-    the rest, then there is a chance that it is faulty. This could be due to bad
-    or damaged hardware (liquid on the logic board), or a bug in the SMC driver
-    itself. Run the _Apple Hardware Test_ diagnostics suite in such a case to
-    confirm. See here for example <https://github.com/beltex/SMCKit/issues/15>
+    Note that the names of the known sensors may not be mapped to the correct
+    hardware component. In addition, the maximum temperature of each individual
+    sensor is not known. Thus, a global max of 128 degrees is used. This is all
+    due to the fact that the SMC (System Management Controller) has a closed
+    source driver, and thus information about it's inner workings is limited.
+
+    If a sensor has a value that is very high, constant, and completely
+    disproportionate to the rest, then there is a chance that it is faulty. This
+    could be due to bad or damaged hardware (liquid on the logic board). Run the
+     _Apple Diagnostics_ (_Apple Hardware Test_ for older machines) diagnostics
+    suite in such a case to confirm.
+
+    Some sensors however report very low values, below zero. The current theory
+    on this is that at lower temperatures the sensors have inaccurate readings.
+    It maybe that they are located close to an internal fan, and the airflow is
+    causing it to be skewed.
 
 ## ENVIRONMENT
 
