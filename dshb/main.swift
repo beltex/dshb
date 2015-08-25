@@ -67,7 +67,7 @@ CLI.addOptions(CLIExperimentalOption, CLIFrequencyOption, CLIHelpOption,
                CLIUnknownTemperatureSensorsOption, CLIVersionOption)
 
 do {
-    try CLI.parse()
+    try CLI.parse(true)
 } catch {
     CLI.printUsage(error)
     exit(EX_USAGE)
