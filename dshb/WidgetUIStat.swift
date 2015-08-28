@@ -86,7 +86,7 @@ struct WidgetUIStat {
         var shortenedName = name
         if spaceCount <= 0 {
             shortenedName = (name as NSString).substringToIndex(nameCount + spaceCount - 2)
-            shortenedName.extend("…")
+            shortenedName.append(Character("…"))
         }
 
 
