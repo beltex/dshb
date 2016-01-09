@@ -64,8 +64,8 @@ extension WidgetType {
         title.resize(window)
 
         window.point.y++    // Becuase of title
-        for var i = 0; i < stats.count; ++i {
-            stats[i].resize(window)
+        for index in 0..<stats.count {
+            stats[index].resize(window)
             window.point.y++
         }
 
@@ -101,14 +101,14 @@ func drawAllWidgets() {
     // FIXME: Bad temporary hack to make proc list optional. Same further below
     let range = CLIExperimentalOption.wasSet ? widgets.count - 1 : widgets.count
 
-    for var i = 0; i < range; ++i {
+    for index in 0..<range {
         // Are we on a new row?
-        if i % Int(maxWidgetsPerRow) == 0 {
+        if index % Int(maxWidgetsPerRow) == 0 {
             y_pos_new += maxHeight - y_pos_new
             widgetRowCount = 0
         }
 
-        result_pos = widgets[i].resize(Window(length: widgetLength,
+        result_pos = widgets[index].resize(Window(length: widgetLength,
                                               point: (x: (widgetLength + widgetSpacing) * widgetRowCount,
                                                       y: y_pos_new)))
 

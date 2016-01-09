@@ -40,16 +40,16 @@ struct WidgetFan: WidgetType {
         catch { fanCount = 0 }
 
 
-        for var i = 0; i < fanCount; ++i {
+        for index in 0..<fanCount {
             // Not sorting fan names, most will not have more than 2 anyway
             let fanName: String
-            do    { fanName = try SMCKit.fanName(i) }
-            catch { fanName = "Fan \(i)" }
+            do    { fanName = try SMCKit.fanName(index) }
+            catch { fanName = "Fan \(index)" }
 
 
             let fanMaxSpeed: Int
             do {
-                fanMaxSpeed = try SMCKit.fanMaxSpeed(i)
+                fanMaxSpeed = try SMCKit.fanMaxSpeed(index)
             } catch {
                 // Skip this fan
                 continue
@@ -61,13 +61,13 @@ struct WidgetFan: WidgetType {
     }
 
     mutating func draw() {
-        for var i = 0; i < stats.count; ++i {
+        for index in 0..<stats.count {
             do {
-                let fanSpeed = try SMCKit.fanCurrentSpeed(i)
-                stats[i].draw(String(fanSpeed),
-                              percentage: Double(fanSpeed) / stats[i].maxValue)
+                let fanSpeed = try SMCKit.fanCurrentSpeed(index)
+                stats[index].draw(String(fanSpeed),
+                              percentage: Double(fanSpeed) / stats[index].maxValue)
             } catch {
-                stats[i].draw("Error", percentage: 0)
+                stats[index].draw("Error", percentage: 0)
             }
         }
     }

@@ -68,15 +68,15 @@ struct WidgetTemperature: WidgetType {
     }
     
     mutating func draw() {
-        for var i = 0; i < stats.count; ++i {
+        for index in 0..<stats.count {
             // TODO: Fix going past bottom of terminal window
             //if stats[i].window.point.y >= LINES - 2 { break }
 
             do {
-                let value = try SMCKit.temperature(sensors[i].code)
-                stats[i].draw(String(value), percentage: value / maxValue)
+                let value = try SMCKit.temperature(sensors[index].code)
+                stats[index].draw(String(value), percentage: value / maxValue)
             } catch {
-                stats[i].draw("Error", percentage: 0)
+                stats[index].draw("Error", percentage: 0)
                 // TODO: stats[i].unit = .None
             }
         }

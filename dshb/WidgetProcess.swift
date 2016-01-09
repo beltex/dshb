@@ -45,10 +45,10 @@ struct WidgetProcess: WidgetType {
 
         list.sortInPlace { $0.kp_proc.p_pid > $1.kp_proc.p_pid }
 
-        for var i = 0; i < Int(LINES) - Int(title.window.point.y) - 1; ++i {
-            if i >= list.count { break }
+        for index in 0..<Int(LINES) - Int(title.window.point.y) - 1 {
+            if index >= list.count { break }
 
-            var kinfo = list[i]
+            var kinfo = list[index]
             let command = withUnsafePointer(&kinfo.kp_proc.p_comm) {
                 String.fromCString(UnsafePointer($0))!
             }
@@ -65,7 +65,7 @@ struct WidgetProcess: WidgetType {
                           username,
                           command]
 
-            let procStat = WidgetUIProcess(name: processString(tokens, length: title.window.length), window: Window(length: title.window.length, point: (0, title.window.point.y + i + 1)))
+            let procStat = WidgetUIProcess(name: processString(tokens, length: title.window.length), window: Window(length: title.window.length, point: (0, title.window.point.y + index + 1)))
 
             procStat.draw()
         }
@@ -104,8 +104,8 @@ private func processString(tokens: [String], length: Int) -> String {
     var pidSpaceString  = String()
     var userSpaceString = String()
 
-    for var i = 0; i < pidSpace - pidCount; ++i { pidSpaceString.append(UnicodeScalar(" ")) }
-    for var i = 0; i < userSpace - userCount; ++i { userSpaceString.append(UnicodeScalar(" ")) }
+    for _ in 0..<pidSpace - pidCount { pidSpaceString.append(UnicodeScalar(" ")) }
+    for _ in 0..<userSpace - userCount { userSpaceString.append(UnicodeScalar(" ")) }
 
 
     return pidSpaceString + tokens[0] + " " + tokens[1] + userSpaceString + tokens[2]

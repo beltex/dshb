@@ -188,7 +188,9 @@ dispatch_source_set_event_handler(source) {
     // TODO: If we call clear() here, can help address display "race condition"
     //       mentioned in issue #16 (see URL above). Though we'd have to redraw
     //       titles too
-    for var i = 0; i < widgets.count; ++i { widgets[i].draw() }
+    for index in 0..<widgets.count {
+        widgets[index].draw()
+    }
     refresh()
 }
 
