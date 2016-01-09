@@ -148,11 +148,10 @@ do {
     hasSMC = true
     widgets.append(WidgetTemperature())
 
-    do {
-        // For the new fanless MacBook8,1
-        if try SMCKit.fanCount() > 0 { widgets.append(WidgetFan()) }
-    } catch { /* Do nothing */ }
-
+    // Due to the new fanless MacBook8,1
+    if let fanCount = try? SMCKit.fanCount() where fanCount > 0 {
+        widgets.append(WidgetFan())
+    }
 } catch { hasSMC = false }
 
 
