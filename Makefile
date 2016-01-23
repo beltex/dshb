@@ -1,7 +1,7 @@
 INSTALL_FOLDER  = /usr/local/bin
 MANPAGE_FOLDER  = /usr/local/share/man/man1
 XCODE_CONFIG    = Release
-DSHB_VERSION    = 0.1.0-dev
+DSHB_VERSION    = 0.1.0
 ARCHIVE_FOLDER  = archive
 ARCHIVE_NAME    = dshb-${DSHB_VERSION}-source
 SUBMODULES_PATH = libs
