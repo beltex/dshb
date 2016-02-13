@@ -18,14 +18,13 @@ is inescapable in this case sadly).
 
 - Exploration of Swift. In particular, systems programming and interfacing with
   low-level C APIs
-- Improved top
-- Improved htop (for OS X). htop was originally written for Linux. It was forked
-  at some point and ported over to OS X. However, the port is now using what is
-  a 5 year old fork. Work is being done to address
-  [this](https://www.bountysource.com/teams/htop/fundraiser)
 
-> Of course, the last two are far from being true! :) dshb is still early in
-> development.
+
+### Homebrew :beer:
+
+```sh
+$ brew install dshb
+```
 
 
 ### Requirements
