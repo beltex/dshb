@@ -24,6 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Darwin.ncurses
+
 //------------------------------------------------------------------------------
 // MARK: PROPERTIES
 //------------------------------------------------------------------------------
@@ -60,16 +62,17 @@ protocol WidgetType {
 
 extension WidgetType {
 
-    mutating func resize(var window: Window) -> Int32 {
+    mutating func resize(window: Window) -> Int32 {
         title.resize(window)
 
-        window.point.y++    // Becuase of title
+        var windowVar = window
+        windowVar.point.y += 1    // Becuase of title
         for index in 0..<stats.count {
-            stats[index].resize(window)
-            window.point.y++
+            stats[index].resize(windowVar)
+            windowVar.point.y += 1
         }
 
-        return window.point.y
+        return windowVar.point.y
     }
 }
 
@@ -118,7 +121,7 @@ func drawAllWidgets() {
             maxHeight = result_pos
         }
 
-        widgetRowCount++
+        widgetRowCount += 1
     }
 
     if CLIExperimentalOption.wasSet {
