@@ -50,8 +50,8 @@ struct WidgetBattery: WidgetType {
         stats[0].Danger.range = 0..<0
         stats[0].Crisis.range = 0..<0.2
 
-        stats[1].Nominal.color = WidgetUIColor.WarningLevelCrisis
-        stats[1].Crisis.color = WidgetUIColor.WarningLevelNominal
+        stats[1].Nominal.color = WidgetUIColor.warningLevelCrisis
+        stats[1].Crisis.color = WidgetUIColor.warningLevelNominal
     }
     
     mutating func draw() {

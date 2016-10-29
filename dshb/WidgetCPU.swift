@@ -31,7 +31,7 @@ struct WidgetCPU: WidgetType {
     var title: WidgetUITitle
     var stats = [WidgetUIStat]()
 
-    private static var system = System()
+    fileprivate static var system = System()
     
     init(window: Window = Window()) {
         title = WidgetUITitle(name: "CPU", window: window)
@@ -41,8 +41,8 @@ struct WidgetCPU: WidgetType {
                                       max: 100.0))
         }
 
-        stats[2].Nominal.color = WidgetUIColor.WarningLevelCrisis
-        stats[2].Crisis.color = WidgetUIColor.WarningLevelNominal
+        stats[2].Nominal.color = WidgetUIColor.warningLevelCrisis
+        stats[2].Crisis.color = WidgetUIColor.warningLevelNominal
     }
     
     mutating func draw() {

@@ -33,8 +33,8 @@ struct WidgetMemory: WidgetType {
     var title: WidgetUITitle
     var stats = [WidgetUIStat]()
 
-    private static let maxValueGB = System.physicalMemory(.Gigabyte)
-    private static let maxValueMB = System.physicalMemory(.Megabyte)
+    fileprivate static let maxValueGB = System.physicalMemory(.gigabyte)
+    fileprivate static let maxValueMB = System.physicalMemory(.megabyte)
     
     init(window: Window = Window()) {
         title = WidgetUITitle(name: name, window: window)
@@ -60,7 +60,7 @@ struct WidgetMemory: WidgetType {
         unitCheck(values.compressed, index: 4)
     }
     
-    private mutating func unitCheck(val: Double, index: Int) {
+    fileprivate mutating func unitCheck(_ val: Double, index: Int) {
         if val < 1.0 {
             stats[index].unit = .Megabyte
             let value = val * 1000.0

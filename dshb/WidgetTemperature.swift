@@ -32,7 +32,7 @@ struct WidgetTemperature: WidgetType {
     var stats = [WidgetUIStat]()
 
     let maxValue = 128.0
-    private let sensors: [TemperatureSensor]
+    fileprivate let sensors: [TemperatureSensor]
     
     init(window: Window = Window()) {
         title = WidgetUITitle(name: name, window: window)
@@ -41,7 +41,7 @@ struct WidgetTemperature: WidgetType {
         do {
             // TODO: Add battery temperature from SystemKit? SMC will usually
             //       have a key for it too (though not always certain which one)
-            let allKnownSensors = try SMCKit.allKnownTemperatureSensors().sort
+            let allKnownSensors = try SMCKit.allKnownTemperatureSensors().sorted
                                                            { $0.name < $1.name }
 
             let allUnknownSensors: [TemperatureSensor]

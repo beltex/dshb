@@ -32,7 +32,7 @@ struct WidgetUITitle {
     let nameCount: Int
     var window   : Window
     
-    private var padding = String()
+    fileprivate var padding = String()
     
     init(name: String, window: Window) {
         self.name   = name
@@ -44,21 +44,21 @@ struct WidgetUITitle {
     
     func draw() {
         move(window.point.y, window.point.x)
-        attrset(COLOR_PAIR(WidgetUIColor.Title.rawValue))
+        attrset(COLOR_PAIR(WidgetUIColor.title.rawValue))
         addstr(name + padding)
     }
     
-    mutating func resize(window: Window) {
+    mutating func resize(_ window: Window) {
         self.window = window
         generatePadding()
         draw()
     }
     
-    private mutating func generatePadding() {
+    fileprivate mutating func generatePadding() {
         var paddingSize = window.length - nameCount
 
         if paddingSize < 0 { paddingSize = 0 }
 
-        padding = String(count: paddingSize, repeatedValue: Character(" "))
+        padding = String(repeating: " ", count: paddingSize)
     }
 }
