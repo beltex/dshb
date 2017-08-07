@@ -11,7 +11,7 @@ updated at one second intervals while still maintaining low overhead (the
 <a href="https://en.wikipedia.org/wiki/Observer_effect_(physics)">observer effect</a>
 is inescapable in this case sadly).
 
-![alt text](doc/dshb.png)
+![alt text](docs/dshb.png)
 
 
 ### Why?
