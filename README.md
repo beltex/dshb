@@ -1,7 +1,7 @@
 dshb
 ====
 
-An OS X system monitor in Swift, inspired by
+A macOS system monitor in Swift, inspired by
 <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a> &
 [htop](https://github.com/hishamhm/htop). Displays live readings of system CPU &
 memory usage, machine temperature sensors, fan speeds, battery information and
@@ -30,7 +30,7 @@ $ brew install dshb
 ### Requirements
 
 - [Xcode 7.3 (Swift 2.2)](https://developer.apple.com/xcode/downloads/)
-- OS X 10.9+
+- macOS 10.9+
     - This is due to Swift  
 
 
@@ -63,7 +63,7 @@ make install
 ### Stack
 
 - [ncurses](https://www.gnu.org/software/ncurses/ncurses.html)
-    - For drawing to the terminal (tested with version 5.4 - default on OS X)
+    - For drawing to the terminal (tested with version 5.4 - default on macOS)
 - [SystemKit](https://github.com/beltex/SystemKit)
     - For almost all statistics
 - [SMCKit](https://github.com/beltex/SMCKit)
