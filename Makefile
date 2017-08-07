@@ -1,5 +1,6 @@
 INSTALL_FOLDER  = /usr/local/bin
 MANPAGE_FOLDER  = /usr/local/share/man/man1
+DOCS_FOLDER     = docs
 XCODE_CONFIG    = Release
 DSHB_VERSION    = 0.1.0
 ARCHIVE_FOLDER  = archive
@@ -25,7 +26,7 @@ help: ._hello
 	      "can I help?\n"; touch ._hello
 install: machine release
 	cp bin/dshb ${INSTALL_FOLDER}
-	cp doc/dshb.1 ${MANPAGE_FOLDER}
+	cp ${DOCS_FOLDER}/dshb.1 ${MANPAGE_FOLDER}
 	du -sh ${INSTALL_FOLDER}/dshb
 machine:
 	@sysctl hw.model;                                             \
@@ -60,7 +61,7 @@ uninstall:
 	rm ${INSTALL_FOLDER}/dshb
 	rm ${MANPAGE_FOLDER}/dshb.1
 ronn:
-	ronn --organization=${DSHB_VERSION} --style=toc doc/dshb.1.ronn
+	ronn --organization=${DSHB_VERSION} --style=toc ${DOCS_FOLDER}/dshb.1.ronn
 archive-local:
 	@rm -rf ${ARCHIVE_FOLDER}/*;                                       \
 	 mkdir -p ${ARCHIVE_FOLDER};                                       \
