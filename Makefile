@@ -62,6 +62,7 @@ uninstall:
 	rm ${MANPAGE_FOLDER}/dshb.1
 ronn:
 	ronn --organization=${DSHB_VERSION} --style=toc ${DOCS_FOLDER}/dshb.1.ronn
+	mv ${DOCS_FOLDER}/dshb.1.html ${DOCS_FOLDER}/index.html
 archive-local:
 	@rm -rf ${ARCHIVE_FOLDER}/*;                                       \
 	 mkdir -p ${ARCHIVE_FOLDER};                                       \
