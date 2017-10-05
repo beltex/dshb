@@ -114,20 +114,20 @@ curs_set(0)                 // Set cursor to invisible
 // TODO: Do has_color() check when we have a way to log the error, print()
 //       won't work
 start_color()
-init_pair(Int16(WidgetUIColor.Background.rawValue), Int16(COLOR_WHITE),
+init_pair(Int16(WidgetUIColor.background.rawValue), Int16(COLOR_WHITE),
                                                     Int16(use_default_colors()))
-init_pair(Int16(WidgetUIColor.Title.rawValue), Int16(COLOR_WHITE),
+init_pair(Int16(WidgetUIColor.title.rawValue), Int16(COLOR_WHITE),
                                                Int16(COLOR_CYAN))
-init_pair(Int16(WidgetUIColor.WarningLevelCool.rawValue), Int16(COLOR_BLACK),
+init_pair(Int16(WidgetUIColor.warningLevelCool.rawValue), Int16(COLOR_BLACK),
                                                           Int16(COLOR_BLUE))
-init_pair(Int16(WidgetUIColor.WarningLevelNominal.rawValue), Int16(COLOR_BLACK),
+init_pair(Int16(WidgetUIColor.warningLevelNominal.rawValue), Int16(COLOR_BLACK),
                                                              Int16(COLOR_GREEN))
-init_pair(Int16(WidgetUIColor.WarningLevelDanger.rawValue), Int16(COLOR_BLACK),
+init_pair(Int16(WidgetUIColor.warningLevelDanger.rawValue), Int16(COLOR_BLACK),
                                                             Int16(COLOR_YELLOW))
-init_pair(Int16(WidgetUIColor.WarningLevelCrisis.rawValue), Int16(COLOR_BLACK),
+init_pair(Int16(WidgetUIColor.warningLevelCrisis.rawValue), Int16(COLOR_BLACK),
                                                             Int16(COLOR_RED))
 
-bkgd(UInt32(COLOR_PAIR(WidgetUIColor.Background.rawValue)))
+bkgd(UInt32(COLOR_PAIR(WidgetUIColor.background.rawValue)))
 
 //------------------------------------------------------------------------------
 // MARK: WIDGET SETUP
@@ -149,13 +149,13 @@ do {
     widgets.append(WidgetTemperature())
 
     // Due to the new fanless MacBook8,1
-    if let fanCount = try? SMCKit.fanCount() where fanCount > 0 {
+    if let fanCount = try? SMCKit.fanCount(), fanCount > 0 {
         widgets.append(WidgetFan())
     }
 } catch { hasSMC = false }
 
 
-widgets.sortInPlace { $0.displayOrder < $1.displayOrder }
+widgets.sort { $0.displayOrder < $1.displayOrder }
 
 drawAllWidgets()
 
@@ -167,24 +167,31 @@ drawAllWidgets()
 // https://github.com/beltex/dshb/issues/16#issuecomment-70699890
 
 
-let attr: dispatch_queue_attr_t
+let qAttr = DispatchQueue.Attributes()
+let qLabel = "com.beltex.dshb"
+let queue: DispatchQueue
+
 
 if #available(OSX 10.10, *) {
-    attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL,
-                                                   QOS_CLASS_USER_INTERACTIVE,
-                                                   0)
-} else { attr = DISPATCH_QUEUE_SERIAL }
+    let qos = DispatchQoS(qosClass: DispatchQoS.QoSClass.userInteractive,
+                      relativePriority: 0)
+    
+    queue = DispatchQueue(label: qLabel,
+                          qos: qos,
+                          attributes: qAttr)
+} else {
+    queue = DispatchQueue(label: qLabel,
+                          attributes: qAttr)
+}
 
+let source = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: 0),
+                                            queue: queue)
 
-let source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
-                                    dispatch_queue_create("com.beltex.dshb",
-                                                          attr))
+source.scheduleRepeating(deadline: .now(),
+                         interval: Double(updateFrequency),
+                         leeway: .seconds(0))
 
-dispatch_source_set_timer(source,
-                          dispatch_time(DISPATCH_TIME_NOW, 0),
-                          updateFrequency * NSEC_PER_SEC, 0)
-
-dispatch_source_set_event_handler(source) {
+source.setEventHandler {
     // TODO: If we call clear() here, can help address display "race condition"
     //       mentioned in issue #16 (see URL above). Though we'd have to redraw
     //       titles too
@@ -195,7 +202,7 @@ dispatch_source_set_event_handler(source) {
 }
 
 // We have to resume the dispatch source as it is paused by default
-dispatch_resume(source)
+source.resume()
 
 //------------------------------------------------------------------------------
 // MARK: MAIN (EVENT) LOOP
@@ -206,13 +213,13 @@ while true {
         // TODO: has_key() check for KEY_RESIZE?
     case KEY_RESIZE:
         // This could be done through GCD signal handler as well
-        dispatch_suspend(source)
+        source.suspend()
         // If this takes too long, queue will build up. Also, there is the
         // issue of mutiple resize calls.
         drawAllWidgets()
-        dispatch_resume(source)
+        source.resume()
     case Int32(UnicodeScalar("q").value):   // Quit
-        dispatch_source_cancel(source)
+        source.cancel()
         endwin()    // ncurses cleanup
         if hasSMC     { SMCKit.close()  }
         if hasBattery { battery.close() }

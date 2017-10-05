@@ -43,20 +43,20 @@ struct WidgetProcess: WidgetType {
     mutating func draw() {
         var list = processList()
 
-        list.sortInPlace { $0.kp_proc.p_pid > $1.kp_proc.p_pid }
+        list.sort { $0.kp_proc.p_pid > $1.kp_proc.p_pid }
 
         for index in 0..<Int(LINES) - Int(title.window.point.y) - 1 {
             if index >= list.count { break }
 
             var kinfo = list[index]
-            let command = withUnsafePointer(&kinfo.kp_proc.p_comm) {
-                String.fromCString(UnsafePointer($0))!
+            let command = withUnsafePointer(to: &kinfo.kp_proc.p_comm) {
+                String(cString: UnsafeRawPointer($0).assumingMemoryBound(to: CChar.self))
             }
 
             let username: String
             let uid = kinfo.kp_eproc.e_ucred.cr_uid
 
-            if let index = usernames.indexForKey(uid) {
+            if let index = usernames.index(forKey: uid) {
                 username = usernames[index].1
             }
             else { username = getUsername(uid) }
@@ -87,14 +87,14 @@ struct WidgetUIProcess {
         addstr(name)
     }
 
-    mutating func resize(window: Window) {
+    mutating func resize(_ window: Window) {
         self.window = window
         draw()
     }
 }
 
 
-private func processString(tokens: [String], length: Int) -> String {
+private func processString(_ tokens: [String], length: Int) -> String {
     let pidSpace = 6
     let userSpace = 16
 
@@ -104,8 +104,8 @@ private func processString(tokens: [String], length: Int) -> String {
     var pidSpaceString  = String()
     var userSpaceString = String()
 
-    for _ in 0..<pidSpace - pidCount { pidSpaceString.append(UnicodeScalar(" ")) }
-    for _ in 0..<userSpace - userCount { userSpaceString.append(UnicodeScalar(" ")) }
+    for _ in 0..<pidSpace - pidCount { pidSpaceString.append(" ") }
+    for _ in 0..<userSpace - userCount { userSpaceString.append(" ") }
 
 
     return pidSpaceString + tokens[0] + " " + tokens[1] + userSpaceString + tokens[2]
@@ -121,8 +121,8 @@ private func processList() -> [kinfo_proc] {
     assert(result == KERN_SUCCESS)
 
     // Get process list
-    let procCount = size / strideof(kinfo_proc)
-    var procList = [kinfo_proc](count: procCount, repeatedValue: kinfo_proc())
+    let procCount = size / MemoryLayout<kinfo_proc>.stride
+    var procList = [kinfo_proc](repeating: kinfo_proc(), count: procCount)
     result = sysctl(&mib, u_int(mib.count), &procList, &size, nil, 0)
     assert(result == KERN_SUCCESS)
 
@@ -130,26 +130,26 @@ private func processList() -> [kinfo_proc] {
 }
 
 
-private func getUsername(uid: uid_t) -> String {
+private func getUsername(_ uid: uid_t) -> String {
     let username: String
     var userInfo = passwd()
-    var result   = UnsafeMutablePointer<passwd>.alloc(1)
+    var result: UnsafeMutablePointer<passwd>? = UnsafeMutablePointer<passwd>.allocate(capacity: 1)
 
     // TODO: Can we cache this?
     // TODO: Returns -1 on not error
     let bufferSize = sysconf(_SC_GETPW_R_SIZE_MAX)
-    let buffer     = UnsafeMutablePointer<Int8>.alloc(bufferSize)
+    let buffer     = UnsafeMutablePointer<Int8>.allocate(capacity: bufferSize)
 
     // TODO: Check result for nil pointer - indictes not found
-    // TODO: Add note about not using getpwuid()
+    // TODO: Add note about not using getpwuid()    
     if getpwuid_r(uid, &userInfo, buffer, bufferSize, &result) == 0 {
-        username = String.fromCString(userInfo.pw_name)!
+        username = String(cString: userInfo.pw_name)
     }
     else {
         username = String()
     }
 
-    buffer.dealloc(bufferSize)
+    buffer.deallocate(capacity: bufferSize)
     // TODO: Why does this fail?
     //result.dealloc(1)
 

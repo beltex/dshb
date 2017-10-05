@@ -26,7 +26,7 @@
 
 import Foundation
 
-typealias WarningLevel = (range: HalfOpenInterval<Double>, color: WidgetUIColor)
+typealias WarningLevel = (range: Range<Double>, color: WidgetUIColor)
 
 
 enum Unit: String {
@@ -55,15 +55,15 @@ struct WidgetUIStat {
     var maxValue: Double
     var window: Window
 
-    var Cool: WarningLevel = (-Double.infinity..<0, WidgetUIColor.WarningLevelCool)
-    var Nominal: WarningLevel = (0..<0.45, WidgetUIColor.WarningLevelNominal)
-    var Danger: WarningLevel = (0.45..<0.75, WidgetUIColor.WarningLevelDanger)
-    var Crisis: WarningLevel = (0.75..<Double.infinity, WidgetUIColor.WarningLevelCrisis)
+    var Cool: WarningLevel = (-Double.infinity..<0, WidgetUIColor.warningLevelCool)
+    var Nominal: WarningLevel = (0..<0.45, WidgetUIColor.warningLevelNominal)
+    var Danger: WarningLevel = (0.45..<0.75, WidgetUIColor.warningLevelDanger)
+    var Crisis: WarningLevel = (0.75..<Double.infinity, WidgetUIColor.warningLevelCrisis)
 
-    private let nameCount: Int
-    private var unitCount = 0
-    private var lastStr = String()
-    private var lastPercentage = 0.0
+    fileprivate let nameCount: Int
+    fileprivate var unitCount = 0
+    fileprivate var lastStr = String()
+    fileprivate var lastPercentage = 0.0
 
     init(name: String, unit: Unit, max: Double, window: Window = Window()) {
         self.name = name
@@ -75,31 +75,31 @@ struct WidgetUIStat {
         unitCount = unit.rawValue.characters.count
     }
 
-    mutating func draw(str: String, percentage: Double) {
+    mutating func draw(_ str: String, percentage: Double) {
         lastStr = str
         lastPercentage = percentage
 
         let spaceCount = window.length - nameCount - str.characters.count - unitCount
-        let space = String(count: max(spaceCount, 2), repeatedValue: Character(" "))
+        let space = String(repeating: " ", count: max(spaceCount, 2))
 
 
         var shortenedName = name
         if spaceCount <= 0 {
-            shortenedName = (name as NSString).substringToIndex(nameCount + spaceCount - 2)
+            shortenedName = (name as NSString).substring(to: nameCount + spaceCount - 2)
             shortenedName.append(Character("…"))
         }
 
 
         let charactersToColorCount: Int
-        if percentage.isSignMinus {
+        if percentage.sign == .minus {
             charactersToColorCount = window.length
         } else {
             charactersToColorCount = Int(Double(window.length) * percentage)
         }
 
         let fullStr = (shortenedName + space + str + unit.rawValue) as NSString
-        let coloredStr = fullStr.substringToIndex(charactersToColorCount)
-        let uncoloredStr = fullStr.substringFromIndex(charactersToColorCount)
+        let coloredStr = fullStr.substring(to: charactersToColorCount)
+        let uncoloredStr = fullStr.substring(from: charactersToColorCount)
 
 
         move(window.point.y, window.point.x)
@@ -112,11 +112,11 @@ struct WidgetUIStat {
         }
 
         addstr(coloredStr)
-        attrset(COLOR_PAIR(WidgetUIColor.Background.rawValue))
+        attrset(COLOR_PAIR(WidgetUIColor.background.rawValue))
         addstr(uncoloredStr)
     }
     
-    mutating func resize(window: Window) {
+    mutating func resize(_ window: Window) {
         self.window = window
         draw(lastStr, percentage: lastPercentage)
     }

@@ -32,12 +32,12 @@ import Darwin.ncurses
 
 // Color pair refs
 enum WidgetUIColor: Int32 {
-    case Background = 1
-    case Title = 2
-    case WarningLevelCool = 3
-    case WarningLevelNominal = 4
-    case WarningLevelDanger = 5
-    case WarningLevelCrisis = 6
+    case background = 1
+    case title = 2
+    case warningLevelCool = 3
+    case warningLevelNominal = 4
+    case warningLevelDanger = 5
+    case warningLevelCrisis = 6
 }
 
 /// Number of pixels between widgets
@@ -57,12 +57,12 @@ protocol WidgetType {
     init(window: Window)
 
     mutating func draw()
-    mutating func resize(window: Window) -> Int32
+    mutating func resize(_ window: Window) -> Int32
 }
 
 extension WidgetType {
 
-    mutating func resize(window: Window) -> Int32 {
+    mutating func resize(_ window: Window) -> Int32 {
         title.resize(window)
 
         var windowVar = window
