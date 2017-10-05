@@ -108,7 +108,7 @@ struct WidgetUIStat {
         case Nominal.range: attrset(COLOR_PAIR(Nominal.color.rawValue))
         case Danger.range:  attrset(COLOR_PAIR(Danger.color.rawValue))
         case Crisis.range:  attrset(COLOR_PAIR(Crisis.color.rawValue))
-        default:            true
+        default:            break
         }
 
         addstr(coloredStr)

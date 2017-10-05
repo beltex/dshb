@@ -222,8 +222,8 @@ while true {
         source.cancel()
         endwin()    // ncurses cleanup
         if hasSMC     { SMCKit.close()  }
-        if hasBattery { battery.close() }
+        if hasBattery { _ = battery.close() }
         exit(EX_OK)
-    default: true
+    default: break
     }
 }

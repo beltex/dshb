@@ -112,7 +112,7 @@ func drawAllWidgets() {
         }
 
         result_pos = widgets[index].resize(Window(length: widgetLength,
-                                              point: (x: (widgetLength + widgetSpacing) * widgetRowCount,
+                                              point: (x: (Int32(widgetLength) + widgetSpacing) * widgetRowCount,
                                                       y: y_pos_new)))
 
         // While the width of each widget is fixed, the height is not, so
@@ -125,7 +125,7 @@ func drawAllWidgets() {
     }
 
     if CLIExperimentalOption.wasSet {
-        widgets[widgets.count - 1].resize(Window(length: Int(COLS), point: (x: 0, y: maxHeight)))
+        _ = widgets[widgets.count - 1].resize(Window(length: Int(COLS), point: (x: 0, y: maxHeight)))
     }
 
     refresh()

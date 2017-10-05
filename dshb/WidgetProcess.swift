@@ -65,7 +65,11 @@ struct WidgetProcess: WidgetType {
                           username,
                           command]
 
-            let procStat = WidgetUIProcess(name: processString(tokens, length: title.window.length), window: Window(length: title.window.length, point: (0, title.window.point.y + index + 1)))
+            let window = Window(length: title.window.length, point: (0, title.window.point.y + Int32(index) + 1))
+            let procStat = WidgetUIProcess(
+                name: processString(tokens, length: title.window.length),
+                window: window
+            )
 
             procStat.draw()
         }
