@@ -29,7 +29,7 @@ $ brew install dshb
 
 ### Requirements
 
-- [Xcode 7.3 (Swift 2.2)](https://developer.apple.com/xcode/downloads/)
+- [Xcode 8.3.3 (Swift 3.1)](https://developer.apple.com/xcode/downloads/)
 - macOS 10.9+
     - This is due to Swift  
 
