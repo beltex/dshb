@@ -1,5 +1,5 @@
-dshb(1) -- OS X system monitor
-==============================
+dshb(1) -- macOS system monitor
+===============================
 
 ## SYNOPSIS
 
@@ -9,7 +9,7 @@ dshb(1) -- OS X system monitor
 
 ## DESCRIPTION
 
-An OS X system monitor in Swift, inspired by top & htop. Displays live readings
+A macOS system monitor in Swift, inspired by top & htop. Displays live readings
 of system CPU & memory usage, machine temperature sensors, fan speeds, battery
 information and other miscellaneous system statistics. The ncurses based TUI
 (text-based user interface) uses color coating to imply status and is fully
@@ -42,7 +42,7 @@ List of supported interactive commands for use during application runtime:
 ## STATS
 
 Statistic sections are defined as _"widgets"_ (hence the name _dashboard_ -
-metaphorically akin to OS X's Dashboard). Widgets are composed of related
+metaphorically akin to macOS's Dashboard). Widgets are composed of related
 statistics. Here we look at the various widgets in detail.
 
   * `Battery`:
@@ -92,9 +92,9 @@ statistics. Here we look at the various widgets in detail.
 
 ## ENVIRONMENT
 
-Due to Swift, dshb requires OS X 10.9 (Mavericks) and above. This implies an
+Due to Swift, dshb requires macOS 10.9 (Mavericks) and above. This implies an
 Intel based 64-bit machine. Of course, ncurses is required as well, but it
-should be installed by default as a part of OS X, as base install tools such as
+should be installed by default as a part of macOS, as base install tools such as
 top, rely on it as well.
 
 ## REPOSITORY
@@ -111,7 +111,7 @@ This project is under the _MIT License_.
 
 ## AUTHOR
 
-beltex <http://beltex.github.io>
+beltex <https://beltex.github.io>
 
 Working on this always brought a smile to my face. I hope it brings a smile to
 yours too. Enjoy :)
