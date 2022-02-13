@@ -42,7 +42,7 @@ Make sure to use the recursive option on clone to auto init all submodules.
 git clone --recursive https://github.com/beltex/dshb
 ```
 
-Incase you have already cloned the repository, run the following inside the
+In case you have already cloned the repository, run the following inside the
 project directory.
 
 ```sh
